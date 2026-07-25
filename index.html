@@ -533,10 +533,12 @@
                 <input type="hidden" name="dakkapel_materiaal" value="" />
                 <p class="lead-form-status" data-lead-status hidden role="alert"></p>
                 <p class="note lead-form-reassure">Na versturen nemen wij contact met je op.</p>
-                <div class="calc-nav">
+                <div class="calc-nav calc-nav--lead">
                   <button type="button" class="btn btn-teal" data-prev="5">Terug</button>
+                  <button type="button" class="btn btn-teal" data-download-pdf>Download prijsindicatie</button>
                   <button type="submit" class="btn btn-primary">Verstuur aanvraag</button>
                 </div>
+                <p class="note calc-pdf-hint">Download opent een printvenster — kies <strong>Opslaan als PDF</strong>. Je gegevens blijven in je browser.</p>
               </form>
             </div>
 
@@ -554,6 +556,7 @@
               <div class="calc-nav thank-nav">
                 <a class="btn btn-primary" data-mailto-lead hidden href="#">Stuur aanvraag via e-mail</a>
                 <a class="btn btn-primary" data-mailto-indicatie href="#">Mail mezelf de indicatie</a>
+                <button type="button" class="btn btn-teal" data-download-pdf>Download prijsindicatie</button>
                 <div class="thank-contact-row" role="group" aria-label="Direct contact">
                   <a class="btn btn-teal" href="tel:+31232052483" aria-label="Bel 023 205 2483">Bel</a>
                   <a class="btn btn-teal" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
@@ -1133,7 +1136,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
   <script src="js/email-config.js" defer></script>
   <script src="js/customer-mail.js" defer></script>
-  <script src="js/calculator.js?v=20260725-hero2" defer></script>
+  <script src="js/prijsindicatie-pdf.js?v=20260725-pdf1" defer></script>
+  <script src="js/calculator.js?v=20260725-pdf1" defer></script>
   <script src="js/carousel.js" defer></script>
 </body>
 </html>

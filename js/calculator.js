@@ -787,6 +787,74 @@
     return parts;
   }
 
+  /** Gestructureerde keuzes voor PDF / print-sheet */
+  function buildChoiceRows() {
+    const rows = [];
+    const type = state.type;
+    rows.push({
+      label: "Type",
+      value: type ? labels.type[type] : "Nog niet gekozen",
+    });
+    rows.push({ label: "Oppervlakte", value: `${m2()} m²` });
+    rows.push({ label: "Afmetingen", value: `${state.width} × ${state.depth} m` });
+    if (usesHeight(type)) {
+      rows.push({
+        label: type === "dakkapel" ? "Hoogte kapel" : "Hoogte",
+        value: `${state.height} m`,
+      });
+    }
+    if (CASCO_TYPES.has(type)) {
+      if (state.gevel) rows.push({ label: "Gevel", value: labels.gevel[state.gevel] });
+      if (state.kozijn) rows.push({ label: "Kozijnen", value: labels.kozijn[state.kozijn] });
+      if (state.isolatie) rows.push({ label: "Isolatie", value: labels.isolatie[state.isolatie] });
+      if (HEIPALEN_TYPES.has(type) && state.heipalen) {
+        rows.push({ label: "Heipalen", value: labels.heipalen[state.heipalen] });
+      }
+    } else if (type === "dakterras") {
+      if (state.toegang) rows.push({ label: "Toegang", value: labels.toegang[state.toegang] });
+      if (state.hekwerk) rows.push({ label: "Hekwerk", value: labels.hekwerk[state.hekwerk] });
+      if (state.dek) rows.push({ label: "Dek", value: labels.dek[state.dek] });
+    } else if (type === "dakkapel") {
+      if (state.dakvorm) rows.push({ label: "Dakvorm", value: labels.dakvorm[state.dakvorm] });
+      if (state.dakkapelMateriaal) {
+        rows.push({ label: "Materiaal", value: labels.dakkapelMateriaal[state.dakkapelMateriaal] });
+      }
+      if (state.kozijn) rows.push({ label: "Kozijnen", value: labels.kozijn[state.kozijn] });
+    }
+    return rows;
+  }
+
+  function downloadPrijsindicatie() {
+    if (!state.type) {
+      alert("Kies eerst een type project om je prijsindicatie te downloaden.");
+      return;
+    }
+    if (!window.AanbouwPrijsPdf || typeof window.AanbouwPrijsPdf.open !== "function") {
+      alert("PDF-download is even niet beschikbaar. Vernieuw de pagina en probeer opnieuw.");
+      return;
+    }
+    const { low, high } = estimate();
+    const { data: scope } = getScopeData(state.type);
+    const form = els.form;
+    const naamEl = form && form.elements.namedItem("naam");
+    const naam = naamEl && "value" in naamEl ? String(naamEl.value).trim() : "";
+    const scopeLeadEl = document.querySelector("[data-scope-lead]");
+    const scopeLead = scopeLeadEl
+      ? scopeLeadEl.textContent.replace(/\s+/g, " ").trim()
+      : scope && scope.lead
+        ? String(scope.lead).replace(/<[^>]+>/g, "")
+        : "";
+
+    window.AanbouwPrijsPdf.open({
+      priceRange: `${formatEuro(low)} – ${formatEuro(high)}`,
+      choices: buildChoiceRows(),
+      include: (scope && scope.include) || [],
+      exclude: (scope && scope.exclude) || [],
+      scopeLead,
+      naam: naam || undefined,
+    });
+  }
+
   function syncFlowPanels() {
     const flow = flowFor(state.type);
     document.querySelectorAll("[data-flow]").forEach((panel) => {
@@ -1350,6 +1418,13 @@
 
   document.querySelectorAll("[data-prev]").forEach((btn) => {
     btn.addEventListener("click", () => setStep(Number(btn.dataset.prev)));
+  });
+
+  document.querySelectorAll("[data-download-pdf]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      downloadPrijsindicatie();
+    });
   });
 
   const emailCfg = window.AANBOUW_EMAIL || {};

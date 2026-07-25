@@ -1050,6 +1050,13 @@ input[type="range"]::-moz-range-thumb {
   flex: 1 1 auto;
   min-width: min(100%, 8.5rem);
 }
+.calc-nav--lead .btn[data-download-pdf] {
+  flex: 1 1 12rem;
+}
+.calc-pdf-hint {
+  margin: 0.55rem 0 0;
+  font-size: 0.82rem;
+}
 .note {
   font-size: 0.88rem;
   color: var(--ad-stone);
