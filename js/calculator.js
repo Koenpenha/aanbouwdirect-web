@@ -303,7 +303,7 @@
 
     let mid = rates[type] * m2();
 
-    if (usesHeight(type) && type !== "dakkapel") {
+    if (usesHeight(type)) {
       if (state.height >= 3.0) mid *= 1.06;
       else if (state.height >= 2.8) mid *= 1.03;
     }
@@ -481,6 +481,38 @@
     const widthInput = document.querySelector("#calc-width");
     const depthInput = document.querySelector("#calc-depth");
     const heightInput = document.querySelector("#calc-height");
+    // Eerst min/max zetten — anders clamt de browser value naar de oude min (bijv. 2.4)
+    if (type === "dakkapel") {
+      if (widthInput) {
+        widthInput.min = "1.5";
+        widthInput.max = "8";
+      }
+      if (depthInput) {
+        depthInput.min = "1";
+        depthInput.max = "2.5";
+        depthInput.step = "0.25";
+      }
+      if (heightInput) {
+        heightInput.min = "1";
+        heightInput.max = "2.5";
+        heightInput.step = "0.1";
+      }
+    } else {
+      if (widthInput) {
+        widthInput.min = "2";
+        widthInput.max = "12";
+      }
+      if (depthInput) {
+        depthInput.min = "2";
+        depthInput.max = type === "dakterras" ? "12" : "10";
+        depthInput.step = "0.5";
+      }
+      if (heightInput) {
+        heightInput.min = "2.4";
+        heightInput.max = "3.4";
+        heightInput.step = "0.1";
+      }
+    }
     if (widthInput) widthInput.value = String(d.width);
     if (depthInput) depthInput.value = String(d.depth);
     if (heightInput) heightInput.value = String(d.height);
