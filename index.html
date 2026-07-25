@@ -127,7 +127,7 @@
   <main id="top">
     <section class="hero">
       <div class="hero-media" aria-hidden="true">
-        <!-- Poster first; desktop autoplay, mobiel tap-to-play (iOS/Android-vriendelijk) -->
+        <!-- Poster first; muted autoplay op desktop én mobiel (sfeer, geen film-CTA) -->
         <video
           class="hero-video"
           id="hero-video"
@@ -135,21 +135,12 @@
           loop
           playsinline
           webkit-playsinline
+          autoplay
           preload="none"
           poster="assets/hero-poster.jpg"
           data-src="assets/hero-bedrijfsfilm-lite.mp4"
           data-src-mobile="assets/hero-bedrijfsfilm-mobile.mp4"
         ></video>
-        <button
-          type="button"
-          class="hero-play"
-          id="hero-play"
-          aria-label="Speel bedrijfsfilm af"
-          hidden
-        >
-          <span class="hero-play-icon" aria-hidden="true"></span>
-          <span class="hero-play-label">Bekijk film</span>
-        </button>
         <div class="hero-overlay"></div>
       </div>
       <div class="wrap hero-inner">
@@ -811,7 +802,6 @@
             <button type="button" class="carousel-btn" data-carousel-prev aria-label="Vorige review">‹</button>
             <div class="carousel-dots" data-carousel-dots role="tablist" aria-label="Review kiezen"></div>
             <button type="button" class="carousel-btn" data-carousel-next aria-label="Volgende review">›</button>
-            <button type="button" class="carousel-pause" data-carousel-pause aria-pressed="false" aria-label="Automatisch wisselen pauzeren">Pauze</button>
           </div>
           <p class="carousel-caption">Selectie uit 68 reviews</p>
         </div>

@@ -1785,44 +1785,28 @@
     });
   }
 
-  /* Hero video: desktop autoplay; mobile tap-to-play + pause offscreen */
+  /* Hero video: muted autoplay (desktop + mobiel); bij fail → stil poster, geen play-CTA */
   const heroVideo = document.getElementById("hero-video");
-  const heroPlay = document.getElementById("hero-play");
   if (heroVideo) {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const saveData = !!(navigator.connection && navigator.connection.saveData);
     const isNarrow = window.matchMedia("(max-width: 699px)").matches;
     const desktopSrc = heroVideo.dataset.src;
     const mobileSrc = heroVideo.dataset.srcMobile || desktopSrc;
+    const preferredSrc = isNarrow ? mobileSrc : desktopSrc;
     let loaded = false;
     let wantsPlay = false;
 
     const markReady = () => heroVideo.classList.add("is-ready");
-    const hidePlay = () => {
-      if (heroPlay) {
-        heroPlay.hidden = true;
-        heroPlay.setAttribute("aria-hidden", "true");
-      }
-    };
-    const showPlay = () => {
-      if (heroPlay && !reduceMotion && !saveData) {
-        heroPlay.hidden = false;
-        heroPlay.removeAttribute("aria-hidden");
-      }
-    };
 
     const tryPlay = () => {
       const p = heroVideo.play();
       if (p && typeof p.then === "function") {
-        p.then(() => {
-          markReady();
-          hidePlay();
-        }).catch(() => {
-          showPlay();
+        p.then(markReady).catch(() => {
+          /* Autoplay geblokkeerd (OS): poster blijft zichtbaar, geen film-CTA */
         });
       } else {
         markReady();
-        hidePlay();
       }
     };
 
@@ -1834,8 +1818,11 @@
         heroVideo.src = src;
         heroVideo.setAttribute("playsinline", "");
         heroVideo.setAttribute("webkit-playsinline", "");
+        heroVideo.setAttribute("autoplay", "");
         heroVideo.muted = true;
+        heroVideo.defaultMuted = true;
         heroVideo.playsInline = true;
+        heroVideo.autoplay = true;
         heroVideo.addEventListener(
           "loadeddata",
           () => {
@@ -1848,14 +1835,6 @@
         tryPlay();
       }
     };
-
-    if (heroPlay) {
-      heroPlay.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        loadAndPlay(isNarrow ? mobileSrc : desktopSrc);
-      });
-    }
 
     if ("IntersectionObserver" in window) {
       const io = new IntersectionObserver(
@@ -1874,24 +1853,17 @@
       io.observe(heroVideo);
     }
 
-    if (reduceMotion || saveData || !desktopSrc) {
-      hidePlay();
+    if (reduceMotion || saveData || !preferredSrc) {
       return;
     }
 
-    if (!isNarrow) {
-      fetch(desktopSrc, { method: "HEAD" })
-        .then((r) => {
-          if (!r.ok) {
-            showPlay();
-            return;
-          }
-          wantsPlay = true;
-          loadAndPlay(desktopSrc);
-        })
-        .catch(() => showPlay());
-    } else {
-      showPlay();
-    }
+    fetch(preferredSrc, { method: "HEAD" })
+      .then((r) => {
+        if (!r.ok) return;
+        loadAndPlay(preferredSrc);
+      })
+      .catch(() => {
+        /* Netwerk/HEAD faalt: poster blijft staan */
+      });
   }
 })();
