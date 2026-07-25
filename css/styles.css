@@ -14,8 +14,8 @@
   --ad-error: #C0392B;
   --font-display: "Manrope", system-ui, sans-serif;
   --font-body: "Source Sans 3", system-ui, sans-serif;
-  /* Mobile gutters ≥ 24px; scales up on wider screens */
-  --space: clamp(1.5rem, 6.5vw, 2.25rem);
+  /* Ruime mobile gutters; schaalt mee op grotere schermen */
+  --space: clamp(1.75rem, 7vw, 2.5rem);
   --max: 1120px;
   --radius: 4px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -57,17 +57,18 @@ p.lead {
 }
 
 .wrap {
-  width: min(100% - 2 * var(--space), var(--max));
+  /* padding-inline i.p.v. width-calc: betrouwbare gutters, ook als child width:100% zet */
+  width: min(100%, var(--max));
   max-width: var(--max);
   margin-inline: auto;
-  padding-inline: 0;
+  padding-inline: var(--space);
   box-sizing: border-box;
 }
 
 /* Extra ademruimte op smalle telefoons (~390px) */
 @media (max-width: 479px) {
   :root {
-    --space: 1.5rem; /* 24px vaste gutter */
+    --space: 1.75rem; /* 28px — meer dan minimale 20–24px */
   }
 }
 
@@ -395,7 +396,14 @@ p.lead {
   }
   .calc-visual,
   .calc-panel {
-    padding-inline: 1.25rem;
+    padding-inline: 1.35rem;
+  }
+  .calc-nav {
+    gap: 0.75rem;
+  }
+  .calc-nav .btn {
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
