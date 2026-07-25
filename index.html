@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aanbouwdirect — Waarom verhuizen als je kan uitbouwen?</title>
+  <meta name="description" content="Huisuitbreidingen, verbouwingen en maatwerk in Aalsmeer en omstreken. Stel je plan samen, zie een prijsindicatie en plan een afspraak." />
+  <link rel="icon" href="assets/aanbouwdirect-mark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-nav">
+    <div class="wrap">
+      <a class="logo-link" href="#top" aria-label="Aanbouwdirect home">
+        <img class="logo-mark" src="assets/aanbouwdirect-mark.svg" alt="" width="40" height="35" />
+        <span class="logo-word">Aanbouwdirect</span>
+      </a>
+      <div class="nav-actions">
+        <a class="btn btn-primary nav-cta-mobile" href="#calculator">Samenstellen</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu openen">
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav id="site-menu" class="nav-panel" aria-label="Hoofdmenu">
+        <ul class="nav-links">
+          <li><a href="#calculator">Samenstellen</a></li>
+          <li><a href="#diensten">Diensten</a></li>
+          <li><a href="#werkwijze">Werkwijze</a></li>
+          <li><a href="#projecten">Projecten</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a class="btn btn-primary nav-cta" href="#calculator">Stel je plan samen</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-media" aria-hidden="true">
+        <!-- Poster first; video lazy-loaded on desktop (bandwidth-vriendelijk) -->
+        <video
+          class="hero-video"
+          id="hero-video"
+          muted
+          loop
+          playsinline
+          preload="none"
+          poster="assets/hero-poster.jpg"
+          data-src="assets/hero-bedrijfsfilm-lite.mp4"
+        ></video>
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="wrap hero-inner">
+        <div class="hero-brand">
+          <img src="assets/aanbouwdirect-mark.svg" alt="" width="36" height="31" />
+          Aanbouwdirect
+        </div>
+        <h1>Waarom verhuizen als je kan uitbouwen?</h1>
+        <p class="lead">Van aanbouw tot verbouwing: stel je plan samen, zie een prijsindicatie en plan een afspraak voor de definitieve offerte.</p>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="#calculator">Stel je plan samen</a>
+          <a class="btn btn-ghost" href="tel:+31638340050">Bel 06 38340050</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="alt">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Stel je plan samen</h2>
+          <p>Begin met aanbouw, nokverhoging of dakopbouw voor een snelle indicatie. Ander type verbouwing? Doorloop de stappen toch — of bel ons, we kijken mee.</p>
+        </div>
+
+        <div class="calc-shell reveal">
+          <aside class="calc-visual">
+            <div>
+              <h3>Jouw schets</h3>
+              <p data-viz-label>Kies een type om te starten</p>
+            </div>
+            <div class="viz-stage" aria-hidden="true">
+              <svg viewBox="0 0 440 260" fill="none" xmlns="http://www.w3.org/2000/svg" data-viz-svg>
+                <!-- Neutraal: alleen bestaand huis tot type gekozen is -->
+                <g data-viz-scene="idle">
+                  <path d="M120 210 V118 L220 48 L320 118 V210 Z" stroke="#F5F7F8" stroke-width="7" stroke-linejoin="round"/>
+                  <path d="M248 78 V42 h14 v44" stroke="#F5F7F8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <rect x="178" y="138" width="48" height="48" stroke="#F5F7F8" stroke-width="5.5"/>
+                  <line x1="202" y1="138" x2="202" y2="186" stroke="#F5F7F8" stroke-width="4.5"/>
+                  <line x1="178" y1="162" x2="226" y2="162" stroke="#F5F7F8" stroke-width="4.5"/>
+                </g>
+
+                <!-- 1. Aanbouw: bestaand huis links + oranje uitbouw rechts, aansluitend -->
+                <g data-viz-scene="aanbouw" display="none">
+                  <g data-viz-house>
+                    <path d="M36 210 V112 L122 46 L208 112 V210 Z" stroke="#F5F7F8" stroke-width="7" stroke-linejoin="round"/>
+                    <path d="M158 72 V38 h14 v42" stroke="#F5F7F8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="90" y="136" width="46" height="46" stroke="#F5F7F8" stroke-width="5.5"/>
+                    <line x1="113" y1="136" x2="113" y2="182" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <line x1="90" y1="159" x2="136" y2="159" stroke="#F5F7F8" stroke-width="4.5"/>
+                  </g>
+                  <line data-viz-seam x1="208" y1="108" x2="208" y2="210" stroke="#F5F7F8" stroke-width="5.5" stroke-dasharray="9 8" stroke-linecap="round"/>
+                  <g data-viz-ext="aanbouw" transform="translate(208, 128)">
+                    <rect x="0" y="0" width="140" height="82" fill="#E07830"/>
+                    <rect x="44" y="22" width="48" height="36" fill="#007694"/>
+                  </g>
+                </g>
+
+                <!-- 2. Nokverhoging: schuin dak — oude daklijn gestippeld, oranje hogere nok opzelfde footprint -->
+                <g data-viz-scene="nok" display="none">
+                  <g data-viz-house>
+                    <path d="M70 210 V130 H370 V210 Z" stroke="#F5F7F8" stroke-width="7" stroke-linejoin="round"/>
+                    <rect x="118" y="148" width="44" height="44" stroke="#F5F7F8" stroke-width="5.5"/>
+                    <line x1="140" y1="148" x2="140" y2="192" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <line x1="118" y1="170" x2="162" y2="170" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <rect x="278" y="148" width="44" height="44" stroke="#F5F7F8" stroke-width="5.5"/>
+                    <line x1="300" y1="148" x2="300" y2="192" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <line x1="278" y1="170" x2="322" y2="170" stroke="#F5F7F8" stroke-width="4.5"/>
+                  </g>
+                  <!-- Oude (lage) daklijn -->
+                  <path data-viz-old-roof d="M70 130 L220 58 L370 130" stroke="#F5F7F8" stroke-width="5" stroke-dasharray="10 8" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
+                  <!-- Nieuwe hogere nok (oranje volume) -->
+                  <g data-viz-ext="nok">
+                    <path data-viz-new-roof d="M70 130 L220 28 L370 130 Z" fill="#E07830"/>
+                    <path data-viz-new-roof-edge d="M70 130 L220 28 L370 130" stroke="#F3E0D0" stroke-width="3.5" stroke-linejoin="round"/>
+                    <rect x="198" y="52" width="44" height="28" fill="#007694"/>
+                  </g>
+                </g>
+
+                <!-- 3. Dakopbouw: plat dak + oranje nieuwe verdieping erbovenop -->
+                <g data-viz-scene="dakopbouw" display="none">
+                  <g data-viz-house>
+                    <path d="M78 210 V118 H362 V210 Z" stroke="#F5F7F8" stroke-width="7" stroke-linejoin="round"/>
+                    <line x1="78" y1="118" x2="362" y2="118" stroke="#F5F7F8" stroke-width="6" stroke-linecap="round"/>
+                    <rect x="126" y="142" width="48" height="48" stroke="#F5F7F8" stroke-width="5.5"/>
+                    <line x1="150" y1="142" x2="150" y2="190" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <line x1="126" y1="166" x2="174" y2="166" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <rect x="266" y="142" width="48" height="48" stroke="#F5F7F8" stroke-width="5.5"/>
+                    <line x1="290" y1="142" x2="290" y2="190" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <line x1="266" y1="166" x2="314" y2="166" stroke="#F5F7F8" stroke-width="4.5"/>
+                  </g>
+                  <g data-viz-ext="dakopbouw" transform="translate(108, 48)">
+                    <rect x="0" y="0" width="224" height="70" fill="#E07830"/>
+                    <rect x="28" y="18" width="52" height="34" fill="#007694"/>
+                    <rect x="144" y="18" width="52" height="34" fill="#007694"/>
+                    <!-- Licht hellend dakrandje -->
+                    <path d="M-6 0 H230 L220 -12 H4 Z" fill="#E07830"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <p class="live-summary" data-live-summary>Nog geen keuzes</p>
+            <p class="note" style="color: rgba(255,255,255,0.75)">Indicatie op maat — geen definitieve offerte.</p>
+          </aside>
+
+          <div class="calc-panel">
+            <div class="calc-progress" aria-hidden="true"></div>
+
+            <!-- 1 Type -->
+            <div class="calc-step is-active" data-step="1">
+              <h3>Wat wil je realiseren?</h3>
+              <p>Dit bepaalt de basis van je indicatie en welke vervolgvragen relevant zijn.</p>
+              <div class="choice-grid cols-3">
+                <button type="button" class="choice" data-choice="type" data-value="aanbouw">Aanbouw<small>Uitbouw naast je woning</small></button>
+                <button type="button" class="choice" data-choice="type" data-value="nok">Nokverhoging<small>Schuin dak hoger / meer stahoogte</small></button>
+                <button type="button" class="choice" data-choice="type" data-value="dakopbouw">Dakopbouw<small>Extra verdieping op plat dak</small></button>
+              </div>
+              <div class="calc-nav">
+                <button type="button" class="btn btn-primary" data-next="2">Volgende</button>
+              </div>
+            </div>
+
+            <!-- 2 Afmetingen -->
+            <div class="calc-step" data-step="2">
+              <h3>Welke afmetingen?</h3>
+              <p>Breedte × diepte = totale oppervlakte. Hoogte telt mee in comfort én prijs.</p>
+              <div class="area-pill">Totale oppervlakte: <strong data-area-out>12 m²</strong></div>
+              <div class="field-grid">
+                <div class="range-row">
+                  <label for="calc-width">Breedte <output data-width-out>4 m</output></label>
+                  <input id="calc-width" type="range" min="2" max="12" step="0.5" value="4" />
+                </div>
+                <div class="range-row">
+                  <label for="calc-depth">Diepte (lengte) <output data-depth-out>3 m</output></label>
+                  <input id="calc-depth" type="range" min="2" max="10" step="0.5" value="3" />
+                </div>
+                <div class="range-row">
+                  <label for="calc-height">Hoogte <output data-height-out>2.8 m</output></label>
+                  <input id="calc-height" type="range" min="2.4" max="3.4" step="0.1" value="2.8" />
+                </div>
+              </div>
+              <div class="calc-nav">
+                <button type="button" class="btn btn-teal" data-prev="1">Terug</button>
+                <button type="button" class="btn btn-primary" data-next="3">Volgende</button>
+              </div>
+            </div>
+
+            <!-- 3 Gevel -->
+            <div class="calc-step" data-step="3">
+              <h3>Welk gevelmateriaal?</h3>
+              <p>Hoe moet de buitenkant eruitzien? Dit heeft invloed op uitstraling en kosten.</p>
+              <div class="choice-grid">
+                <button type="button" class="choice" data-choice="gevel" data-value="steen">Steen<small>Klassiek, sluit vaak aan op bestaande gevel</small></button>
+                <button type="button" class="choice" data-choice="gevel" data-value="stuc">Stucwerk<small>Strak en modern</small></button>
+                <button type="button" class="choice" data-choice="gevel" data-value="hout">Hout<small>Warm, natuurlijk karakter</small></button>
+                <button type="button" class="choice" data-choice="gevel" data-value="match">Gelijk aan woning<small>We matchen zoveel mogelijk je bestaande gevel</small></button>
+              </div>
+              <div class="calc-nav">
+                <button type="button" class="btn btn-teal" data-prev="2">Terug</button>
+                <button type="button" class="btn btn-primary" data-next="4">Volgende</button>
+              </div>
+            </div>
+
+            <!-- 4 Kozijnen -->
+            <div class="calc-step" data-step="4">
+              <h3>Welk type kozijn?</h3>
+              <p>Materiaal van de kozijnen — onderhoud, uitstraling en prijs verschillen.</p>
+              <div class="choice-grid">
+                <button type="button" class="choice" data-choice="kozijn" data-value="kunststof">Kunststof<small>Onderhoudsarm en scherp geprijsd</small></button>
+                <button type="button" class="choice" data-choice="kozijn" data-value="aluminium">Aluminium<small>Strak, slank en duurzaam</small></button>
+                <button type="button" class="choice" data-choice="kozijn" data-value="hout">Hout<small>Klassieke uitstraling</small></button>
+                <button type="button" class="choice" data-choice="kozijn" data-value="houtalu">Hout / aluminium<small>Hout binnen, alu buiten</small></button>
+              </div>
+              <div class="calc-nav">
+                <button type="button" class="btn btn-teal" data-prev="3">Terug</button>
+                <button type="button" class="btn btn-primary" data-next="5">Volgende</button>
+              </div>
+            </div>
+
+            <!-- 5 Isolatie + heipalen -->
+            <div class="calc-step" data-step="5">
+              <h3>Isolatie &amp; fundering</h3>
+              <p>Technische keuzes die comfort en prijs bepalen. Twijfel je? Kies “weet ik niet” — dat bepalen we op locatie.</p>
+              <h4 class="calc-sub">Isolatie</h4>
+              <div class="choice-grid">
+                <button type="button" class="choice" data-choice="isolatie" data-value="standaard">Standaard<small>Voldoet aan huidige eisen</small></button>
+                <button type="button" class="choice" data-choice="isolatie" data-value="extra">Extra isolatie<small>Meer comfort, lagere energiekosten</small></button>
+                <button type="button" class="choice" data-choice="isolatie" data-value="onbekend">Weet ik niet<small>Advies tijdens de afspraak</small></button>
+              </div>
+              <div data-heipalen-block>
+                <h4 class="calc-sub">Heipalen nodig?</h4>
+                <p class="note">Vooral bij aanbouw: hangt af van de grond en fundering. Weet je het niet zeker? Geen probleem.</p>
+                <div class="choice-grid cols-3">
+                  <button type="button" class="choice" data-choice="heipalen" data-value="ja">Ja / waarschijnlijk</button>
+                  <button type="button" class="choice" data-choice="heipalen" data-value="nee">Nee</button>
+                  <button type="button" class="choice" data-choice="heipalen" data-value="onbekend">Weet ik niet</button>
+                </div>
+              </div>
+              <div class="calc-nav">
+                <button type="button" class="btn btn-teal" data-prev="4">Terug</button>
+                <button type="button" class="btn btn-primary" data-next="6">Bekijk indicatie</button>
+              </div>
+            </div>
+
+            <!-- 6 Prijs + lead -->
+            <div class="calc-step" data-step="6">
+              <h3>Jouw prijsindicatie</h3>
+              <p data-summary>…</p>
+              <div class="price-box">
+                <strong data-price>€ –</strong>
+                <span data-price-note>Indicatie. Geen definitieve offerte.</span>
+              </div>
+              <p class="note">Laat je gegevens achter. Je ziet daarna meteen je prijsindicatie (en kunt die naar jezelf mailen). Wij ontvangen je aanvraag en plannen een afspraak.</p>
+              <form id="lead-form" class="field-grid" name="calculator-lead" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" netlify>
+                <input type="hidden" name="form-name" value="calculator-lead" />
+                <p class="hp-field" aria-hidden="true">
+                  <label>Niet invullen <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+                </p>
+                <div class="field-grid two">
+                  <label>Naam<input name="naam" required autocomplete="name" /></label>
+                  <label>Telefoon<input name="telefoon" type="tel" required autocomplete="tel" /></label>
+                </div>
+                <div class="field-grid two">
+                  <label>E-mail<input name="email" type="email" required autocomplete="email" /></label>
+                  <label>Postcode / plaats<input name="postcode" required autocomplete="postal-code" /></label>
+                </div>
+                <label>Toelichting (optioneel)<textarea name="toelichting" rows="3" placeholder="Bijv. timing, wensen, bestaande situatie"></textarea></label>
+                <!-- Extra velden vult JS in vóór submit (voor Netlify-notificatie) -->
+                <input type="hidden" name="project" value="" />
+                <input type="hidden" name="oppervlakte_m2" value="" />
+                <input type="hidden" name="prijsindicatie" value="" />
+                <div class="calc-nav">
+                  <button type="button" class="btn btn-teal" data-prev="5">Terug</button>
+                  <button type="submit" class="btn btn-primary">Verstuur aanvraag</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- 7 Bedankt -->
+            <div class="calc-step" data-step="7">
+              <h3>Aanvraag ontvangen</h3>
+              <p data-thank-note>We hebben je aanvraag binnen. Hieronder staat je prijsindicatie — bewaar die. Wij nemen zo snel mogelijk contact op.</p>
+              <div class="price-box" data-thank-price-box hidden>
+                <strong data-thank-price>€ –</strong>
+                <span data-thank-summary></span>
+              </div>
+              <div class="calc-nav">
+                <a class="btn btn-primary" data-mailto-indicatie href="#">Mail mezelf de indicatie</a>
+                <a class="btn btn-teal" href="tel:+31638340050">Bel 06 38340050</a>
+                <button type="button" class="btn btn-teal" data-next="1">Nieuwe berekening</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="waarom">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Doorgroeien in je eigen huis</h2>
+          <p>Verhuizen kost een fortuin. Blijf waar je wilt wonen — wij bouwen de ruimte erbij. Helder over kosten, geen vage beloftes.</p>
+        </div>
+        <ul class="why-list reveal">
+          <li>
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 32V18L20 8l12 10v14H8Z" stroke="#007694" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M20 18v14" stroke="#007694" stroke-width="2.2" stroke-dasharray="3.5 3"/>
+                <rect x="22" y="20" width="10" height="12" fill="#E07830"/>
+              </svg>
+            </span>
+            <h3>Meer huis, zelfde adres</h3>
+            <p>Uitbouwen, verbouwen of optoppen — jij houdt je buurt, tuin en school. Wij leveren de m² die je mist.</p>
+          </li>
+          <li>
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="7" y="10" width="26" height="20" rx="2" stroke="#007694" stroke-width="2.4"/>
+                <path d="M12 22h10M12 17h16" stroke="#007694" stroke-width="2.2" stroke-linecap="round"/>
+                <circle cx="28" cy="26" r="5.5" fill="#E07830"/>
+                <path d="M28 23.5v5M25.5 26h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <h3>Eerst indicatie, dan zekerheid</h3>
+            <p>Stel je plan online samen en zie meteen een bandbreedte. De definitieve offerte volgt pas na een afspraak op locatie — zo weet je waar je aan toe bent.</p>
+          </li>
+          <li>
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 28V14l6-5 6 5v5" stroke="#007694" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M14 28h18V16H22" stroke="#007694" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M26 20h6v8h-6V20Z" fill="#E07830"/>
+                <path d="M12 28h20" stroke="#007694" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <h3>Totaalpakket, één aanspreekpunt</h3>
+            <p>Van meedenken en vergunning tot uitvoering en oplevering. Bouwbedrijf in Aalsmeer — wij trekken het hele traject recht.</p>
+          </li>
+          <li>
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="12" stroke="#007694" stroke-width="2.4"/>
+                <path d="M14 20.5l4 4 8-9" stroke="#E07830" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <h3>Maatwerk, geen standaardpakket</h3>
+            <p>Jouw woning, jouw wensen. Staat je klus niet letterlijk in de lijst? Bel of mail — we kijken gewoon mee wat er kan.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="diensten" class="alt">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Wat we voor je doen</h2>
+          <p>Huisuitbreidingen, verbouwingen en maatwerk. Dit zijn de vormen die we het vaakst doen — en als jouw plan anders is, kijken we mee.</p>
+        </div>
+        <div class="services reveal">
+          <a class="service-row" href="#calculator">
+            <h3>Aanbouw / huisuitbreiding</h3>
+            <p>Extra woonruimte die aansluit op je woning — leefkeuken, kamer of bijgebouw.</p>
+            <span>Samenstellen →</span>
+          </a>
+          <a class="service-row" href="#calculator">
+            <h3>Nokverhoging</h3>
+            <p>Meer hoogte en ruimte onder het dak, zonder meteen te verhuizen.</p>
+            <span>Samenstellen →</span>
+          </a>
+          <a class="service-row" href="#calculator">
+            <h3>Dakopbouw</h3>
+            <p>Een verdieping erbij — meer m² op dezelfde kavel.</p>
+            <span>Samenstellen →</span>
+          </a>
+          <a class="service-row" href="#contact">
+            <h3>Verbouwingen &amp; maatwerk</h3>
+            <p>Interne verbouwing, gevel, badkamer, keuken of een combinatieklus. We zijn een bouwbedrijf — in principe kunnen we álles leveren.</p>
+            <span>Neem contact op →</span>
+          </a>
+          <a class="service-row service-row--cta" href="#contact">
+            <h3>Jouw plan staat er niet bij?</h3>
+            <p>Geen probleem. Vertel wat je wilt — we zeggen eerlijk of het past en hoe we het aanpakken.</p>
+            <span>Vertel je plan →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="werkwijze">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Zo werken we</h2>
+          <p>Van eerste schets tot oplevering — helder en in stappen.</p>
+        </div>
+        <ol class="process reveal">
+          <li>
+            <h3>Samenstellen</h3>
+            <p>Je doorloopt de calculator en deelt je wensen.</p>
+          </li>
+          <li>
+            <h3>Afspraak op locatie</h3>
+            <p>We kijken ter plekke wat kan — en wat het kost.</p>
+          </li>
+          <li>
+            <h3>Definitieve offerte</h3>
+            <p>Transparante scope en prijs. Geen verrassingen achteraf.</p>
+          </li>
+          <li>
+            <h3>Uitvoering</h3>
+            <p>Vakwerk, afstemming en oplevering waar je blij van wordt.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="projecten" class="alt">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Projecten</h2>
+          <p>Echte klussen uit Aalsmeer en omstreken — van uitbouw tot dak.</p>
+        </div>
+        <div class="projects reveal">
+          <figure class="project-card">
+            <img src="assets/projects/stenen-aanbouw.jpg" alt="Stenen aanbouw" loading="lazy" />
+            <figcaption>Stenen aanbouw</figcaption>
+          </figure>
+          <figure class="project-card">
+            <img src="assets/projects/meer-verdiepingen.jpg" alt="Aanbouw meerdere verdiepingen" loading="lazy" />
+            <figcaption>Aanbouw meerdere verdiepingen</figcaption>
+          </figure>
+          <figure class="project-card">
+            <img src="assets/projects/huis-aanbouw.jpg" alt="Huisuitbreiding" loading="lazy" />
+            <figcaption>Huisuitbreiding</figcaption>
+          </figure>
+          <figure class="project-card">
+            <img src="assets/projects/aanbouw-detail.jpg" alt="Aanbouw detail" loading="lazy" />
+            <figcaption>Aanbouw / huisuitbreiding</figcaption>
+          </figure>
+          <figure class="project-card">
+            <img src="assets/projects/nokverhoging.jpg" alt="Nokverhoging" loading="lazy" />
+            <figcaption>Nokverhoging</figcaption>
+          </figure>
+          <figure class="project-card">
+            <img src="assets/projects/dakopbouw.jpg" alt="Dakopbouw" loading="lazy" />
+            <figcaption>Dakopbouw</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Veelgestelde vragen</h2>
+          <p>Kort en duidelijk — zoals de rest van onze afspraken.</p>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>Is de prijs uit de calculator definitief?</summary>
+            <p>Nee. Het is een indicatie op basis van jouw keuzes. De definitieve offerte volgt na een afspraak op locatie.</p>
+          </details>
+          <details>
+            <summary>Wat zit er in de prijsindicatie?</summary>
+            <p>Een realistische totaalrichting voor jouw project: constructie, gevel, isolatie, kozijnen en afwerking op hoofdlijnen. Opties zoals aluminium kozijnen, extra isolatie of heipalen schuiven de range omhoog of omlaag.</p>
+          </details>
+          <details>
+            <summary>Doen jullie alleen aanbouw, nok en dakopbouw?</summary>
+            <p>Nee. Dat zijn de vormen in de calculator omdat die het snelst te schatten zijn. Als bouwbedrijf doen we ook verbouwingen en maatwerk. Staat jouw klus er niet bij? Bel of mail — we kijken mee.</p>
+          </details>
+          <details>
+            <summary>Werken jullie ook buiten Aalsmeer?</summary>
+            <p>We richten ons op Aalsmeer en omstreken. Twijfel je over jouw postcode? Laat het even weten — we zeggen eerlijk of het past.</p>
+          </details>
+          <details>
+            <summary>Heb ik een vergunning nodig?</summary>
+            <p>Dat hangt af van type, maat en locatie. Bij de afspraak kijken we mee wat er nodig is en hoe we dat aanpakken.</p>
+          </details>
+          <details>
+            <summary>Zijn heipalen altijd nodig?</summary>
+            <p>Nee. Bij een aanbouw hangt het af van de grond en bestaande fundering. Weet je het niet? Kies dat in de calculator — we bepalen het op locatie, zonder vage aannames.</p>
+          </details>
+          <details>
+            <summary>Hoe lang duurt zo’n project?</summary>
+            <p>Dat verschilt per klus. Na de intake krijg je een realistische planning — geen vage beloftes.</p>
+          </details>
+          <details>
+            <summary>Kan ik zelf materiaal of kozijnen kiezen?</summary>
+            <p>Ja. In de calculator kies je gevel en kozijntype. Op locatie stemmen we merken, kleuren en details verder af.</p>
+          </details>
+          <details>
+            <summary>Wat is het verschil tussen nokverhoging en dakopbouw?</summary>
+            <p>Nokverhoging geeft meer hoogte onder het bestaande dak. Een dakopbouw voegt in de praktijk een (deel)verdieping toe. In de calculator kies je wat het dichtst bij jouw plan zit.</p>
+          </details>
+          <details>
+            <summary>Hoe vraag ik een definitieve offerte aan?</summary>
+            <p>Doorloop de calculator, laat je gegevens achter, of bel 06 38340050. We plannen een afspraak op locatie en sturen daarna een heldere offerte.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="alt">
+      <div class="wrap contact-grid">
+        <div class="reveal">
+          <h2>Contact</h2>
+          <p class="lead">Vragen over een uitbouw, verbouwing of maatwerkklus? Bel of mail — we denken graag mee.</p>
+          <div class="contact-block">
+            <p><a href="tel:+31638340050">06 38340050</a></p>
+            <p><a href="mailto:info@aanbouw-direct.nl">info@aanbouw-direct.nl</a></p>
+          </div>
+          <ul class="contact-meta">
+            <li>Oosteindeweg 21</li>
+            <li>1432 AC Aalsmeer</li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <h3>Liever meteen starten?</h3>
+          <p>Gebruik de samensteller voor een snelle indicatie, of bel ons voor een afspraak.</p>
+          <div class="btn-group">
+            <a class="btn btn-primary" href="#calculator">Naar de calculator</a>
+            <a class="btn btn-teal" href="tel:+31638340050">Bel nu</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="logo-link logo-link--footer" href="#top" aria-label="Aanbouwdirect home">
+        <img class="logo-mark" src="assets/aanbouwdirect-mark.svg" alt="" width="36" height="31" />
+        <span class="logo-word">Aanbouwdirect</span>
+      </a>
+      <p>© 2026 Aanbouw-direct.nl · Aalsmeer</p>
+      <p><a href="mailto:info@aanbouw-direct.nl">info@aanbouw-direct.nl</a> · <a href="tel:+31638340050">06 38340050</a></p>
+    </div>
+  </footer>
+
+  <script src="js/calculator.js"></script>
+</body>
+</html>
