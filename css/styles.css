@@ -14,7 +14,8 @@
   --ad-error: #C0392B;
   --font-display: "Manrope", system-ui, sans-serif;
   --font-body: "Source Sans 3", system-ui, sans-serif;
-  --space: clamp(1.35rem, 5.5vw, 2rem);
+  /* Mobile gutters ≥ 24px; scales up on wider screens */
+  --space: clamp(1.5rem, 6.5vw, 2.25rem);
   --max: 1120px;
   --radius: 4px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -57,7 +58,17 @@ p.lead {
 
 .wrap {
   width: min(100% - 2 * var(--space), var(--max));
+  max-width: var(--max);
   margin-inline: auto;
+  padding-inline: 0;
+  box-sizing: border-box;
+}
+
+/* Extra ademruimte op smalle telefoons (~390px) */
+@media (max-width: 479px) {
+  :root {
+    --space: 1.5rem; /* 24px vaste gutter */
+  }
 }
 
 /* Buttons */
@@ -329,9 +340,10 @@ p.lead {
 .hero-inner {
   position: relative;
   z-index: 1;
-  padding: clamp(3rem, 10vh, 7rem) 0 clamp(2.5rem, 7vh, 5rem);
-  max-width: 38rem;
-  width: 100%;
+  padding-block: clamp(3rem, 10vh, 7rem) clamp(2.5rem, 7vh, 5rem);
+  /* Geen width:100% — dat overschreef .wrap en plakte CTA’s tegen de rand */
+  max-width: min(38rem, 100%);
+  box-sizing: border-box;
 }
 .hero-brand {
   display: inline-flex;
@@ -360,7 +372,31 @@ p.lead {
 
 @media (max-width: 479px) {
   .hero { min-height: min(82vh, 680px); }
-  .hero-inner { padding-top: 2.75rem; padding-bottom: 2.75rem; }
+  .hero-inner {
+    padding-top: 2.75rem;
+    padding-bottom: 2.75rem;
+  }
+  .hero .btn-group {
+    width: 100%;
+    max-width: 100%;
+  }
+  .hero .btn-group .btn {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .section-head {
+    padding-inline: 0;
+    max-width: 100%;
+  }
+  .calc-shell {
+    margin-inline: 0;
+    border-radius: 8px;
+  }
+  .calc-visual,
+  .calc-panel {
+    padding-inline: 1.25rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
