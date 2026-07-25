@@ -50,6 +50,12 @@
     const excludeHtml = liRows(data.exclude, "out");
     const choicesHtml = choiceRows(data.choices);
     const naam = data.naam ? escapeHtml(data.naam) : "";
+    const logoSrc = escapeHtml(
+      data.logoUrl ||
+        (typeof window !== "undefined"
+          ? new URL("assets/aanbouwdirect-mark.svg", window.location.href).href
+          : "assets/aanbouwdirect-mark.svg")
+    );
 
     return `<!DOCTYPE html>
 <html lang="nl">
@@ -314,7 +320,7 @@
   <article class="page">
     <header class="band">
       <div class="brand">
-        <img src="assets/aanbouwdirect-mark.svg" alt="" width="48" height="42" onerror="this.style.display='none'" />
+        <img src="${logoSrc}" alt="" width="48" height="42" onerror="this.style.display='none'" />
         <div class="brand-text">
           <strong>Aanbouwdirect</strong>
           <span>Waarom verhuizen als je kan uitbouwen?</span>
