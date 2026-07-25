@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20260725-scope1" />
+  <link rel="stylesheet" href="css/styles.css?v=20260725-hero2" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -127,17 +127,29 @@
   <main id="top">
     <section class="hero">
       <div class="hero-media" aria-hidden="true">
-        <!-- Poster first; video lazy-loaded on desktop (bandwidth-vriendelijk) -->
+        <!-- Poster first; desktop autoplay, mobiel tap-to-play (iOS/Android-vriendelijk) -->
         <video
           class="hero-video"
           id="hero-video"
           muted
           loop
           playsinline
+          webkit-playsinline
           preload="none"
           poster="assets/hero-poster.jpg"
           data-src="assets/hero-bedrijfsfilm-lite.mp4"
+          data-src-mobile="assets/hero-bedrijfsfilm-mobile.mp4"
         ></video>
+        <button
+          type="button"
+          class="hero-play"
+          id="hero-play"
+          aria-label="Speel bedrijfsfilm af"
+          hidden
+        >
+          <span class="hero-play-icon" aria-hidden="true"></span>
+          <span class="hero-play-label">Bekijk film</span>
+        </button>
         <div class="hero-overlay"></div>
       </div>
       <div class="wrap hero-inner">
@@ -1112,6 +1124,7 @@
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
         <a href="kennisbank/">Kennisbank</a>
+        <a href="privacy.html">Privacy</a>
       </nav>
       <p>© 2026 Aanbouw-direct.nl · Aalsmeer</p>
       <p>
@@ -1125,7 +1138,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
   <script src="js/email-config.js" defer></script>
   <script src="js/customer-mail.js" defer></script>
-  <script src="js/calculator.js?v=20260725-mail2" defer></script>
+  <script src="js/calculator.js?v=20260725-hero2" defer></script>
   <script src="js/carousel.js" defer></script>
 </body>
 </html>
