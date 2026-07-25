@@ -176,6 +176,425 @@
     bijhuisje: { width: 4, depth: 3, height: 2.6 },
   };
 
+  /*
+   * Scope “Wat zit erbij” per type — onderhoud hier.
+   * include/exclude: { title, detail, short? }
+   * short = compacte bullets in calculator-stap 6
+   */
+  const includesByType = {
+    aanbouw: {
+      label: "Aanbouw",
+      intro:
+        "Onze prijsindicatie is <strong>casco</strong>: wind- &amp; waterdicht, geïsoleerd, met kozijnen en elektra tot casco-niveau. Bouwtechnisch klaar om verder af te werken — geen complete binnenafwerking.",
+      lead:
+        "<strong>Casco aanbouw:</strong> wind- &amp; waterdicht, geïsoleerd, met kozijnen. Geen binnenafwerking.",
+      inLead: "Dit zit standaard in de richting van je indicatie.",
+      outLead: "Geen vage beloftes: dit is exclusief interieurafbouw.",
+      foot: "Wil je wél afbouw meenemen? Zeg het bij de afspraak — we rekenen dat apart uit.",
+      include: [
+        {
+          title: "Hijskraan",
+          detail: "bereikbaarheid en hijswerk op de bouw meegenomen waar nodig",
+          short: "Hijskraan",
+        },
+        {
+          title: "Kozijnen",
+          detail: "ramen en deuren in de schil (type kies je in de calculator)",
+          short: "Kozijnen",
+        },
+        {
+          title: "Casco oplevering",
+          detail: "constructie, gevels/dak, wind- &amp; waterdicht",
+          short: "Casco oplevering",
+        },
+        {
+          title: "Stroom aangelegd",
+          detail: "elektra aangebracht tot casco-niveau",
+          short: "Stroom aangelegd",
+        },
+        {
+          title: "Waterdicht maken",
+          detail: "dak, aansluitingen en dichting tegen weer",
+          short: "Waterdicht + isoleren",
+        },
+        {
+          title: "Isoleren",
+          detail: "schilisolatie volgens de afgesproken eisen",
+        },
+        {
+          title: "Aansluiting op je woning",
+          detail: "openingen, doorbraken en nette aansluiting",
+        },
+      ],
+      exclude: [
+        {
+          title: "Geen gestucte binnenafwerking",
+          detail: "wanden en plafonds blijven ongestuct",
+          short: "Geen stucwerk binnen",
+        },
+        {
+          title: "Geen vloeren",
+          detail: "geen dekvloer-afwerking of vloerbedekking",
+          short: "Geen vloeren / keuken",
+        },
+        {
+          title: "Geen keuken of sanitair",
+          detail: "inbouw en afwerking van keuken/bad doe jij apart",
+        },
+        {
+          title: "Geen schilderwerk binnen",
+          detail: "binnen schilderen en lakwerk niet inbegrepen",
+        },
+        {
+          title: "Geen complete interieurafwerking",
+          detail: "geen turn-key woonklare afbouw",
+          short: "Geen complete afbouw",
+        },
+      ],
+    },
+    nok: {
+      label: "Nokverhoging",
+      intro:
+        "Indicatie voor een <strong>casco nokverhoging</strong>: dakconstructie hoger, wind- &amp; waterdicht, geïsoleerd, met kozijnen waar van toepassing. Geen complete binnenafwerking van de zolder.",
+      lead:
+        "<strong>Casco nokverhoging:</strong> dakconstructie, isolatie en waterdicht. Geen binnenafwerking zolder.",
+      inLead: "Dit hoort bij de richting van je nok-indicatie.",
+      outLead: "Niet inbegrepen: interieurafbouw van de verhoogde ruimte.",
+      foot: "Afbouw van de zolder of stahoogte-ruimte rekenen we apart uit bij de afspraak.",
+      include: [
+        {
+          title: "Dakconstructie / nokverhoging",
+          detail: "constructie om stahoogte of volume onder het dak te creëren",
+          short: "Dakconstructie",
+        },
+        {
+          title: "Waterdicht maken",
+          detail: "dakbedekking, nokdetail en aansluitingen op bestaand dak",
+          short: "Waterdicht dak",
+        },
+        {
+          title: "Isoleren",
+          detail: "dakisolatie volgens de afgesproken eisen",
+          short: "Isolatie dak",
+        },
+        {
+          title: "Kozijnen waar van toepassing",
+          detail: "ramen in de nieuwe dakvlakken of gevels (type kies je in de calculator)",
+          short: "Kozijnen",
+        },
+        {
+          title: "Hijskraan",
+          detail: "hijswerk meegenomen waar de bereikbaarheid dat vraagt",
+          short: "Hijskraan",
+        },
+        {
+          title: "Stroom aangelegd",
+          detail: "elektra tot casco-niveau in de nieuwe constructie",
+          short: "Stroom aangelegd",
+        },
+        {
+          title: "Aansluiting op bestaande dakconstructie",
+          detail: "nette overgang naar je huidige dak en dragende delen",
+        },
+      ],
+      exclude: [
+        {
+          title: "Geen gestucte binnenafwerking",
+          detail: "zolderwanden en plafonds blijven ongestuct",
+          short: "Geen stucwerk binnen",
+        },
+        {
+          title: "Geen vloeren / zolderafbouw",
+          detail: "geen dekvloer, vloerbedekking of complete zolderinrichting",
+          short: "Geen zolderafbouw",
+        },
+        {
+          title: "Geen schilderwerk binnen",
+          detail: "binnen schilderen en lakwerk niet inbegrepen",
+        },
+        {
+          title: "Geen complete interieurafwerking",
+          detail: "geen turn-key woonklare zolder",
+          short: "Geen complete afbouw",
+        },
+      ],
+    },
+    dakopbouw: {
+      label: "Dakopbouw",
+      intro:
+        "Indicatie voor een <strong>casco dakopbouw</strong>: extra volume op plat dak, wind- &amp; waterdicht, geïsoleerd, met kozijnen. Bouwtechnisch klaar om verder af te werken — geen complete binnenafwerking.",
+      lead:
+        "<strong>Casco dakopbouw:</strong> wind- &amp; waterdicht, geïsoleerd, met kozijnen. Geen binnenafwerking.",
+      inLead: "Dit zit in de richting van je dakopbouw-indicatie.",
+      outLead: "Exclusief interieurafbouw van de nieuwe verdieping.",
+      foot: "Wil je de opbouw ook binnen afwerken? Noem het bij de afspraak.",
+      include: [
+        {
+          title: "Constructie dakopbouw",
+          detail: "dragende opbouw op plat dak, inclusief gevels en dak van de opbouw",
+          short: "Constructie opbouw",
+        },
+        {
+          title: "Kozijnen",
+          detail: "ramen en deuren in de schil (type kies je in de calculator)",
+          short: "Kozijnen",
+        },
+        {
+          title: "Casco oplevering",
+          detail: "wind- &amp; waterdicht opgeleverd, klaar voor afbouw",
+          short: "Casco oplevering",
+        },
+        {
+          title: "Waterdicht maken",
+          detail: "dakvlak, goten/aansluitingen en dichting tegen weer",
+          short: "Waterdicht + isoleren",
+        },
+        {
+          title: "Isoleren",
+          detail: "schilisolatie volgens de afgesproken eisen",
+        },
+        {
+          title: "Hijskraan",
+          detail: "hijswerk meegenomen waar nodig",
+          short: "Hijskraan",
+        },
+        {
+          title: "Stroom aangelegd",
+          detail: "elektra tot casco-niveau",
+          short: "Stroom aangelegd",
+        },
+        {
+          title: "Aansluiting op je woning",
+          detail: "doorbraak/trapaansluiting en nette overgang naar bestaand",
+        },
+      ],
+      exclude: [
+        {
+          title: "Geen gestucte binnenafwerking",
+          detail: "wanden en plafonds blijven ongestuct",
+          short: "Geen stucwerk binnen",
+        },
+        {
+          title: "Geen vloeren",
+          detail: "geen dekvloer-afwerking of vloerbedekking",
+          short: "Geen vloeren / keuken",
+        },
+        {
+          title: "Geen keuken of sanitair",
+          detail: "inbouw en afwerking doe jij apart",
+        },
+        {
+          title: "Geen schilderwerk binnen",
+          detail: "binnen schilderen en lakwerk niet inbegrepen",
+        },
+        {
+          title: "Geen complete interieurafwerking",
+          detail: "geen turn-key woonklare opbouw",
+          short: "Geen complete afbouw",
+        },
+      ],
+    },
+    dakterras: {
+      label: "Dakterras",
+      intro:
+        "Indicatie voor een <strong>dakterras</strong> (geen dakopbouw): waterdicht dakvlak, dek, hekwerk en toegang zoals je kiest. Definitief na check van draagkracht op locatie — geen standaard complete binnenafwerking.",
+      lead:
+        "<strong>Indicatie dakterras:</strong> constructie/versterking, waterdichting, dek, hekwerk en toegang. Definitief na check draagkracht.",
+      inLead: "Dit hoort bij de richting van je dakterras-indicatie.",
+      outLead: "Geen woonruimte of binnenafbouw — dit is een terras op het dak.",
+      foot: "Draagkracht, waterdichting en toegang checken we op locatie voor de definitieve offerte.",
+      include: [
+        {
+          title: "Waterdicht dakvlak",
+          detail: "dakbedekking en dichting zodat het terras droog blijft",
+          short: "Waterdicht dakvlak",
+        },
+        {
+          title: "Constructie / versterking",
+          detail: "waar nodig versterking of opbouw van het dakvlak (definitief na check)",
+          short: "Constructie / versterking",
+        },
+        {
+          title: "Dek / vloerafwerking",
+          detail: "tegels, douglas, composiet of hardhout — zoals gekozen in de calculator",
+          short: "Dek / vloer",
+        },
+        {
+          title: "Hekwerk",
+          detail: "veiligheidshek rondom (spijlen, hout of glas)",
+          short: "Hekwerk",
+        },
+        {
+          title: "Toegang",
+          detail: "duikluik, dakopgang/hutje of beide — volgens je keuze",
+          short: "Toegang (luik/hutje)",
+        },
+        {
+          title: "Afwatering",
+          detail: "afschot en afvoer zodat water netjes weg kan",
+          short: "Afwatering",
+        },
+      ],
+      exclude: [
+        {
+          title: "Geen complete binnenafwerking",
+          detail: "geen stuc, schilderwerk of woonklare afbouw onder het terras",
+          short: "Geen binnenafbouw",
+        },
+        {
+          title: "Geen woonruimte / dakopbouw",
+          detail: "dit is een terras, geen extra verdieping met muren en dak",
+          short: "Geen dakopbouw",
+        },
+        {
+          title: "Geen keuken of sanitair",
+          detail: "geen buitenkeuken of sanitair in de standaardindicatie",
+          short: "Geen keuken / sanitair",
+        },
+        {
+          title: "Geen meubilair of beplanting",
+          detail: "inrichting van het terras doe je zelf",
+        },
+        {
+          title: "Geen garantie zonder draagkrachtcheck",
+          detail: "prijs en uitvoering hangen af van de check op locatie",
+        },
+      ],
+    },
+    dakkapel: {
+      label: "Dakkapel",
+      intro:
+        "Indicatie voor een <strong>casco dakkapel</strong>: plaatsing inclusief dakwerken, isolatie van de kapel en kozijnen volgens je keuzes. Geen complete binnenafbouw van de zolder tenzij afgesproken.",
+      lead:
+        "<strong>Indicatie dakkapel:</strong> casco-plaatsing incl. dakwerk, isolatie en kozijnen. Geen complete binnenafbouw.",
+      inLead: "Dit zit in de richting van je dakkapel-indicatie.",
+      outLead: "Exclusief complete zolderafbouw — tenzij je dat apart afspreekt.",
+      foot: "Binnenafwerking van de zolder of extra opties rekenen we bij de afspraak uit.",
+      include: [
+        {
+          title: "Casco plaatsing dakkapel",
+          detail: "plaatsing van de kapel inclusief constructieve aansluiting",
+          short: "Casco plaatsing",
+        },
+        {
+          title: "Dakwerken",
+          detail: "aansluiting op hellend dak, lood/kitwerk en waterdichte overgang",
+          short: "Dakwerken",
+        },
+        {
+          title: "Isolatie van de kapel",
+          detail: "isolatie in de schil van de dakkapel",
+          short: "Isolatie kapel",
+        },
+        {
+          title: "Kozijnen",
+          detail: "ramen in de dakkapel (type kies je in de calculator)",
+          short: "Kozijnen",
+        },
+        {
+          title: "Buitenafwerking",
+          detail: "materiaal zoals kunststof, hout of zink — volgens je keuze",
+          short: "Buitenafwerking",
+        },
+        {
+          title: "Waterdicht maken",
+          detail: "dakvlak van de kapel en aansluitingen tegen regen",
+        },
+      ],
+      exclude: [
+        {
+          title: "Geen complete zolderafbouw",
+          detail: "geen stuc, vloeren of volledige inrichting van de zolder",
+          short: "Geen zolderafbouw",
+        },
+        {
+          title: "Geen gestucte binnenafwerking",
+          detail: "binnenkant van de kapel/zolder blijft ongestuct tenzij afgesproken",
+          short: "Geen stucwerk binnen",
+        },
+        {
+          title: "Geen schilderwerk binnen",
+          detail: "binnen schilderen niet standaard inbegrepen",
+        },
+        {
+          title: "Geen meubilair of inbouw",
+          detail: "kasten, bedden of sanitair zitten niet in de indicatie",
+          short: "Geen complete afbouw",
+        },
+      ],
+    },
+    bijhuisje: {
+      label: "Bijhuisje",
+      intro:
+        "Indicatie voor een <strong>casco bijhuisje</strong> (tuinhuis/bijgebouw): zelfde basis als een aanbouw — wind- &amp; waterdicht, geïsoleerd, met kozijnen en elektra tot casco-niveau. Geen complete binnenafwerking.",
+      lead:
+        "<strong>Casco bijhuisje:</strong> wind- &amp; waterdicht, geïsoleerd, met kozijnen — zelfde basis als een aanbouw. Geen binnenafwerking.",
+      inLead: "Dit zit standaard in de richting van je bijhuisje-indicatie.",
+      outLead: "Exclusief interieurafbouw — net als bij een aanbouw.",
+      foot: "Afbouw, keuken of sanitair in het bijgebouw? Noem het bij de afspraak.",
+      include: [
+        {
+          title: "Casco oplevering",
+          detail: "constructie, gevels/dak, wind- &amp; waterdicht",
+          short: "Casco oplevering",
+        },
+        {
+          title: "Kozijnen",
+          detail: "ramen en deuren in de schil (type kies je in de calculator)",
+          short: "Kozijnen",
+        },
+        {
+          title: "Isoleren",
+          detail: "schilisolatie volgens de afgesproken eisen",
+          short: "Waterdicht + isoleren",
+        },
+        {
+          title: "Waterdicht maken",
+          detail: "dak, aansluitingen en dichting tegen weer",
+        },
+        {
+          title: "Stroom aangelegd",
+          detail: "elektra aangebracht tot casco-niveau",
+          short: "Stroom aangelegd",
+        },
+        {
+          title: "Hijskraan",
+          detail: "hijswerk meegenomen waar nodig",
+          short: "Hijskraan",
+        },
+        {
+          title: "Fundering / heipalen (indicatief)",
+          detail: "meegenomen in de bandbreedte; definitief na check van de grond",
+        },
+      ],
+      exclude: [
+        {
+          title: "Geen gestucte binnenafwerking",
+          detail: "wanden en plafonds blijven ongestuct",
+          short: "Geen stucwerk binnen",
+        },
+        {
+          title: "Geen vloeren",
+          detail: "geen dekvloer-afwerking of vloerbedekking",
+          short: "Geen vloeren / keuken",
+        },
+        {
+          title: "Geen keuken of sanitair",
+          detail: "inbouw en afwerking doe jij apart",
+        },
+        {
+          title: "Geen schilderwerk binnen",
+          detail: "binnen schilderen en lakwerk niet inbegrepen",
+        },
+        {
+          title: "Geen complete interieurafwerking",
+          detail: "geen turn-key woonklare afbouw",
+          short: "Geen complete afbouw",
+        },
+      ],
+    },
+  };
+
   const totalSteps = 6;
 
   const els = {
@@ -446,30 +865,94 @@
     updateScopeCopy();
   }
 
-  function updateScopeCopy() {
-    const lead = document.querySelector("[data-scope-lead]");
-    const moreEls = document.querySelectorAll("[data-scope-more]");
-    const type = state.type;
-    if (!lead) return;
-
-    const hideMore = type === "dakterras";
-
-    if (type === "dakterras") {
-      lead.innerHTML =
-        "<strong>Indicatie dakterras:</strong> constructie/versterking, waterdichting, dek, hekwerk en toegang zoals gekozen. Definitief na check draagkracht op locatie.";
-    } else if (type === "dakkapel") {
-      lead.innerHTML =
-        "<strong>Indicatie dakkapel:</strong> casco-plaatsing incl. dakwerk, isolatie en kozijnen volgens je keuzes. Geen complete binnenafbouw tenzij afgesproken.";
-    } else if (type === "bijhuisje") {
-      lead.innerHTML =
-        "<strong>Casco bijhuisje:</strong> wind- &amp; waterdicht, geïsoleerd, met kozijnen — zelfde basis als een aanbouw. Geen binnenafwerking.";
-    } else {
-      lead.innerHTML =
-        "<strong>Casco:</strong> wind- &amp; waterdicht, geïsoleerd, met kozijnen. Geen binnenafwerking.";
+  function scopeMark(kind, size) {
+    const s = size || 18;
+    if (kind === "in") {
+      return `<span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="${s}" height="${s}"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
     }
-    moreEls.forEach((el) => {
-      el.hidden = hideMore;
-    });
+    return `<span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="${s}" height="${s}"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>`;
+  }
+
+  function scopeItemHtml(item, kind, size) {
+    const mark = scopeMark(kind, size);
+    if (item.detail) {
+      return `<li>${mark}<span><strong>${item.title}</strong> — ${item.detail}</span></li>`;
+    }
+    return `<li>${mark}<span>${item.title}</span></li>`;
+  }
+
+  function scopeShortHtml(item, kind) {
+    const label = item.short || item.title;
+    return `<li>${scopeMark(kind, 16)}${label}</li>`;
+  }
+
+  function getScopeData(type) {
+    const key = type && includesByType[type] ? type : "aanbouw";
+    return { key, data: includesByType[key] };
+  }
+
+  function updateScopeCopy() {
+    const { key, data } = getScopeData(state.type);
+    if (!data) return;
+
+    const lead = document.querySelector("[data-scope-lead]");
+    if (lead) lead.innerHTML = data.lead;
+
+    const compactIn = document.querySelector("[data-scope-compact-in]");
+    const compactOut = document.querySelector("[data-scope-compact-out]");
+    if (compactIn) {
+      compactIn.innerHTML = data.include
+        .filter((item) => item.short)
+        .map((item) => scopeShortHtml(item, "in"))
+        .join("");
+    }
+    if (compactOut) {
+      compactOut.innerHTML = data.exclude
+        .filter((item) => item.short)
+        .map((item) => scopeShortHtml(item, "out"))
+        .join("");
+    }
+
+    const typeLabel = document.querySelector("[data-scope-type-label]");
+    const forLine = document.querySelector("[data-scope-for]");
+    if (typeLabel) typeLabel.textContent = data.label;
+    if (forLine) {
+      forLine.hidden = false;
+      const isDefault = !state.type;
+      forLine.classList.toggle("is-default", isDefault);
+      forLine.innerHTML = isDefault
+        ? `Standaard getoond: <strong data-scope-type-label>${data.label}</strong>`
+        : `Voor jouw keuze: <strong data-scope-type-label>${data.label}</strong>`;
+    }
+
+    const intro = document.querySelector("[data-scope-intro]");
+    if (intro) intro.innerHTML = data.intro;
+
+    const inLead = document.querySelector("[data-scope-in-lead]");
+    const outLead = document.querySelector("[data-scope-out-lead]");
+    if (inLead) inLead.textContent = data.inLead;
+    if (outLead) outLead.textContent = data.outLead;
+
+    const inList = document.querySelector("[data-scope-in-list]");
+    const outList = document.querySelector("[data-scope-out-list]");
+    if (inList) {
+      inList.innerHTML = data.include.map((item) => scopeItemHtml(item, "in", 18)).join("");
+    }
+    if (outList) {
+      outList.innerHTML = data.exclude.map((item) => scopeItemHtml(item, "out", 18)).join("");
+    }
+
+    const foot = document.querySelector("[data-scope-foot]");
+    if (foot) foot.textContent = data.foot;
+
+    const section = document.querySelector("[data-scope-section]");
+    if (section) {
+      section.dataset.scopeType = key;
+      section.classList.remove("is-scope-updating");
+      // Force reflow so CSS transition can replay
+      void section.offsetWidth;
+      section.classList.add("is-scope-updating");
+    }
   }
 
   function applyTypeDefaults(type) {

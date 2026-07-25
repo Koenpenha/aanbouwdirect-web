@@ -933,6 +933,36 @@ input[type="range"]::-moz-range-thumb {
 }
 .scope-compact-more a:hover { text-decoration: underline; }
 
+.scope-for-choice {
+  margin: -0.35rem 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ad-teal-dark);
+  letter-spacing: -0.01em;
+}
+.scope-for-choice.is-default {
+  color: var(--ad-stone);
+  font-weight: 500;
+}
+.scope-for-choice strong {
+  color: inherit;
+  font-weight: 700;
+}
+#wat-zit-erbij .scope-grid {
+  transition: opacity 0.22s ease;
+}
+#wat-zit-erbij.is-scope-updating .scope-grid {
+  animation: scope-fade 0.35s ease;
+}
+@keyframes scope-fade {
+  from { opacity: 0.55; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #wat-zit-erbij.is-scope-updating .scope-grid { animation: none; }
+}
+
 .scope-grid {
   display: grid;
   gap: 1.25rem;
