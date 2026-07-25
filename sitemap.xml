@@ -1,49 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://koenpenha.github.io/aanbouwdirect-web/</loc>
+    <loc>https://aanbouw.direct/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://koenpenha.github.io/aanbouwdirect-web/kennisbank/</loc>
+    <loc>https://aanbouw.direct/kennisbank/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://koenpenha.github.io/aanbouwdirect-web/blog/</loc>
+    <loc>https://aanbouw.direct/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://koenpenha.github.io/aanbouwdirect-web/blog/aanbouw-aalsmeer.html</loc>
+    <loc>https://aanbouw.direct/blog/aanbouw-aalsmeer.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://koenpenha.github.io/aanbouwdirect-web/blog/aanbouw-amstelveen.html</loc>
+    <loc>https://aanbouw.direct/blog/aanbouw-amstelveen.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://koenpenha.github.io/aanbouwdirect-web/blog/aanbouw-hoofddorp.html</loc>
+    <loc>https://aanbouw.direct/blog/aanbouw-hoofddorp.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://koenpenha.github.io/aanbouwdirect-web/blog/aanbouw-kudelstaart.html</loc>
+    <loc>https://aanbouw.direct/blog/aanbouw-kudelstaart.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://koenpenha.github.io/aanbouwdirect-web/blog/aanbouw-nieuw-vennep.html</loc>
+    <loc>https://aanbouw.direct/blog/aanbouw-nieuw-vennep.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://koenpenha.github.io/aanbouwdirect-web/blog/aanbouw-uithoorn.html</loc>
+    <loc>https://aanbouw.direct/blog/aanbouw-uithoorn.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aanbouw.direct/blog/kosten-aanbouw.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aanbouw.direct/blog/uitbouw-kosten.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://aanbouw.direct/privacy.html</loc>

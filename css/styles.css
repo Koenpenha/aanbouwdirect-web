@@ -1580,6 +1580,57 @@ input[type="range"]::-moz-range-thumb {
   text-transform: uppercase;
   color: var(--ad-teal-dark);
 }
+.contact-social {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.55rem;
+  font-size: 0.98rem;
+  color: var(--ad-stone);
+  line-height: 1.45;
+}
+.contact-social a {
+  color: var(--ad-teal);
+  text-decoration: none;
+  font-weight: 600;
+}
+.contact-social a:hover {
+  color: var(--ad-teal-dark);
+}
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  vertical-align: middle;
+  line-height: 0;
+  color: inherit;
+  text-decoration: none;
+}
+.social-icon__svg {
+  display: block;
+  flex-shrink: 0;
+}
+.social-icon:hover {
+  color: var(--ad-white);
+}
+.contact-social .social-icon {
+  color: var(--ad-teal);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.contact-social .social-icon:hover {
+  color: var(--ad-teal-dark);
+  text-decoration: none;
+}
+.site-footer .social-icon {
+  color: var(--ad-sand);
+  padding: 0.15rem;
+  margin: -0.15rem 0;
+}
+.site-footer .social-icon:hover {
+  color: var(--ad-orange);
+}
 @media (min-width: 640px) {
   .contact-panel { gap: 1.75rem; }
   .contact-actions {

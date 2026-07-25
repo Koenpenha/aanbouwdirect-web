@@ -19,11 +19,12 @@ Hub: `https://koenpenha.github.io/aanbouwdirect-web/kennisbank/`
 
 ## Nieuwe post
 
-Volg `marketing/BLOG-AUTOMATION.md` (queue in `marketing/QUEUE.csv`). Kort:
+Volg `marketing/HOE-HET-WERKT.md` + `marketing/BLOG-AUTOMATION.md` (queue: `marketing/QUEUE.csv`). Kort:
 
-1. Pak volgende `idee` uit de queue.
-2. Kopieer een bestaande post als template.
-3. Voeg toe aan `blog/index.html` + `kennisbank/index.html` (juiste categorie).
+1. Pak volgende `idee` uit de queue (`type`: blog of gemeente).
+2. Gemeente → `marketing/TEMPLATE-GEMEENTE.md` + kopieer bv. `aanbouw-aalsmeer.html`.
+3. Voeg **live** items toe aan `kennisbank/index.html` (juiste categorie); optioneel `blog/index.html`.
 4. Update `sitemap.xml` en queue-status → `live`.
+5. Homepage niet volgooien met alle gemeenten.
 
 **Breek geen bestaande `/blog/…` URL’s** zonder redirect.
