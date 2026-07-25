@@ -66,10 +66,13 @@
         </div>
         <h1>Waarom verhuizen als je kan uitbouwen?</h1>
         <p class="lead">Stel je plan samen en zie meteen wat het ongeveer kost. Daarna plannen we een afspraak voor de definitieve offerte.</p>
-        <div class="btn-group">
-          <a class="btn btn-primary" href="#calculator">Direct een prijsindicatie</a>
-          <a class="btn btn-ghost" href="tel:+31232052483">Bel 023 205 2483</a>
-          <a class="btn btn-ghost" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+        <div class="hero-cta">
+          <a class="btn btn-primary hero-cta-primary" href="#calculator">Direct een prijsindicatie</a>
+          <div class="hero-contact-row" role="group" aria-label="Direct contact">
+            <a class="btn btn-ghost" href="tel:+31232052483" aria-label="Bel 023 205 2483">Bel</a>
+            <a class="btn btn-ghost" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn-ghost" href="mailto:info@maatkozijndirect.nl?subject=Vraag%20over%20aanbouw%20%2F%20uitbouw" aria-label="Mail ons">Mail</a>
+          </div>
         </div>
       </div>
     </section>
@@ -309,8 +312,11 @@
                 <p class="lead-form-status" data-lead-status hidden role="alert"></p>
                 <div class="lead-fallback-actions" data-lead-fallback-actions hidden>
                   <a class="btn btn-primary" data-lead-mailto href="#">Stuur via e-mail</a>
-                  <a class="btn btn-teal" href="tel:+31232052483">Bel 023 205 2483</a>
-                  <a class="btn btn-teal" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+                  <div class="thank-contact-row" role="group" aria-label="Direct contact">
+                    <a class="btn btn-teal" href="tel:+31232052483" aria-label="Bel 023 205 2483">Bel</a>
+                    <a class="btn btn-teal" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+                    <a class="btn btn-teal" href="mailto:info@maatkozijndirect.nl?subject=Vraag%20over%20aanbouw%20%2F%20uitbouw" aria-label="Mail ons">Mail</a>
+                  </div>
                 </div>
                 <div class="calc-nav">
                   <button type="button" class="btn btn-teal" data-prev="5">Terug</button>
@@ -328,13 +334,16 @@
                 <span data-thank-summary></span>
               </div>
               <div class="thank-fallback" data-thank-fallback hidden>
-                <p class="note">Lukt het online formulier niet? Stuur je aanvraag via e-mail — project en prijsindicatie staan al in de mail. Of bel ons.</p>
+                <p class="note">Online versturen lukte niet. Stuur je aanvraag via e-mail (project + prijs staan al ingevuld), of bel / WhatsApp ons. Check daarna je inbox — we nemen contact op.</p>
               </div>
-              <div class="calc-nav">
+              <div class="calc-nav thank-nav">
                 <a class="btn btn-primary" data-mailto-lead hidden href="#">Stuur aanvraag via e-mail</a>
                 <a class="btn btn-primary" data-mailto-indicatie href="#">Mail mezelf de indicatie</a>
-                <a class="btn btn-teal" href="tel:+31232052483">Bel 023 205 2483</a>
-                <a class="btn btn-teal" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+                <div class="thank-contact-row" role="group" aria-label="Direct contact">
+                  <a class="btn btn-teal" href="tel:+31232052483" aria-label="Bel 023 205 2483">Bel</a>
+                  <a class="btn btn-teal" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+                  <a class="btn btn-teal" href="mailto:info@maatkozijndirect.nl?subject=Vraag%20over%20aanbouw%20%2F%20uitbouw" aria-label="Mail ons">Mail</a>
+                </div>
                 <button type="button" class="btn btn-teal" data-next="1">Nieuwe berekening</button>
               </div>
             </div>
@@ -726,8 +735,9 @@
           <h2>Contact</h2>
           <p class="lead">Vragen over een uitbouw, verbouwing of maatwerkklus? Bel, WhatsApp of mail — we denken graag mee.</p>
           <div class="contact-block">
-            <p>Bel of WhatsApp: <a href="tel:+31232052483">023 205 2483</a></p>
-            <p><a href="mailto:info@aanbouw-direct.nl">info@aanbouw-direct.nl</a></p>
+            <p>Bel: <a href="tel:+31232052483">023 205 2483</a></p>
+            <p>WhatsApp: <a href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">023 205 2483</a></p>
+            <p>Mail: <a href="mailto:info@aanbouw-direct.nl">info@aanbouw-direct.nl</a></p>
           </div>
           <ul class="contact-meta">
             <li>Oosteindeweg 21</li>
@@ -736,11 +746,14 @@
         </div>
         <div class="reveal">
           <h3>Liever meteen starten?</h3>
-          <p>Direct een prijsindicatie via de samensteller, of bel / WhatsApp ons voor een afspraak.</p>
-          <div class="btn-group">
-            <a class="btn btn-primary" href="#calculator">Direct een prijsindicatie</a>
-            <a class="btn btn-teal" href="tel:+31232052483">Bel 023 205 2483</a>
-            <a class="btn btn-teal" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+          <p>Direct een prijsindicatie via de samensteller, of bel / WhatsApp / mail ons voor een afspraak.</p>
+          <div class="contact-cta">
+            <a class="btn btn-primary contact-cta-primary" href="#calculator">Direct een prijsindicatie</a>
+            <div class="contact-row" role="group" aria-label="Direct contact">
+              <a class="btn btn-teal" href="tel:+31232052483" aria-label="Bel 023 205 2483">Bel</a>
+              <a class="btn btn-teal" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+              <a class="btn btn-teal" href="mailto:info@maatkozijndirect.nl?subject=Vraag%20over%20aanbouw%20%2F%20uitbouw" aria-label="Mail ons">Mail</a>
+            </div>
           </div>
         </div>
       </div>
@@ -762,7 +775,11 @@
         <a href="#contact">Contact</a>
       </nav>
       <p>© 2026 Aanbouw-direct.nl · Aalsmeer</p>
-      <p><a href="mailto:info@aanbouw-direct.nl">info@aanbouw-direct.nl</a> · <a href="tel:+31232052483">023 205 2483</a></p>
+      <p>
+        <a href="mailto:info@aanbouw-direct.nl">info@aanbouw-direct.nl</a>
+        · <a href="tel:+31232052483">023 205 2483</a>
+        · <a href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+      </p>
     </div>
   </footer>
 

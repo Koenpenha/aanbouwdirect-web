@@ -122,6 +122,121 @@ p.lead {
   .btn-group .btn { width: auto; }
 }
 
+/* Hero CTA: primaire knop + gelijke rij Bel | WhatsApp | Mail */
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 28rem;
+}
+.hero-cta-primary {
+  width: 100%;
+  box-sizing: border-box;
+}
+.hero-contact-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  width: 100%;
+}
+.hero-contact-row .btn {
+  width: 100%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  padding-inline: 0.45rem;
+  font-size: 0.95rem;
+}
+@media (min-width: 640px) {
+  .hero-cta {
+    max-width: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+  .hero-cta-primary {
+    width: auto;
+    flex: 0 1 auto;
+    min-width: 14rem;
+  }
+  .hero-contact-row {
+    flex: 1 1 16rem;
+    max-width: 22rem;
+  }
+}
+
+/* Contact CTA —zelfde structuur, teal secundair */
+.contact-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 28rem;
+}
+.contact-cta-primary { width: 100%; box-sizing: border-box; }
+.contact-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  width: 100%;
+}
+.contact-row .btn {
+  width: 100%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  padding-inline: 0.45rem;
+  font-size: 0.95rem;
+}
+@media (min-width: 640px) {
+  .contact-cta {
+    max-width: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+  .contact-cta-primary {
+    width: auto;
+    flex: 0 1 auto;
+    min-width: 14rem;
+  }
+  .contact-row {
+    flex: 1 1 16rem;
+    max-width: 22rem;
+  }
+}
+
+.thank-contact-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  width: 100%;
+}
+.thank-contact-row .btn {
+  width: 100%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  padding-inline: 0.45rem;
+}
+.thank-nav {
+  flex-wrap: wrap;
+}
+.thank-nav > .btn,
+.thank-nav > .thank-contact-row {
+  flex: 1 1 100%;
+}
+@media (min-width: 560px) {
+  .thank-nav > .btn[data-mailto-indicatie],
+  .thank-nav > .btn[data-mailto-lead] {
+    flex: 1 1 auto;
+    width: auto;
+  }
+  .thank-contact-row {
+    flex: 1 1 16rem;
+    max-width: 22rem;
+  }
+}
+
 /* —— Logo (mark + wordmark, no white badge) —— */
 .logo-link {
   display: inline-flex;
@@ -405,14 +520,15 @@ p.lead {
     padding-top: 2.75rem;
     padding-bottom: 2.75rem;
   }
-  .hero .btn-group {
+  .hero-cta {
     width: 100%;
     max-width: 100%;
   }
-  .hero .btn-group .btn {
+  .hero-cta-primary {
     width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+  }
+  .hero-contact-row {
+    width: 100%;
   }
   .section-head {
     padding-inline: 0;
@@ -432,6 +548,9 @@ p.lead {
   .calc-nav .btn {
     width: 100%;
     box-sizing: border-box;
+  }
+  .thank-contact-row .btn {
+    width: 100%;
   }
 }
 

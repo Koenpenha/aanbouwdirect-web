@@ -589,7 +589,7 @@
         }
 
         fillThankYou({
-          note: `We hebben je aanvraag ontvangen. Je krijgt zo een mail op ${data.email} met je prijsindicatie (${prijs}). Wij nemen zo snel mogelijk contact op — bel ${PHONE_DISPLAY} of WhatsApp ons.`,
+          note: `We hebben je aanvraag ontvangen. Check je mail op ${data.email} voor je prijsindicatie (${prijs}). Wij nemen zo snel mogelijk contact op — bel ${PHONE_DISPLAY}, WhatsApp, of mail ons.`,
           low,
           high,
           summary,
@@ -603,8 +603,8 @@
         console.error(err);
         const isActivation = err && err.message === "FORMSUBMIT_ACTIVATION";
         const statusMsg = isActivation
-          ? `Online versturen lukt nog niet (FormSubmit moet eenmalig geactiveerd worden). Je aanvraag gaat niet verloren: stuur hem nu via e-mail — project en prijs staan al ingevuld. Of bel / WhatsApp ${PHONE_DISPLAY}.`
-          : `Versturen via het formulier lukte niet. Stuur je aanvraag nu via e-mail (project + prijs staan al klaar), of bel / WhatsApp ${PHONE_DISPLAY}.`;
+          ? `Online versturen lukt nog niet. Je aanvraag gaat niet verloren: stuur hem nu via e-mail — project en prijs staan al ingevuld. Of bel / WhatsApp / Mail. Daarna: check je inbox; we nemen contact op.`
+          : `Versturen via het formulier lukte niet. Stuur je aanvraag nu via e-mail (project + prijs staan al klaar), of bel / WhatsApp / Mail ${PHONE_DISPLAY}.`;
 
         showLeadStatus(statusMsg, "error");
 
