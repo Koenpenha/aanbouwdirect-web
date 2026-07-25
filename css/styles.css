@@ -1216,6 +1216,41 @@ input[type="range"]::-moz-range-thumb {
 .review-form-status.is-success { color: var(--ad-success); }
 .review-form-status.is-error { color: var(--ad-error); }
 
+.lead-form-status {
+  margin: 0.35rem 0 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.lead-form-status.is-error { color: var(--ad-error); }
+.lead-form-status.is-success { color: var(--ad-success); }
+.lead-fallback-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 0 0 1rem;
+}
+.thank-fallback {
+  margin: 0 0 1rem;
+  padding: 0.9rem 1rem;
+  background: var(--ad-sand);
+  border-radius: var(--radius);
+}
+.thank-fallback .note { margin: 0; color: var(--ad-graphite); }
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+  width: 100%;
+}
+.footer-nav a {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
 /* FAQ */
 .faq { display: grid; gap: 0; border-top: 1px solid rgba(28,36,40,0.12); }
 .faq details {
