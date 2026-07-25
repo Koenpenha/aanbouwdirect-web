@@ -6,6 +6,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://koenpenha.github.io/aanbouwdirect-web/kennisbank/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://koenpenha.github.io/aanbouwdirect-web/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
