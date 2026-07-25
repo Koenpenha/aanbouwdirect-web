@@ -406,43 +406,49 @@
     btn.addEventListener("click", () => setStep(Number(btn.dataset.prev)));
   });
 
-  const LEAD_EMAIL = "info@maatkozijndirect.nl";
-  const PHONE_DISPLAY = "023 205 2483";
+  const emailCfg = window.AANBOUW_EMAIL || {};
+  const LEAD_EMAIL = emailCfg.leadEmail || "info@maatkozijndirect.nl";
+  const PHONE_DISPLAY = emailCfg.phoneDisplay || "023 205 2483";
+  const CustomerMail = window.AanbouwCustomerMail;
 
-  function buildCustomerEmail({ naam, low, high }) {
-    const firstName = (naam || "").trim().split(/\s+/)[0] || "daar";
-    const summary = buildSummaryParts().join(" · ");
-    return [
-      `Hoi ${firstName},`,
+  function buildCustomerMessages({ naam, low, high }) {
+    const summaryLines = buildSummaryParts();
+    const lowLabel = formatEuro(low);
+    const highLabel = formatEuro(high);
+    if (CustomerMail) {
+      return {
+        summaryLines,
+        plain: CustomerMail.buildPlain({ naam, summaryLines, lowLabel, highLabel }),
+        html: CustomerMail.buildHtml({ naam, summaryLines, lowLabel, highLabel }),
+        lowLabel,
+        highLabel,
+      };
+    }
+    // Fallback als customer-mail.js niet geladen is
+    const plain = [
+      `Hoi ${(naam || "").trim().split(/\s+/)[0] || "daar"},`,
       ``,
-      `Bedankt voor je aanvraag via Aanbouwdirect. Hieronder je projectsamenvatting en prijsindicatie.`,
+      `Bedankt voor je aanvraag via Aanbouw-direct. We hebben je gegevens ontvangen en nemen zo snel mogelijk contact met je op.`,
       ``,
-      `Jouw samenstelling`,
-      summary,
+      `Jouw indicatie: ${lowLabel} – ${highLabel}`,
       ``,
-      `Prijsindicatie (casco)`,
-      `${formatEuro(low)} – ${formatEuro(high)}`,
+      `Jouw keuzes`,
+      summaryLines.map((line) => `· ${line}`).join("\n"),
       ``,
-      `Wat is casco?`,
-      `Wel: wind- & waterdicht, geïsoleerd, met kozijnen, hijskraan waar nodig, stroom tot casco-niveau.`,
-      `Niet: interieurafbouw (stucwerk binnen, vloeren, keuken, schilderwerk binnen).`,
+      `Dit is een goede richting op basis van wat je hebt ingevuld. De definitieve prijs leggen we samen vast op locatie — na een afspraak.`,
       ``,
-      `Dit is een indicatie op basis van jouw keuzes — geen definitieve offerte. Die maken we na een afspraak op locatie.`,
-      ``,
-      `Volgende stap`,
-      `We bellen of mailen je zo snel mogelijk om een afspraak in te plannen.`,
       `Liever zelf bellen of WhatsAppen? ${PHONE_DISPLAY}.`,
       ``,
       `Groet,`,
-      `Aanbouwdirect`,
+      `Aanbouw-direct`,
       PHONE_DISPLAY,
-      `Oosteindeweg 21, 1432 AC Aalsmeer`,
     ].join("\n");
+    return { summaryLines, plain, html: "", lowLabel, highLabel };
   }
 
   function buildLeadMailto({ data, summary, low, high, area }) {
     const prijs = `${formatEuro(low)} – ${formatEuro(high)}`;
-    const subject = `Calculator-aanvraag Aanbouwdirect — ${data.naam || "nieuwe lead"}`;
+    const subject = `Calculator-aanvraag Aanbouw-direct — ${data.naam || "nieuwe lead"}`;
     const body = [
       `Nieuwe calculator-aanvraag (via mailto-fallback)`,
       ``,
@@ -462,9 +468,25 @@
   }
 
   function buildSelfMailto({ email, low, high, naam }) {
-    const autoresponse = buildCustomerEmail({ naam: naam || "daar", low, high });
+    const { plain } = buildCustomerMessages({ naam: naam || "daar", low, high });
     const to = email ? encodeURIComponent(email) : "";
-    return `mailto:${to}?subject=${encodeURIComponent("Jouw prijsindicatie Aanbouwdirect")}&body=${encodeURIComponent(autoresponse)}`;
+    return `mailto:${to}?subject=${encodeURIComponent("Je prijsindicatie van Aanbouw-direct")}&body=${encodeURIComponent(plain)}`;
+  }
+
+  async function sendCustomerMail({ email, naam, low, high }) {
+    const messages = buildCustomerMessages({ naam, low, high });
+    if (!CustomerMail || !CustomerMail.isEmailjsReady()) {
+      return { ok: false, skipped: true, plain: messages.plain, via: "formsubmit-autoresponse" };
+    }
+    const result = await CustomerMail.sendViaEmailjs({
+      toEmail: email,
+      naam,
+      htmlBody: messages.html,
+      plainBody: messages.plain,
+      lowLabel: messages.lowLabel,
+      highLabel: messages.highLabel,
+    });
+    return { ...result, plain: messages.plain };
   }
 
   function showLeadStatus(msg, type) {
@@ -571,11 +593,8 @@
       const summary = buildSummaryParts().join(" · ");
       const prijs = `${formatEuro(low)} – ${formatEuro(high)}`;
       const mailtoHref = buildLeadMailto({ data, summary, low, high, area });
-      const autoresponse = buildCustomerEmail({
-        naam: data.naam,
-        low,
-        high,
-      });
+      const messages = buildCustomerMessages({ naam: data.naam, low, high });
+      const autoresponse = messages.plain;
 
       // Hidden fields (legacy Netlify / debugging)
       const projectField = els.form.elements.namedItem("project");
@@ -591,30 +610,56 @@
       }
 
       try {
-        const res = await fetch(`https://formsubmit.co/ajax/${LEAD_EMAIL}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            naam: data.naam,
-            email: data.email,
-            telefoon: data.telefoon,
-            postcode: data.postcode,
-            toelichting: data.toelichting || "-",
-            project: summary,
-            oppervlakte_m2: `${area} m²`,
-            prijsindicatie: prijs,
-            _subject: `Nieuwe calculator-aanvraag — ${data.naam}`,
-            _template: "table",
-            _captcha: "false",
-            _autoresponse: autoresponse,
-            _replyto: data.email,
-          }),
-        });
+        const emailjsReady = CustomerMail && CustomerMail.isEmailjsReady();
 
-        const payload = await res.json().catch(() => ({}));
+        // Parallel: lead naar bedrijf (FormSubmit) + HTML-klantmail (EmailJS indien geconfigureerd)
+        const formPayload = {
+          naam: data.naam,
+          email: data.email,
+          telefoon: data.telefoon,
+          postcode: data.postcode,
+          toelichting: data.toelichting || "-",
+          project: summary,
+          oppervlakte_m2: `${area} m²`,
+          jouw_indicatie: prijs,
+          let_op:
+            "Dit is een goede richting op basis van je keuzes. De definitieve prijs leggen we samen vast op locatie (na afspraak).",
+          prijsindicatie: prijs,
+          _subject: `Aanbouw-direct: aanvraag + prijsindicatie — ${data.naam}`,
+          _template: "table",
+          _captcha: "false",
+          // Best-effort plain autoresponse (FormSubmit: vaak uitgeschakeld bij AJAX + captcha uit)
+          _autoresponse: autoresponse,
+          _replyto: data.email,
+        };
+
+        // Zonder EmailJS: CC naar klant zodat zij wél een mail met de indicatie ontvangen
+        // (FormSubmit-tabel, niet huisstijl-HTML). Met EmailJS: geen CC (dubbele mail vermijden).
+        if (!emailjsReady) {
+          formPayload._cc = data.email;
+        }
+
+        const [leadResult, customerResult] = await Promise.all([
+          fetch(`https://formsubmit.co/ajax/${LEAD_EMAIL}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(formPayload),
+          }).then(async (res) => {
+            const payload = await res.json().catch(() => ({}));
+            return { res, payload };
+          }),
+          sendCustomerMail({
+            email: data.email,
+            naam: data.naam,
+            low,
+            high,
+          }),
+        ]);
+
+        const { res, payload } = leadResult;
         const ok =
           res.ok &&
           payload.success !== false &&
@@ -628,8 +673,13 @@
           throw new Error(msg || `Form submit failed (${res.status})`);
         }
 
+        const gotBrandedMail = customerResult && customerResult.ok;
+        const mailHint = gotBrandedMail
+          ? `Check je mail op ${data.email} voor je prijsindicatie (${prijs}).`
+          : `Check je mail op ${data.email} — je ontvangt een bevestiging met je prijsindicatie (${prijs}). Staat die er niet in, gebruik dan “Mail mezelf de indicatie”.`;
+
         fillThankYou({
-          note: `We hebben je aanvraag ontvangen. Check je mail op ${data.email} voor je prijsindicatie (${prijs}). Wij nemen zo snel mogelijk contact op — bel ${PHONE_DISPLAY}, WhatsApp, of mail ons.`,
+          note: `We hebben je aanvraag ontvangen. ${mailHint} Wij nemen zo snel mogelijk contact op — bel ${PHONE_DISPLAY}, WhatsApp, of mail ons.`,
           low,
           high,
           summary,
