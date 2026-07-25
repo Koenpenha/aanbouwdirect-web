@@ -23,17 +23,31 @@
    * Interne basis €/m² (niet tonen in UI).
    * Bronnen (richtprijzen NL, relative — geen garantie):
    * - Aanbouw / bijhuisje ~€2800 (bestaande bedrijfsrichtlijn)
-   * - Dakterras ~€750–1250/m² all-in (ConstructieShop, Verbouwkosten) → mid 900
-   * - Dakkapel ~€6500–12000 bij 2,5–5 m breed (Homedeal, Dakkapel-kosten.nl)
-   *   → footprint-rate ~€1600/m² (bijv. 3×2 = €9600)
+   * - Dakterras ~€750–1250/m² all-in → basis 720 (~20% onder oude 900)
+   * - Dakkapel: breedte-tabel kunststof/hout (incl. plaatsing), zie dakkapelBaseByWidth
    */
   const rates = {
     aanbouw: 2800,
     nok: 2200,
     dakopbouw: 3000,
-    dakterras: 900,
-    dakkapel: 1600,
+    dakterras: 720,
     bijhuisje: 2800, // zelfde basis als aanbouw (tuinhuis / bijgebouw)
+  };
+
+  // Dakkapel ijkpunten breedte × materiaal (incl. plaatsing) — interpolatie daartussen
+  const dakkapelBaseByWidth = {
+    kunststof: [
+      { w: 3, p: 7000 },
+      { w: 4, p: 7700 },
+      { w: 5, p: 8500 },
+      { w: 6, p: 9800 },
+    ],
+    hout: [
+      { w: 3, p: 8500 },
+      { w: 4, p: 9300 },
+      { w: 5, p: 9800 },
+      { w: 6, p: 11800 },
+    ],
   };
 
   // Casco-flow: gevel → kozijn → isolatie (+ heipalen bij aanbouw/bijhuisje)
@@ -90,11 +104,12 @@
       lessenaar: 1.08,
       zadel: 1.15,
     },
-    // Dakkapel materiaal: kunststof scherpst, hout +, zink/polyester premium
-    dakkapelMateriaal: {
+    // Dakkapel kozijn: lichte fine-tune (hoofdprijs zit in breedte + materiaal)
+    dakkapelKozijn: {
       kunststof: 1.0,
-      hout: 1.12,
-      zink: 1.22,
+      aluminium: 1.04,
+      hout: 1.05,
+      houtalu: 1.07,
     },
   };
 
@@ -156,8 +171,8 @@
     aanbouw: { width: 4, depth: 3, height: 2.8 },
     nok: { width: 6, depth: 8, height: 2.8 },
     dakopbouw: { width: 6, depth: 4, height: 2.6 },
-    dakterras: { width: 4, depth: 4, height: 2.8 },
-    dakkapel: { width: 3, depth: 1.5, height: 2.5 },
+    dakterras: { width: 4, depth: 5, height: 2.8 },
+    dakkapel: { width: 3, depth: 1.5, height: 1.5 },
     bijhuisje: { width: 4, depth: 3, height: 2.6 },
   };
 
@@ -196,18 +211,99 @@
   }
 
   function usesHeight(type) {
-    return type !== "dakterras" && type !== "dakkapel";
+    // Dakterras: alleen breedte × diepte. Dakkapel: wel hoogte van de kapel (min 1 m).
+    return type !== "dakterras";
   }
 
   function m2() {
     return Math.round(state.width * state.depth * 10) / 10;
   }
 
+  function interpolateWidthPrice(table, width) {
+    const w = Math.max(1.5, Math.min(8, Number(width) || 3));
+    if (w <= table[0].w) {
+      const slope = (table[1].p - table[0].p) / (table[1].w - table[0].w);
+      return table[0].p + (w - table[0].w) * slope;
+    }
+    const last = table[table.length - 1];
+    if (w >= last.w) {
+      const prev = table[table.length - 2];
+      const slope = (last.p - prev.p) / (last.w - prev.w);
+      return last.p + (w - last.w) * slope;
+    }
+    for (let i = 0; i < table.length - 1; i++) {
+      const a = table[i];
+      const b = table[i + 1];
+      if (w >= a.w && w <= b.w) {
+        const t = (w - a.w) / (b.w - a.w);
+        return a.p + t * (b.p - a.p);
+      }
+    }
+    return table[0].p;
+  }
+
+  function dakkapelTuneFactor() {
+    // Referentie: diepte 1,5 m · hoogte 1,5 m · plat dak — breedte blijft dominant
+    const depth = Math.max(1, Math.min(2.5, state.depth));
+    const height = Math.max(1, Math.min(2.5, state.height));
+    const depthFactor = 0.94 + ((depth - 1) / 1.5) * 0.1; // ~0.94–1.04
+    const heightFactor = 0.96 + ((height - 1) / 1.5) * 0.08; // ~0.96–1.04
+    const dakvormFactor = state.dakvorm ? multipliers.dakvorm[state.dakvorm] || 1 : 1;
+    const kozijnFactor = state.kozijn
+      ? multipliers.dakkapelKozijn[state.kozijn] || 1
+      : 1;
+    return depthFactor * heightFactor * dakvormFactor * kozijnFactor;
+  }
+
+  function dakkapelMaterialPrices() {
+    const tune = dakkapelTuneFactor();
+    const kunststof = interpolateWidthPrice(dakkapelBaseByWidth.kunststof, state.width) * tune;
+    const hout = interpolateWidthPrice(dakkapelBaseByWidth.hout, state.width) * tune;
+    const zink = hout * 1.1;
+    return { kunststof, hout, zink };
+  }
+
   function estimate() {
     const type = state.type || "aanbouw";
+
+    if (type === "dakkapel") {
+      const prices = dakkapelMaterialPrices();
+      let mid;
+      let low;
+      let high;
+      const mat = state.dakkapelMateriaal;
+      if (mat === "kunststof") {
+        mid = prices.kunststof;
+        // Band blijft kunststof→hout-span voelen (iets smaller rond keuze)
+        low = prices.kunststof * 0.96;
+        high = prices.hout * 0.92;
+        if (high < mid * 1.05) high = mid * 1.08;
+      } else if (mat === "hout") {
+        mid = prices.hout;
+        low = prices.kunststof * 1.02;
+        high = prices.hout * 1.06;
+        if (low > mid * 0.95) low = mid * 0.92;
+      } else if (mat === "zink") {
+        mid = prices.zink;
+        low = prices.hout * 0.98;
+        high = prices.zink * 1.08;
+      } else {
+        // Geen materiaal: toon kunststof → hout als live range
+        mid = (prices.kunststof + prices.hout) / 2;
+        low = prices.kunststof;
+        high = prices.hout;
+      }
+      mid = Math.round(mid / 100) * 100;
+      low = Math.round(low / 100) * 100;
+      high = Math.round(high / 100) * 100;
+      if (high < mid) high = mid;
+      if (low > mid) low = mid;
+      return { low, high, mid, m2: m2() };
+    }
+
     let mid = rates[type] * m2();
 
-    if (usesHeight(type)) {
+    if (usesHeight(type) && type !== "dakkapel") {
       if (state.height >= 3.0) mid *= 1.06;
       else if (state.height >= 2.8) mid *= 1.03;
     }
@@ -223,10 +319,6 @@
       if (state.toegang) mid *= multipliers.toegang[state.toegang] || 1;
       if (state.hekwerk) mid *= multipliers.hekwerk[state.hekwerk] || 1;
       if (state.dek) mid *= multipliers.dek[state.dek] || 1;
-    } else if (type === "dakkapel") {
-      if (state.dakvorm) mid *= multipliers.dakvorm[state.dakvorm] || 1;
-      if (state.dakkapelMateriaal) mid *= multipliers.dakkapelMateriaal[state.dakkapelMateriaal] || 1;
-      if (state.kozijn) mid *= multipliers.kozijn[state.kozijn] || 1;
     }
 
     mid = Math.round(mid / 100) * 100;
@@ -249,7 +341,11 @@
     parts.push(`${m2()} m²`);
     parts.push(`${state.width} × ${state.depth} m`);
     if (usesHeight(state.type)) {
-      parts.push(`hoogte ${state.height} m`);
+      if (state.type === "dakkapel") {
+        parts.push(`hoogte kapel ${state.height} m`);
+      } else {
+        parts.push(`hoogte ${state.height} m`);
+      }
     }
 
     const type = state.type;
@@ -294,7 +390,7 @@
           "Breedte × diepte = oppervlakte van je dakterras. Metrage is verplicht voor de indicatie.";
       } else if (state.type === "dakkapel") {
         els.step2Lead.textContent =
-          "Breedte is het belangrijkst. Diepte is hoe ver de dakkapel uitsteekt (typisch 1–2,5 m).";
+          "Breedte bepaalt de prijs het meest. Diepte = uitsteek; hoogte = stahoogte van de kapel (vanaf 1 m).";
       } else if (state.type === "bijhuisje") {
         els.step2Lead.textContent =
           "Breedte × diepte = vloeroppervlak van je bijhuisje. Hoogte telt mee in comfort én prijs.";
@@ -313,22 +409,38 @@
       else if (state.type === "dakterras") els.depthLabel.textContent = "Diepte";
       else els.depthLabel.textContent = "Diepte (lengte)";
     }
+    const heightLabel = document.querySelector("[data-label-height]");
+    if (heightLabel) {
+      heightLabel.textContent =
+        state.type === "dakkapel" ? "Hoogte van de kapel" : "Hoogte";
+    }
 
     // Slider ranges per type
     const widthInput = document.querySelector("#calc-width");
     const depthInput = document.querySelector("#calc-depth");
+    const heightInput = document.querySelector("#calc-height");
     if (widthInput && depthInput && state.type === "dakkapel") {
       widthInput.min = "1.5";
       widthInput.max = "8";
       depthInput.min = "1";
       depthInput.max = "2.5";
       depthInput.step = "0.25";
+      if (heightInput) {
+        heightInput.min = "1";
+        heightInput.max = "2.5";
+        heightInput.step = "0.1";
+      }
     } else if (widthInput && depthInput) {
       widthInput.min = "2";
       widthInput.max = "12";
       depthInput.min = "2";
       depthInput.max = state.type === "dakterras" ? "12" : "10";
       depthInput.step = "0.5";
+      if (heightInput) {
+        heightInput.min = "2.4";
+        heightInput.max = "3.4";
+        heightInput.step = "0.1";
+      }
     }
 
     updateScopeCopy();
@@ -393,7 +505,11 @@
       if (!state.type) {
         els.vizLabel.textContent = "Kies een type om te starten";
       } else if (usesHeight(state.type)) {
-        els.vizLabel.textContent = `${labels.type[state.type]} · ${m2()} m² · ${state.height} m hoog`;
+        const heightBit =
+          state.type === "dakkapel"
+            ? `${state.height} m hoog (kapel)`
+            : `${state.height} m hoog`;
+        els.vizLabel.textContent = `${labels.type[state.type]} · ${m2()} m² · ${heightBit}`;
       } else {
         els.vizLabel.textContent = `${labels.type[state.type]} · ${m2()} m² · ${state.width} × ${state.depth} m`;
       }
@@ -543,8 +659,9 @@
       const baseW = 110;
       const wFactor = 0.7 + Math.min(state.width, 8) / 10;
       const dFactor = 0.85 + Math.min(state.depth, 2.5) / 8;
+      const hFactor = 0.75 + Math.min(Math.max(state.height, 1), 2.5) / 5;
       const extW = Math.min(200, baseW * wFactor);
-      const extH = Math.min(70, 42 + dFactor * 18);
+      const extH = Math.min(78, 36 + dFactor * 12 + hFactor * 22);
       const x = 220 - extW / 2;
       const y = 88 - extH * 0.15;
       ext.setAttribute(

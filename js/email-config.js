@@ -5,8 +5,8 @@
  * Klantmail (HTML huisstijl) → EmailJS (onderstaande keys)
  *
  * Eenmalig instellen: zie website/EMAIL.md § EmailJS
- * Laat publicKey leeg tot de setup klaar is — dan valt de site terug op
- * FormSubmit _autoresponse (platte tekst, beperkt betrouwbaar via AJAX).
+ * Laat publicKey leeg tot de setup klaar is — dan krijgt de klant
+ * een FormSubmit-CC met prijsindicatie (tabel, geen huisstijl-HTML).
  */
 window.AANBOUW_EMAIL = {
   leadEmail: "info@maatkozijndirect.nl",
