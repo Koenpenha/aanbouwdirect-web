@@ -1,6 +1,6 @@
 (() => {
   const LEAD_EMAIL = "info@maatkozijndirect.nl";
-  const AUTOPLAY_MS = 6500;
+  const AUTOPLAY_MS = 5500;
 
   /* ——— Carousel ——— */
   const root = document.querySelector("[data-reviews-carousel]");
