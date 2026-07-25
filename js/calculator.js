@@ -243,11 +243,11 @@
   }
 
   function dakkapelTuneFactor() {
-    // Referentie: diepte 1,5 m · hoogte 1,5 m · plat dak — breedte blijft dominant
+    // Referentie: diepte 1,5 m · hoogte 1,5 m · plat dak → factor 1 (breedte-tabel exact)
     const depth = Math.max(1, Math.min(2.5, state.depth));
     const height = Math.max(1, Math.min(2.5, state.height));
-    const depthFactor = 0.94 + ((depth - 1) / 1.5) * 0.1; // ~0.94–1.04
-    const heightFactor = 0.96 + ((height - 1) / 1.5) * 0.08; // ~0.96–1.04
+    const depthFactor = 1 + (depth - 1.5) * 0.04; // ~0.98–1.04
+    const heightFactor = 1 + (height - 1.5) * 0.03; // ~0.985–1.03
     const dakvormFactor = state.dakvorm ? multipliers.dakvorm[state.dakvorm] || 1 : 1;
     const kozijnFactor = state.kozijn
       ? multipliers.dakkapelKozijn[state.kozijn] || 1

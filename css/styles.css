@@ -832,6 +832,7 @@ input:focus, select:focus, textarea:focus {
   border-color: var(--ad-teal);
 }
 .range-row { display: grid; gap: 0.55rem; }
+.range-row[hidden] { display: none !important; }
 .range-row label {
   display: flex;
   flex-wrap: wrap;
