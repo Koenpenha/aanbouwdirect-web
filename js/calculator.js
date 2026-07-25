@@ -1420,8 +1420,8 @@
 
   async function sendCustomerMail({ email, naam, low, high }) {
     const messages = buildCustomerMessages({ naam, low, high });
-    if (!CustomerMail || !CustomerMail.isEmailjsReady()) {
-      return { ok: false, skipped: true, plain: messages.plain, via: "formsubmit-autoresponse" };
+    if (!CustomerMail || !CustomerMail.isCustomerEmailjsReady()) {
+      return { ok: false, skipped: true, plain: messages.plain, via: "pending-emailjs" };
     }
     const result = await CustomerMail.sendViaEmailjs({
       toEmail: email,
@@ -1432,6 +1432,98 @@
       highLabel: messages.highLabel,
     });
     return { ...result, plain: messages.plain };
+  }
+
+  /** FormSubmit lead — altijd _url meesturen (anders: success:false “open via web server”). */
+  async function sendLeadViaFormSubmit({ data, summary, area, prijs, autoresponse, useCc }) {
+    const pageUrl =
+      (typeof window !== "undefined" && window.location && window.location.href) ||
+      emailCfg.siteUrl ||
+      "https://aanbouw.direct/";
+
+    const formPayload = {
+      naam: data.naam,
+      email: data.email,
+      telefoon: data.telefoon,
+      postcode: data.postcode,
+      toelichting: data.toelichting || "-",
+      project: summary,
+      project_type: state.type || "-",
+      oppervlakte_m2: `${area} m²`,
+      jouw_indicatie: prijs,
+      toegang: state.toegang || "-",
+      hekwerk: state.hekwerk || "-",
+      dek: state.dek || "-",
+      dakvorm: state.dakvorm || "-",
+      dakkapel_materiaal: state.dakkapelMateriaal || "-",
+      gevel: state.gevel || "-",
+      kozijn: state.kozijn || "-",
+      isolatie: state.isolatie || "-",
+      heipalen: state.heipalen || "-",
+      let_op:
+        "Dit is een goede richting op basis van je keuzes. De definitieve prijs leggen we samen vast op locatie (na afspraak).",
+      prijsindicatie: prijs,
+      _subject: `Aanbouw-direct: aanvraag + prijsindicatie — ${data.naam}`,
+      _template: "table",
+      _captcha: "false",
+      _replyto: data.email,
+      _url: pageUrl,
+    };
+
+    if (useCc && autoresponse) {
+      formPayload._autoresponse = autoresponse;
+      formPayload._cc = data.email;
+    }
+
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${LEAD_EMAIL}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formPayload),
+      });
+      const payload = await res.json().catch(() => ({}));
+      const ok =
+        res.ok &&
+        payload.success !== false &&
+        payload.success !== "false";
+      if (!ok) {
+        const msg = String(payload.message || "");
+        return {
+          ok: false,
+          via: "formsubmit",
+          activation: /activat/i.test(msg),
+          message: msg || `FormSubmit ${res.status}`,
+          payload,
+        };
+      }
+      return { ok: true, via: "formsubmit", payload };
+    } catch (err) {
+      return {
+        ok: false,
+        via: "formsubmit",
+        message: err && err.message ? err.message : "network error",
+        error: err,
+      };
+    }
+  }
+
+  async function sendLead({ data, summary, area, prijs, autoresponse, customerEmailjsReady }) {
+    if (CustomerMail && CustomerMail.isLeadEmailjsReady()) {
+      const ej = await CustomerMail.sendLeadViaEmailjs({ data, summary, area, prijs });
+      if (ej.ok) return ej;
+      console.warn("EmailJS lead mislukt, probeer FormSubmit…", ej);
+    }
+    return sendLeadViaFormSubmit({
+      data,
+      summary,
+      area,
+      prijs,
+      autoresponse,
+      useCc: !customerEmailjsReady,
+    });
   }
 
   function showLeadStatus(msg, type) {
@@ -1570,52 +1662,17 @@
       }
 
       try {
-        const emailjsReady = CustomerMail && CustomerMail.isEmailjsReady();
-
-        const formPayload = {
-          naam: data.naam,
-          email: data.email,
-          telefoon: data.telefoon,
-          postcode: data.postcode,
-          toelichting: data.toelichting || "-",
-          project: summary,
-          project_type: state.type || "-",
-          oppervlakte_m2: `${area} m²`,
-          jouw_indicatie: prijs,
-          toegang: state.toegang || "-",
-          hekwerk: state.hekwerk || "-",
-          dek: state.dek || "-",
-          dakvorm: state.dakvorm || "-",
-          dakkapel_materiaal: state.dakkapelMateriaal || "-",
-          gevel: state.gevel || "-",
-          kozijn: state.kozijn || "-",
-          isolatie: state.isolatie || "-",
-          heipalen: state.heipalen || "-",
-          let_op:
-            "Dit is een goede richting op basis van je keuzes. De definitieve prijs leggen we samen vast op locatie (na afspraak).",
-          prijsindicatie: prijs,
-          _subject: `Aanbouw-direct: aanvraag + prijsindicatie — ${data.naam}`,
-          _template: "table",
-          _captcha: "false",
-          _autoresponse: autoresponse,
-          _replyto: data.email,
-        };
-
-        if (!emailjsReady) {
-          formPayload._cc = data.email;
-        }
+        const customerEmailjsReady =
+          CustomerMail && CustomerMail.isCustomerEmailjsReady();
 
         const [leadResult, customerResult] = await Promise.all([
-          fetch(`https://formsubmit.co/ajax/${LEAD_EMAIL}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            body: JSON.stringify(formPayload),
-          }).then(async (res) => {
-            const payload = await res.json().catch(() => ({}));
-            return { res, payload };
+          sendLead({
+            data,
+            summary,
+            area,
+            prijs,
+            autoresponse,
+            customerEmailjsReady,
           }),
           sendCustomerMail({
             email: data.email,
@@ -1625,24 +1682,22 @@
           }),
         ]);
 
-        const { res, payload } = leadResult;
-        const ok =
-          res.ok &&
-          payload.success !== false &&
-          payload.success !== "false";
-
-        if (!ok) {
-          const msg = String(payload.message || "");
-          if (/activat/i.test(msg)) {
-            throw new Error("FORMSUBMIT_ACTIVATION");
-          }
-          throw new Error(msg || `Form submit failed (${res.status})`);
+        if (!leadResult || !leadResult.ok) {
+          const err = new Error(
+            (leadResult && leadResult.activation && "FORMSUBMIT_ACTIVATION") ||
+              (leadResult && leadResult.message) ||
+              "LEAD_SEND_FAILED"
+          );
+          err.leadResult = leadResult;
+          throw err;
         }
 
         const gotBrandedMail = customerResult && customerResult.ok;
         const mailHint = gotBrandedMail
           ? `Check je mail op ${data.email} voor je prijsindicatie (${prijs}).`
-          : `Check je mail op ${data.email} — je ontvangt een bevestiging met je prijsindicatie (${prijs}). Staat die er niet in, gebruik dan “Mail mezelf de indicatie”.`;
+          : customerEmailjsReady
+            ? `We konden je bevestigingsmail niet automatisch sturen. Gebruik “Mail mezelf de indicatie” — je prijs (${prijs}) staat ook hieronder.`
+            : `Je prijsindicatie (${prijs}) staat hieronder. Check je mail op ${data.email} (bevestiging) of gebruik “Mail mezelf de indicatie”.`;
 
         fillThankYou({
           note: `We hebben je aanvraag ontvangen. ${mailHint} Wij nemen zo snel mogelijk contact op — bel ${PHONE_DISPLAY}, WhatsApp, of mail ons.`,
@@ -1657,10 +1712,13 @@
         setStep(7);
       } catch (err) {
         console.error(err);
-        const isActivation = err && err.message === "FORMSUBMIT_ACTIVATION";
+        const isActivation =
+          err &&
+          (err.message === "FORMSUBMIT_ACTIVATION" ||
+            (err.leadResult && err.leadResult.activation));
         const statusMsg = isActivation
-          ? `Online versturen lukt nog niet. Je aanvraag gaat niet verloren: stuur hem nu via e-mail — project en prijs staan al ingevuld. Of bel / WhatsApp / Mail. Daarna: check je inbox; we nemen contact op.`
-          : `Versturen via het formulier lukte niet. Stuur je aanvraag nu via e-mail (project + prijs staan al klaar), of bel / WhatsApp / Mail ${PHONE_DISPLAY}.`;
+          ? `Online versturen lukt nog niet (FormSubmit-activatie). Je aanvraag gaat niet verloren: stuur hem via e-mail — project en prijs staan al ingevuld. Of bel / WhatsApp / Mail.`
+          : `Versturen via het formulier lukte niet. Stuur je aanvraag via e-mail (project + prijs staan klaar), of bel / WhatsApp / Mail ${PHONE_DISPLAY}.`;
 
         fillThankYou({
           note: statusMsg,
@@ -1673,8 +1731,7 @@
           naam: data.naam,
         });
         setStep(7);
-
-        window.location.href = mailtoHref;
+        /* Geen auto-mailto: knop is genoeg; voorkomt verwarrende mail-client popup. */
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
