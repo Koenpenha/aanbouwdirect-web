@@ -237,16 +237,32 @@
       );
     } catch (err) {
       console.error(err);
+      const mailto = `mailto:${LEAD_EMAIL}?subject=${encodeURIComponent("Review Aanbouwdirect")}&body=${encodeURIComponent(
+        [
+          `Naam: ${naam}`,
+          `Score: ${sterren} / 5`,
+          email ? `E-mail: ${email}` : null,
+          ``,
+          review,
+        ]
+          .filter((line) => line !== null)
+          .join("\n")
+      )}`;
       if (err && err.message === "FORMSUBMIT_ACTIVATION") {
         showStatus(
-          `Het formulier is nog niet geactiveerd. Open ${LEAD_EMAIL} (check ook Junk), klik op de FormSubmit-activatielink, en probeer daarna opnieuw.`,
+          `Online versturen lukt nog niet. Open je mailprogramma via de knop hieronder (review staat al klaar), of activeer FormSubmit in ${LEAD_EMAIL} (check Junk).`,
           "error"
         );
       } else {
         showStatus(
-          "Versturen lukte niet. Probeer het opnieuw, of mail info@aanbouw-direct.nl.",
+          `Versturen lukte niet. Stuur je review via e-mail naar ${LEAD_EMAIL} — of probeer opnieuw.`,
           "error"
         );
+      }
+      const fallback = form.querySelector("[data-review-mailto]");
+      if (fallback) {
+        fallback.hidden = false;
+        fallback.href = mailto;
       }
     } finally {
       if (submitBtn) {

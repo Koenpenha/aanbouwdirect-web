@@ -367,6 +367,7 @@
   });
 
   const LEAD_EMAIL = "info@maatkozijndirect.nl";
+  const PHONE_DISPLAY = "06 38340050";
 
   function buildCustomerEmail({ naam, low, high }) {
     const firstName = (naam || "").trim().split(/\s+/)[0] || "daar";
@@ -390,13 +391,91 @@
       ``,
       `Volgende stap`,
       `We bellen of mailen je zo snel mogelijk om een afspraak in te plannen.`,
-      `Liever zelf bellen? 06 38340050.`,
+      `Liever zelf bellen? ${PHONE_DISPLAY}.`,
       ``,
       `Groet,`,
       `Aanbouwdirect`,
-      `06 38340050`,
+      PHONE_DISPLAY,
       `Oosteindeweg 21, 1432 AC Aalsmeer`,
     ].join("\n");
+  }
+
+  function buildLeadMailto({ data, summary, low, high, area }) {
+    const prijs = `${formatEuro(low)} – ${formatEuro(high)}`;
+    const subject = `Calculator-aanvraag Aanbouwdirect — ${data.naam || "nieuwe lead"}`;
+    const body = [
+      `Nieuwe calculator-aanvraag (via mailto-fallback)`,
+      ``,
+      `Naam: ${data.naam || "-"}`,
+      `Telefoon: ${data.telefoon || "-"}`,
+      `E-mail: ${data.email || "-"}`,
+      `Postcode / plaats: ${data.postcode || "-"}`,
+      `Toelichting: ${data.toelichting || "-"}`,
+      ``,
+      `Project: ${summary}`,
+      `Oppervlakte: ${area} m²`,
+      `Prijsindicatie (casco): ${prijs}`,
+      ``,
+      `— Verstuurd omdat het online formulier (FormSubmit) niet werkte.`,
+    ].join("\n");
+    return `mailto:${LEAD_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  function buildSelfMailto({ email, low, high, naam }) {
+    const autoresponse = buildCustomerEmail({ naam: naam || "daar", low, high });
+    const to = email ? encodeURIComponent(email) : "";
+    return `mailto:${to}?subject=${encodeURIComponent("Jouw prijsindicatie Aanbouwdirect")}&body=${encodeURIComponent(autoresponse)}`;
+  }
+
+  function showLeadStatus(msg, type) {
+    const el = document.querySelector("[data-lead-status]");
+    if (!el) return;
+    el.hidden = false;
+    el.textContent = msg;
+    el.className = `lead-form-status is-${type || "error"}`;
+    el.setAttribute("role", type === "success" ? "status" : "alert");
+  }
+
+  function hideLeadStatus() {
+    const el = document.querySelector("[data-lead-status]");
+    if (!el) return;
+    el.hidden = true;
+    el.textContent = "";
+  }
+
+  function fillThankYou({ note, low, high, summary, mailtoLeadHref, viaFallback, email, naam }) {
+    const thankNote = document.querySelector("[data-thank-note]");
+    const thankPrice = document.querySelector("[data-thank-price]");
+    const thankSummary = document.querySelector("[data-thank-summary]");
+    const thankBox = document.querySelector("[data-thank-price-box]");
+    const mailtoSelf = document.querySelector("[data-mailto-indicatie]");
+    const mailtoLead = document.querySelector("[data-mailto-lead]");
+    const thankTitle = document.querySelector('[data-step="7"] h3');
+    const prijs = `${formatEuro(low)} – ${formatEuro(high)}`;
+
+    if (thankTitle) {
+      thankTitle.textContent = viaFallback ? "Verstuur je aanvraag via e-mail" : "Aanvraag ontvangen";
+    }
+    if (thankNote) thankNote.textContent = note;
+    if (thankPrice) thankPrice.textContent = prijs;
+    if (thankSummary) thankSummary.textContent = summary;
+    if (thankBox) thankBox.hidden = false;
+
+    if (mailtoSelf) {
+      mailtoSelf.href = buildSelfMailto({ email, low, high, naam });
+    }
+    if (mailtoLead) {
+      if (mailtoLeadHref) {
+        mailtoLead.hidden = false;
+        mailtoLead.href = mailtoLeadHref;
+      } else {
+        mailtoLead.hidden = true;
+        mailtoLead.removeAttribute("href");
+      }
+    }
+
+    const fallbackBlock = document.querySelector("[data-thank-fallback]");
+    if (fallbackBlock) fallbackBlock.hidden = !viaFallback;
   }
 
   function validateLeadForm(form) {
@@ -419,8 +498,9 @@
       }
     }
     if (missing.length) {
-      alert(
-        `Vul eerst deze verplichte velden in: ${missing.join(", ")}. Toelichting mag leeg blijven.`
+      showLeadStatus(
+        `Vul eerst deze verplichte velden in: ${missing.join(", ")}. Toelichting mag leeg blijven.`,
+        "error"
       );
       const firstEmpty = required.find((f) => {
         const el = form.elements.namedItem(f.name);
@@ -437,6 +517,7 @@
   if (els.form) {
     els.form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      hideLeadStatus();
 
       if (!els.form.checkValidity()) {
         els.form.reportValidity();
@@ -448,11 +529,21 @@
       const data = Object.fromEntries(new FormData(els.form).entries());
       const { low, high, m2: area } = estimate();
       const summary = buildSummaryParts().join(" · ");
+      const prijs = `${formatEuro(low)} – ${formatEuro(high)}`;
+      const mailtoHref = buildLeadMailto({ data, summary, low, high, area });
       const autoresponse = buildCustomerEmail({
         naam: data.naam,
         low,
         high,
       });
+
+      // Hidden fields (legacy Netlify / debugging)
+      const projectField = els.form.elements.namedItem("project");
+      const areaField = els.form.elements.namedItem("oppervlakte_m2");
+      const prijsField = els.form.elements.namedItem("prijsindicatie");
+      if (projectField && "value" in projectField) projectField.value = summary;
+      if (areaField && "value" in areaField) areaField.value = `${area} m²`;
+      if (prijsField && "value" in prijsField) prijsField.value = prijs;
 
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -474,7 +565,7 @@
             toelichting: data.toelichting || "-",
             project: summary,
             oppervlakte_m2: `${area} m²`,
-            prijsindicatie: `${formatEuro(low)} – ${formatEuro(high)}`,
+            prijsindicatie: prijs,
             _subject: `Nieuwe calculator-aanvraag — ${data.naam}`,
             _template: "table",
             _captcha: "false",
@@ -497,22 +588,47 @@
           throw new Error(msg || `Form submit failed (${res.status})`);
         }
 
-        const thankNote = document.querySelector("[data-thank-note]");
-        if (thankNote) {
-          thankNote.textContent = `We hebben je aanvraag ontvangen. Je krijgt zo een mail op ${data.email} met je prijsindicatie (${formatEuro(low)} – ${formatEuro(high)}). Wij nemen zo snel mogelijk contact op — of bel 06 38340050.`;
-        }
+        fillThankYou({
+          note: `We hebben je aanvraag ontvangen. Je krijgt zo een mail op ${data.email} met je prijsindicatie (${prijs}). Wij nemen zo snel mogelijk contact op — of bel ${PHONE_DISPLAY}.`,
+          low,
+          high,
+          summary,
+          mailtoLeadHref: null,
+          viaFallback: false,
+          email: data.email,
+          naam: data.naam,
+        });
         setStep(7);
       } catch (err) {
         console.error(err);
-        if (err && err.message === "FORMSUBMIT_ACTIVATION") {
-          alert(
-            `Het aanvraagformulier is nog niet geactiveerd. Open ${LEAD_EMAIL} (check ook Junk), klik op de FormSubmit-activatielink, en probeer daarna opnieuw. Liever nu contact? Bel 06 38340050.`
-          );
-        } else {
-          alert(
-            "Versturen lukte niet. Probeer het opnieuw, of bel ons op 06 38340050."
-          );
+        const isActivation = err && err.message === "FORMSUBMIT_ACTIVATION";
+        const statusMsg = isActivation
+          ? `Online versturen lukt nog niet (FormSubmit moet eenmalig geactiveerd worden). Je aanvraag gaat niet verloren: stuur hem nu via e-mail — project en prijs staan al ingevuld. Of bel ${PHONE_DISPLAY}.`
+          : `Versturen via het formulier lukte niet. Stuur je aanvraag nu via e-mail (project + prijs staan al klaar), of bel ${PHONE_DISPLAY}.`;
+
+        showLeadStatus(statusMsg, "error");
+
+        const actions = document.querySelector("[data-lead-fallback-actions]");
+        if (actions) {
+          actions.hidden = false;
+          const mailBtn = actions.querySelector("[data-lead-mailto]");
+          if (mailBtn) mailBtn.href = mailtoHref;
         }
+
+        fillThankYou({
+          note: statusMsg,
+          low,
+          high,
+          summary,
+          mailtoLeadHref: mailtoHref,
+          viaFallback: true,
+          email: data.email,
+          naam: data.naam,
+        });
+        setStep(7);
+
+        // Open mailto direct — lead komt in mailclient terecht
+        window.location.href = mailtoHref;
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;

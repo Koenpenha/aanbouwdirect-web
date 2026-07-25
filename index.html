@@ -300,10 +300,15 @@
                   <label>Postcode / plaats<input name="postcode" required autocomplete="postal-code" /></label>
                 </div>
                 <label>Toelichting (optioneel)<textarea name="toelichting" rows="3" placeholder="Bijv. timing, wensen, bestaande situatie"></textarea></label>
-                <!-- Extra velden vult JS in vóór submit (voor Netlify-notificatie) -->
+                <!-- Extra velden vult JS in vóór submit -->
                 <input type="hidden" name="project" value="" />
                 <input type="hidden" name="oppervlakte_m2" value="" />
                 <input type="hidden" name="prijsindicatie" value="" />
+                <p class="lead-form-status" data-lead-status hidden role="alert"></p>
+                <div class="lead-fallback-actions" data-lead-fallback-actions hidden>
+                  <a class="btn btn-primary" data-lead-mailto href="#">Stuur via e-mail</a>
+                  <a class="btn btn-teal" href="tel:+31638340050">Bel 06 38340050</a>
+                </div>
                 <div class="calc-nav">
                   <button type="button" class="btn btn-teal" data-prev="5">Terug</button>
                   <button type="submit" class="btn btn-primary">Verstuur aanvraag</button>
@@ -319,7 +324,11 @@
                 <strong data-thank-price>€ –</strong>
                 <span data-thank-summary></span>
               </div>
+              <div class="thank-fallback" data-thank-fallback hidden>
+                <p class="note">Lukt het online formulier niet? Stuur je aanvraag via e-mail — project en prijsindicatie staan al in de mail. Of bel ons.</p>
+              </div>
               <div class="calc-nav">
+                <a class="btn btn-primary" data-mailto-lead hidden href="#">Stuur aanvraag via e-mail</a>
                 <a class="btn btn-primary" data-mailto-indicatie href="#">Mail mezelf de indicatie</a>
                 <a class="btn btn-teal" href="tel:+31638340050">Bel 06 38340050</a>
                 <button type="button" class="btn btn-teal" data-next="1">Nieuwe berekening</button>
@@ -676,6 +685,7 @@
             <p class="note">Verplicht: naam, score en tekst. E-mail alleen als je wilt dat we kunnen reageren.</p>
             <div class="calc-nav">
               <button type="submit" class="btn btn-primary">Verstuur review</button>
+              <a class="btn btn-teal" data-review-mailto hidden href="#">Stuur via e-mail</a>
             </div>
             <p class="review-form-status" data-review-status hidden role="status"></p>
           </form>
@@ -766,6 +776,14 @@
         <img class="logo-mark" src="assets/aanbouwdirect-mark.svg" alt="" width="36" height="31" />
         <span class="logo-word">Aanbouwdirect</span>
       </a>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#calculator">Samenstellen</a>
+        <a href="#wat-zit-erbij">Wat zit erbij</a>
+        <a href="#projecten">Projecten</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
       <p>© 2026 Aanbouw-direct.nl · Aalsmeer</p>
       <p><a href="mailto:info@aanbouw-direct.nl">info@aanbouw-direct.nl</a> · <a href="tel:+31638340050">06 38340050</a></p>
     </div>
