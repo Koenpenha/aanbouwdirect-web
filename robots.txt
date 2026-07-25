@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://koenpenha.github.io/aanbouwdirect-web/sitemap.xml
