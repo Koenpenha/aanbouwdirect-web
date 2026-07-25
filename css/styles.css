@@ -1374,11 +1374,8 @@ input[type="range"]::-moz-range-thumb {
 }
 .lead-form-status.is-error { color: var(--ad-error); }
 .lead-form-status.is-success { color: var(--ad-success); }
-.lead-fallback-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  margin: 0 0 1rem;
+.lead-form-reassure {
+  margin: 0.35rem 0 0.85rem;
 }
 .thank-fallback {
   margin: 0 0 1rem;

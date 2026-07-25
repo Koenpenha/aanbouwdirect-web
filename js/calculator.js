@@ -606,15 +606,7 @@
           ? `Online versturen lukt nog niet. Je aanvraag gaat niet verloren: stuur hem nu via e-mail — project en prijs staan al ingevuld. Of bel / WhatsApp / Mail. Daarna: check je inbox; we nemen contact op.`
           : `Versturen via het formulier lukte niet. Stuur je aanvraag nu via e-mail (project + prijs staan al klaar), of bel / WhatsApp / Mail ${PHONE_DISPLAY}.`;
 
-        showLeadStatus(statusMsg, "error");
-
-        const actions = document.querySelector("[data-lead-fallback-actions]");
-        if (actions) {
-          actions.hidden = false;
-          const mailBtn = actions.querySelector("[data-lead-mailto]");
-          if (mailBtn) mailBtn.href = mailtoHref;
-        }
-
+        // Fallback: bedankt-stap toont mail/Bel/WhatsApp; mailto opent direct
         fillThankYou({
           note: statusMsg,
           low,
