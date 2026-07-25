@@ -11,35 +11,36 @@
     heipalen: null,
   };
 
-  // Basisindicatie per m² (aanbouw ~€2800)
+  // Interne basis €/m² (niet tonen in UI) — aanbouw ~€2800
   const rates = {
     aanbouw: 2800,
     nok: 2200,
     dakopbouw: 3000,
   };
 
+  // Relatieve opslagen t.o.v. baseline per categorie (zichtbaar in live range)
   const multipliers = {
     gevel: {
-      steen: 1.0,
-      stuc: 0.95,
-      hout: 1.05,
-      match: 1.08,
+      stuc: 0.92, // goedkoper: sneller / eenvoudiger afwerking
+      steen: 1.0, // baseline
+      hout: 1.08, // duurder: materiaal + detaillering
+      match: 1.1, // maatwerk aansluiting bestaande gevel
     },
     kozijn: {
-      kunststof: 1.0,
-      aluminium: 1.08,
-      hout: 1.1,
-      houtalu: 1.14,
+      kunststof: 1.0, // scherpst geprijsd
+      aluminium: 1.1,
+      hout: 1.12,
+      houtalu: 1.18, // premium combinatie
     },
     isolatie: {
       standaard: 1.0,
-      extra: 1.07,
-      onbekend: 1.03,
+      onbekend: 1.04, // middenbuffer tot advies op locatie
+      extra: 1.1, // dikkere opbouw / betere Rc
     },
     heipalen: {
-      ja: 1.12,
       nee: 1.0,
-      onbekend: 1.06,
+      onbekend: 1.08,
+      ja: 1.15, // fundering met heipalen duidelijk duurder
     },
   };
 
@@ -80,9 +81,13 @@
     heightOut: document.querySelector("[data-height-out]"),
     areaOut: document.querySelector("[data-area-out]"),
     liveSummary: document.querySelector("[data-live-summary]"),
+    livePriceBoxes: [...document.querySelectorAll("[data-live-price-box]")],
+    livePrices: [...document.querySelectorAll("[data-live-price]")],
     form: document.querySelector("#lead-form"),
     heipalenStep: document.querySelector('[data-step="5"]'),
   };
+
+  let priceFlashTimer = null;
 
   function m2() {
     return Math.round(state.width * state.depth * 10) / 10;
@@ -143,6 +148,7 @@
     }
     updateViz();
     updateLiveSummary();
+    updatePrice();
   }
 
   function updateLiveSummary() {
@@ -151,6 +157,14 @@
     if (els.vizLabel) els.vizLabel.textContent = state.type
       ? `${labels.type[state.type]} · ${m2()} m² · ${state.height} m hoog`
       : "Kies een type om te starten";
+  }
+
+  function flashLivePrice() {
+    els.livePrices.forEach((el) => el.classList.add("is-flash"));
+    if (priceFlashTimer) clearTimeout(priceFlashTimer);
+    priceFlashTimer = setTimeout(() => {
+      els.livePrices.forEach((el) => el.classList.remove("is-flash"));
+    }, 160);
   }
 
   function showVizScene(name) {
@@ -264,10 +278,31 @@
   }
 
   function updatePrice() {
-    const { low, high, m2: area } = estimate();
-    if (els.price) els.price.textContent = `${formatEuro(low)} – ${formatEuro(high)}`;
+    const show = Boolean(state.type);
+    const rangeText = show
+      ? (() => {
+          const { low, high } = estimate();
+          return `${formatEuro(low)} – ${formatEuro(high)}`;
+        })()
+      : "€ –";
+
+    els.livePriceBoxes.forEach((box) => {
+      box.hidden = !show;
+    });
+
+    const prev = els.livePrices[0] ? els.livePrices[0].textContent : "";
+    els.livePrices.forEach((el) => {
+      el.textContent = rangeText;
+    });
+    if (show && prev && prev !== rangeText) flashLivePrice();
+
+    // Stap 6 / lead: zelfde range als live UI
+    if (els.price) els.price.textContent = rangeText;
     if (els.priceNote) {
-      els.priceNote.textContent = `Indicatie voor ca. ${area} m² ${labels.type[state.type] || "project"}. Geen definitieve offerte.`;
+      const { m2: area } = estimate();
+      els.priceNote.textContent = show
+        ? `Indicatie · verandert mee met je keuzes · ca. ${area} m² ${labels.type[state.type]}. Geen definitieve offerte.`
+        : "Indicatie · verandert mee met je keuzes. Geen definitieve offerte.";
     }
     if (els.summary) els.summary.textContent = buildSummaryParts().join(" · ");
   }
@@ -290,7 +325,7 @@
     });
     renderProgress(n);
     updateLiveSummary();
-    if (n === 6) updatePrice();
+    updatePrice();
 
     // Heipalen-vraag alleen bij aanbouw tonen in stap 5 copy
     const pileBlock = document.querySelector("[data-heipalen-block]");
@@ -307,7 +342,7 @@
     return true;
   }
 
-  // Choice buttons
+  // Choice buttons — prijs update meteen bij click
   document.querySelectorAll("[data-choice]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const group = btn.dataset.choice;
@@ -319,7 +354,12 @@
         .forEach((b) => b.classList.remove("is-selected"));
       btn.classList.add("is-selected");
       updateLiveSummary();
-      if (group === "type") updateViz();
+      if (group === "type") {
+        updateViz();
+        const pileBlock = document.querySelector("[data-heipalen-block]");
+        if (pileBlock) pileBlock.hidden = value !== "aanbouw";
+      }
+      updatePrice();
     });
   });
 

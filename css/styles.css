@@ -1104,6 +1104,70 @@ input[type="range"]::-moz-range-thumb {
   line-height: 1.4;
 }
 
+/* Live prijsindicatie — zichtbaar vanaf vroege stappen */
+.live-price {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.85rem 1rem;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+}
+.live-price[hidden] { display: none !important; }
+.live-price-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+.live-price-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 3.5vw, 1.45rem);
+  font-weight: 700;
+  color: var(--ad-white);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  transition: opacity 0.15s var(--ease);
+}
+.live-price-value.is-flash {
+  opacity: 0.55;
+}
+.live-price-note {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.35;
+}
+.live-price--panel {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--ad-chalk);
+  border: 1px solid rgba(28, 36, 40, 0.1);
+  border-left: 4px solid var(--ad-orange);
+  margin: -0.15rem 0 0.15rem;
+}
+.live-price--panel .live-price-label {
+  color: var(--ad-stone);
+}
+.live-price--panel .live-price-value {
+  color: var(--ad-graphite);
+}
+.live-price--panel .live-price-note {
+  color: var(--ad-stone);
+}
+.live-price-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 0.75rem;
+}
+@media (min-width: 900px) {
+  /* Desktop: prijs staat al in de visual-kolom */
+  .live-price--panel { display: none !important; }
+}
+
 /* Reviews — opvallende social-proof sectie */
 .reviews-section {
   position: relative;
