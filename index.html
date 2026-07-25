@@ -29,16 +29,16 @@
       <nav id="site-menu" class="nav-panel" aria-label="Hoofdmenu">
         <ul class="nav-links">
           <li><a href="#calculator">Samenstellen</a></li>
-          <li><a href="#wat-zit-erbij">Wat zit erbij</a></li>
+          <li class="nav-extra"><a href="#wat-zit-erbij">Wat zit erbij</a></li>
           <li><a href="#reviews">Reviews</a></li>
-          <li><a href="#waarom">Waarom</a></li>
+          <li class="nav-extra"><a href="#waarom">Waarom</a></li>
           <li><a href="#diensten">Diensten</a></li>
-          <li><a href="#werkwijze">Werkwijze</a></li>
+          <li class="nav-extra"><a href="#werkwijze">Werkwijze</a></li>
           <li><a href="#projecten">Projecten</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li class="nav-extra"><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <a class="btn btn-primary nav-cta" href="#calculator">Direct een prijsindicatie</a>
+        <a class="btn btn-primary nav-cta" href="#calculator">Prijsindicatie</a>
       </nav>
     </div>
   </header>
@@ -68,7 +68,8 @@
         <p class="lead">Stel je plan samen en zie meteen wat het ongeveer kost. Daarna plannen we een afspraak voor de definitieve offerte.</p>
         <div class="btn-group">
           <a class="btn btn-primary" href="#calculator">Direct een prijsindicatie</a>
-          <a class="btn btn-ghost" href="tel:+31638340050">Bel 06 38340050</a>
+          <a class="btn btn-ghost" href="tel:+31232052483">Bel 023 205 2483</a>
+          <a class="btn btn-ghost" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </div>
     </section>
@@ -308,7 +309,8 @@
                 <p class="lead-form-status" data-lead-status hidden role="alert"></p>
                 <div class="lead-fallback-actions" data-lead-fallback-actions hidden>
                   <a class="btn btn-primary" data-lead-mailto href="#">Stuur via e-mail</a>
-                  <a class="btn btn-teal" href="tel:+31638340050">Bel 06 38340050</a>
+                  <a class="btn btn-teal" href="tel:+31232052483">Bel 023 205 2483</a>
+                  <a class="btn btn-teal" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
                 </div>
                 <div class="calc-nav">
                   <button type="button" class="btn btn-teal" data-prev="5">Terug</button>
@@ -331,7 +333,8 @@
               <div class="calc-nav">
                 <a class="btn btn-primary" data-mailto-lead hidden href="#">Stuur aanvraag via e-mail</a>
                 <a class="btn btn-primary" data-mailto-indicatie href="#">Mail mezelf de indicatie</a>
-                <a class="btn btn-teal" href="tel:+31638340050">Bel 06 38340050</a>
+                <a class="btn btn-teal" href="tel:+31232052483">Bel 023 205 2483</a>
+                <a class="btn btn-teal" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
                 <button type="button" class="btn btn-teal" data-next="1">Nieuwe berekening</button>
               </div>
             </div>
@@ -508,34 +511,6 @@
             <button type="button" class="reviews-btn" data-reviews-next aria-label="Volgende review">›</button>
             <button type="button" class="reviews-pause" data-reviews-pause aria-pressed="false" aria-label="Automatisch wisselen pauzeren">Pauze</button>
           </div>
-        </div>
-
-        <div class="review-form-block reveal">
-          <h3>Laat zelf een review achter</h3>
-          <p>Heb je een project met ons gedaan? Deel kort je ervaring — we lezen alles.</p>
-          <form id="review-form" class="review-form field-grid" novalidate>
-            <div class="field-grid two">
-              <label>Naam<input name="naam" required autocomplete="name" maxlength="80" /></label>
-              <label>E-mail (optioneel)<input name="email" type="email" autocomplete="email" maxlength="120" /></label>
-            </div>
-            <fieldset class="star-picker">
-              <legend>Score <span class="req">*</span></legend>
-              <div class="star-picker-row" role="radiogroup" aria-label="Aantal sterren" data-star-picker>
-                <label class="star-option"><input type="radio" name="sterren" value="5" required /><span aria-hidden="true">★★★★★</span><span class="sr-only">5 sterren</span></label>
-                <label class="star-option"><input type="radio" name="sterren" value="4" /><span aria-hidden="true">★★★★☆</span><span class="sr-only">4 sterren</span></label>
-                <label class="star-option"><input type="radio" name="sterren" value="3" /><span aria-hidden="true">★★★☆☆</span><span class="sr-only">3 sterren</span></label>
-                <label class="star-option"><input type="radio" name="sterren" value="2" /><span aria-hidden="true">★★☆☆☆</span><span class="sr-only">2 sterren</span></label>
-                <label class="star-option"><input type="radio" name="sterren" value="1" /><span aria-hidden="true">★☆☆☆☆</span><span class="sr-only">1 ster</span></label>
-              </div>
-            </fieldset>
-            <label>Jouw review<textarea name="review" rows="4" required maxlength="2000" placeholder="Wat vond je van de samenwerking en het resultaat?"></textarea></label>
-            <p class="note">Verplicht: naam, score en tekst. E-mail alleen als je wilt dat we kunnen reageren.</p>
-            <div class="calc-nav">
-              <button type="submit" class="btn btn-primary">Verstuur review</button>
-              <a class="btn btn-teal" data-review-mailto hidden href="#">Stuur via e-mail</a>
-            </div>
-            <p class="review-form-status" data-review-status hidden role="status"></p>
-          </form>
         </div>
       </div>
     </section>
@@ -739,7 +714,7 @@
           </details>
           <details>
             <summary>Hoe vraag ik een definitieve offerte aan?</summary>
-            <p>Doorloop de calculator, laat je gegevens achter, of bel 06 38340050. We plannen een afspraak op locatie en sturen daarna een heldere offerte.</p>
+            <p>Doorloop de calculator, laat je gegevens achter, of bel / WhatsApp 023 205 2483. We plannen een afspraak op locatie en sturen daarna een heldere offerte.</p>
           </details>
         </div>
       </div>
@@ -749,9 +724,9 @@
       <div class="wrap contact-grid">
         <div class="reveal">
           <h2>Contact</h2>
-          <p class="lead">Vragen over een uitbouw, verbouwing of maatwerkklus? Bel of mail — we denken graag mee.</p>
+          <p class="lead">Vragen over een uitbouw, verbouwing of maatwerkklus? Bel, WhatsApp of mail — we denken graag mee.</p>
           <div class="contact-block">
-            <p><a href="tel:+31638340050">06 38340050</a></p>
+            <p>Bel of WhatsApp: <a href="tel:+31232052483">023 205 2483</a></p>
             <p><a href="mailto:info@aanbouw-direct.nl">info@aanbouw-direct.nl</a></p>
           </div>
           <ul class="contact-meta">
@@ -761,10 +736,11 @@
         </div>
         <div class="reveal">
           <h3>Liever meteen starten?</h3>
-          <p>Direct een prijsindicatie via de samensteller, of bel ons voor een afspraak.</p>
+          <p>Direct een prijsindicatie via de samensteller, of bel / WhatsApp ons voor een afspraak.</p>
           <div class="btn-group">
             <a class="btn btn-primary" href="#calculator">Direct een prijsindicatie</a>
-            <a class="btn btn-teal" href="tel:+31638340050">Bel nu</a>
+            <a class="btn btn-teal" href="tel:+31232052483">Bel 023 205 2483</a>
+            <a class="btn btn-teal" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
           </div>
         </div>
       </div>
@@ -786,7 +762,7 @@
         <a href="#contact">Contact</a>
       </nav>
       <p>© 2026 Aanbouw-direct.nl · Aalsmeer</p>
-      <p><a href="mailto:info@aanbouw-direct.nl">info@aanbouw-direct.nl</a> · <a href="tel:+31638340050">06 38340050</a></p>
+      <p><a href="mailto:info@aanbouw-direct.nl">info@aanbouw-direct.nl</a> · <a href="tel:+31232052483">023 205 2483</a></p>
     </div>
   </footer>
 

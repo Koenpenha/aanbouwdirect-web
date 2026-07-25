@@ -367,7 +367,7 @@
   });
 
   const LEAD_EMAIL = "info@maatkozijndirect.nl";
-  const PHONE_DISPLAY = "06 38340050";
+  const PHONE_DISPLAY = "023 205 2483";
 
   function buildCustomerEmail({ naam, low, high }) {
     const firstName = (naam || "").trim().split(/\s+/)[0] || "daar";
@@ -391,7 +391,7 @@
       ``,
       `Volgende stap`,
       `We bellen of mailen je zo snel mogelijk om een afspraak in te plannen.`,
-      `Liever zelf bellen? ${PHONE_DISPLAY}.`,
+      `Liever zelf bellen of WhatsAppen? ${PHONE_DISPLAY}.`,
       ``,
       `Groet,`,
       `Aanbouwdirect`,
@@ -589,7 +589,7 @@
         }
 
         fillThankYou({
-          note: `We hebben je aanvraag ontvangen. Je krijgt zo een mail op ${data.email} met je prijsindicatie (${prijs}). Wij nemen zo snel mogelijk contact op — of bel ${PHONE_DISPLAY}.`,
+          note: `We hebben je aanvraag ontvangen. Je krijgt zo een mail op ${data.email} met je prijsindicatie (${prijs}). Wij nemen zo snel mogelijk contact op — bel ${PHONE_DISPLAY} of WhatsApp ons.`,
           low,
           high,
           summary,
@@ -603,8 +603,8 @@
         console.error(err);
         const isActivation = err && err.message === "FORMSUBMIT_ACTIVATION";
         const statusMsg = isActivation
-          ? `Online versturen lukt nog niet (FormSubmit moet eenmalig geactiveerd worden). Je aanvraag gaat niet verloren: stuur hem nu via e-mail — project en prijs staan al ingevuld. Of bel ${PHONE_DISPLAY}.`
-          : `Versturen via het formulier lukte niet. Stuur je aanvraag nu via e-mail (project + prijs staan al klaar), of bel ${PHONE_DISPLAY}.`;
+          ? `Online versturen lukt nog niet (FormSubmit moet eenmalig geactiveerd worden). Je aanvraag gaat niet verloren: stuur hem nu via e-mail — project en prijs staan al ingevuld. Of bel / WhatsApp ${PHONE_DISPLAY}.`
+          : `Versturen via het formulier lukte niet. Stuur je aanvraag nu via e-mail (project + prijs staan al klaar), of bel / WhatsApp ${PHONE_DISPLAY}.`;
 
         showLeadStatus(statusMsg, "error");
 
@@ -678,7 +678,7 @@
       if (e.key === "Escape") setOpen(false);
     });
     window.addEventListener("resize", () => {
-      if (window.matchMedia("(min-width: 880px)").matches) setOpen(false);
+      if (window.matchMedia("(min-width: 1100px)").matches) setOpen(false);
     });
   }
 
