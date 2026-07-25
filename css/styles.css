@@ -166,14 +166,7 @@ p.lead {
   }
 }
 
-/* Contact CTA —zelfde structuur, teal secundair */
-.contact-cta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  width: 100%;
-  max-width: 28rem;
-}
+/* Contact — primaire CTA + secundaire bel/whatsapp/mail */
 .contact-cta-primary { width: 100%; box-sizing: border-box; }
 .contact-row {
   display: grid;
@@ -187,23 +180,6 @@ p.lead {
   white-space: nowrap;
   padding-inline: 0.45rem;
   font-size: 0.95rem;
-}
-@media (min-width: 640px) {
-  .contact-cta {
-    max-width: none;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: stretch;
-  }
-  .contact-cta-primary {
-    width: auto;
-    flex: 0 1 auto;
-    min-width: 14rem;
-  }
-  .contact-row {
-    flex: 1 1 16rem;
-    max-width: 22rem;
-  }
 }
 
 .thank-contact-row {
@@ -1535,24 +1511,57 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* Contact */
-.contact-grid {
+.contact-panel {
   display: grid;
-  gap: 1.75rem;
+  gap: 1.5rem;
+  max-width: 36rem;
 }
-@media (min-width: 760px) {
-  .contact-grid { grid-template-columns: 1.2fr 1fr; align-items: start; gap: 2rem; }
+.contact-intro h2 { margin-bottom: 0.45rem; }
+.contact-intro .lead {
+  margin: 0;
+  max-width: 32rem;
 }
-.contact-block a {
+.contact-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+}
+.contact-address {
+  margin: 0;
+  padding-top: 0.25rem;
+  border-top: 1px solid rgba(28, 36, 40, 0.1);
+  font-size: 0.98rem;
+  color: var(--ad-stone);
+  line-height: 1.45;
+}
+.contact-address-label {
+  display: block;
+  margin-bottom: 0.2rem;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.1rem, 3.5vw, 1.25rem);
-  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: var(--ad-teal-dark);
-  word-break: break-word;
 }
-.contact-block a:hover { color: var(--ad-orange); }
-.contact-meta { list-style: none; margin: 1.25rem 0 0; padding: 0; }
-.contact-meta li { margin-bottom: 0.4rem; color: var(--ad-stone); }
+@media (min-width: 640px) {
+  .contact-panel { gap: 1.75rem; }
+  .contact-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+  .contact-cta-primary {
+    width: auto;
+    flex: 0 1 auto;
+    min-width: 14rem;
+  }
+  .contact-row {
+    flex: 1 1 16rem;
+    max-width: 22rem;
+  }
+}
 
 /* Footer */
 .site-footer {
