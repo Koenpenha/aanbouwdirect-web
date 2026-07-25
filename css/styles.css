@@ -169,7 +169,8 @@ p.lead {
   justify-content: space-between;
   gap: 0.65rem;
   min-height: var(--nav-h);
-  padding: 0.65rem 0;
+  /* Alleen padding-block; padding-inline komt van .wrap (--space) */
+  padding-block: 0.65rem;
 }
 .nav-actions {
   display: flex;
