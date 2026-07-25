@@ -451,10 +451,12 @@ p.lead {
 }
 .hero-play {
   position: absolute;
-  left: 50%;
-  top: 42%;
+  left: auto;
+  right: max(1rem, 3vw);
+  top: auto;
+  bottom: max(1.25rem, 4vw);
   z-index: 2;
-  transform: translate(-50%, -50%);
+  transform: none;
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
@@ -462,7 +464,7 @@ p.lead {
   padding: 0.7rem 1.1rem 0.7rem 0.85rem;
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: var(--radius);
-  background: rgba(0, 90, 114, 0.72);
+  background: rgba(0, 90, 114, 0.78);
   color: var(--ad-white);
   font-family: var(--font-display);
   font-weight: 700;
@@ -472,6 +474,7 @@ p.lead {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+  pointer-events: auto;
 }
 .hero-play:hover,
 .hero-play:focus-visible {
@@ -517,6 +520,12 @@ p.lead {
   /* Geen width:100% — dat overschreef .wrap en plakte CTA’s tegen de rand */
   max-width: min(38rem, 100%);
   box-sizing: border-box;
+  /* Klikken doorlaten naar play-knop op de video; knoppen zelf blijven klikbaar */
+  pointer-events: none;
+}
+.hero-inner a,
+.hero-inner button {
+  pointer-events: auto;
 }
 .hero-brand {
   display: inline-flex;
