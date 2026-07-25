@@ -366,36 +366,84 @@
     btn.addEventListener("click", () => setStep(Number(btn.dataset.prev)));
   });
 
+  const LEAD_EMAIL = "info@maatkozijndirect.nl";
+
   function buildCustomerEmail({ naam, low, high }) {
     const firstName = (naam || "").trim().split(/\s+/)[0] || "daar";
     const summary = buildSummaryParts().join(" · ");
     return [
       `Hoi ${firstName},`,
       ``,
-      `Bedankt voor je aanvraag via Aanbouwdirect. Hier is je persoonlijke prijsindicatie op basis van wat je hebt samengesteld.`,
+      `Bedankt voor je aanvraag via Aanbouwdirect. Hieronder je projectsamenvatting en prijsindicatie.`,
       ``,
       `Jouw samenstelling`,
       summary,
       ``,
-      `Prijsindicatie`,
+      `Prijsindicatie (casco)`,
       `${formatEuro(low)} – ${formatEuro(high)}`,
       ``,
-      `Belangrijk: dit is een indicatie op basis van jouw keuzes, geen definitieve offerte. Na een afspraak op locatie werken we alles scherp uit — zonder vage beloftes.`,
+      `Wat is casco?`,
+      `Wel: wind- & waterdicht, geïsoleerd, met kozijnen, hijskraan waar nodig, stroom tot casco-niveau.`,
+      `Niet: interieurafbouw (stucwerk binnen, vloeren, keuken, schilderwerk binnen).`,
+      ``,
+      `Dit is een indicatie op basis van jouw keuzes — geen definitieve offerte. Die maken we na een afspraak op locatie.`,
       ``,
       `Volgende stap`,
-      `We nemen zo snel mogelijk contact met je op om een afspraak in te plannen. Liever zelf bellen? Dat kan op 06 38340050.`,
+      `We bellen of mailen je zo snel mogelijk om een afspraak in te plannen.`,
+      `Liever zelf bellen? 06 38340050.`,
       ``,
       `Groet,`,
       `Aanbouwdirect`,
-      `penhabouw@outlook.com · 06 38340050`,
+      `06 38340050`,
       `Oosteindeweg 21, 1432 AC Aalsmeer`,
-      `https://aanbouw-direct.nl/`,
     ].join("\n");
+  }
+
+  function validateLeadForm(form) {
+    const required = [
+      { name: "naam", label: "naam" },
+      { name: "telefoon", label: "telefoonnummer" },
+      { name: "email", label: "e-mailadres" },
+      { name: "postcode", label: "postcode / plaats" },
+    ];
+    const missing = [];
+    for (const field of required) {
+      const el = form.elements.namedItem(field.name);
+      const value = el && "value" in el ? String(el.value).trim() : "";
+      if (!value) {
+        missing.push(field.label);
+        continue;
+      }
+      if (field.name === "email" && el && typeof el.checkValidity === "function" && !el.checkValidity()) {
+        missing.push("geldig e-mailadres");
+      }
+    }
+    if (missing.length) {
+      alert(
+        `Vul eerst deze verplichte velden in: ${missing.join(", ")}. Toelichting mag leeg blijven.`
+      );
+      const firstEmpty = required.find((f) => {
+        const el = form.elements.namedItem(f.name);
+        const value = el && "value" in el ? String(el.value).trim() : "";
+        return !value || (f.name === "email" && el && typeof el.checkValidity === "function" && !el.checkValidity());
+      });
+      const focusEl = firstEmpty && form.elements.namedItem(firstEmpty.name);
+      if (focusEl && typeof focusEl.focus === "function") focusEl.focus();
+      return false;
+    }
+    return true;
   }
 
   if (els.form) {
     els.form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      if (!els.form.checkValidity()) {
+        els.form.reportValidity();
+        return;
+      }
+      if (!validateLeadForm(els.form)) return;
+
       const submitBtn = els.form.querySelector('[type="submit"]');
       const data = Object.fromEntries(new FormData(els.form).entries());
       const { low, high, m2: area } = estimate();
@@ -412,7 +460,7 @@
       }
 
       try {
-        const res = await fetch("https://formsubmit.co/ajax/penhabouw@outlook.com", {
+        const res = await fetch(`https://formsubmit.co/ajax/${LEAD_EMAIL}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -451,14 +499,14 @@
 
         const thankNote = document.querySelector("[data-thank-note]");
         if (thankNote) {
-          thankNote.textContent = `We hebben je aanvraag ontvangen. Je krijgt zo een mail op ${data.email} met je prijsindicatie (${formatEuro(low)} – ${formatEuro(high)}).`;
+          thankNote.textContent = `We hebben je aanvraag ontvangen. Je krijgt zo een mail op ${data.email} met je prijsindicatie (${formatEuro(low)} – ${formatEuro(high)}). Wij nemen zo snel mogelijk contact op — of bel 06 38340050.`;
         }
         setStep(7);
       } catch (err) {
         console.error(err);
         if (err && err.message === "FORMSUBMIT_ACTIVATION") {
           alert(
-            "Het aanvraagformulier is nog niet geactiveerd. Open penhabouw@outlook.com, klik op de FormSubmit-activatielink, en probeer daarna opnieuw. Liever nu contact? Bel 06 38340050."
+            `Het aanvraagformulier is nog niet geactiveerd. Open ${LEAD_EMAIL} (check ook Junk), klik op de FormSubmit-activatielink, en probeer daarna opnieuw. Liever nu contact? Bel 06 38340050.`
           );
         } else {
           alert(
