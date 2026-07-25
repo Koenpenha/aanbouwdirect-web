@@ -147,8 +147,12 @@ p.lead {
   line-height: 1;
   white-space: nowrap;
 }
-@media (max-width: 379px) {
-  .logo-word { font-size: 0.82rem; letter-spacing: 0.04em; }
+@media (max-width: 420px) {
+  .logo-word { display: none; }
+  .nav-cta-mobile {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.84rem;
+  }
 }
 
 /* —— Nav —— */
