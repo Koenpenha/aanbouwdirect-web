@@ -240,6 +240,57 @@
                     <path d="M-6 0 H230 L220 -12 H4 Z" fill="#E07830"/>
                   </g>
                 </g>
+
+                <!-- 4. Dakterras: plat dak + oranje dek + hekwerk -->
+                <g data-viz-scene="dakterras" display="none">
+                  <g data-viz-house>
+                    <path d="M78 210 V118 H362 V210 Z" stroke="#F5F7F8" stroke-width="7" stroke-linejoin="round"/>
+                    <line x1="78" y1="118" x2="362" y2="118" stroke="#F5F7F8" stroke-width="6" stroke-linecap="round"/>
+                    <rect x="126" y="142" width="48" height="48" stroke="#F5F7F8" stroke-width="5.5"/>
+                    <line x1="150" y1="142" x2="150" y2="190" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <line x1="126" y1="166" x2="174" y2="166" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <rect x="266" y="142" width="48" height="48" stroke="#F5F7F8" stroke-width="5.5"/>
+                    <line x1="290" y1="142" x2="290" y2="190" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <line x1="266" y1="166" x2="314" y2="166" stroke="#F5F7F8" stroke-width="4.5"/>
+                  </g>
+                  <path data-viz-rail d="M130 92 H310 V70 H130 Z" fill="#E07830" opacity="0.85"/>
+                  <rect data-viz-deck x="130" y="92" width="180" height="22" fill="#E07830"/>
+                  <rect x="210" y="98" width="22" height="14" fill="#007694" rx="2"/>
+                </g>
+
+                <!-- 5. Dakkapel: schuin dak + oranje dakkapel -->
+                <g data-viz-scene="dakkapel" display="none">
+                  <g data-viz-house>
+                    <path d="M70 210 V130 L220 48 L370 130 V210 Z" stroke="#F5F7F8" stroke-width="7" stroke-linejoin="round"/>
+                    <rect x="118" y="148" width="44" height="44" stroke="#F5F7F8" stroke-width="5.5"/>
+                    <line x1="140" y1="148" x2="140" y2="192" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <line x1="118" y1="170" x2="162" y2="170" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <rect x="278" y="148" width="44" height="44" stroke="#F5F7F8" stroke-width="5.5"/>
+                    <line x1="300" y1="148" x2="300" y2="192" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <line x1="278" y1="170" x2="322" y2="170" stroke="#F5F7F8" stroke-width="4.5"/>
+                  </g>
+                  <g data-viz-ext="dakkapel" transform="translate(165, 72)">
+                    <path d="M0 40 H110 V8 H0 Z" fill="#E07830"/>
+                    <path d="M-4 8 H114 L104 -6 H6 Z" fill="#E07830"/>
+                    <rect x="28" y="14" width="54" height="28" fill="#007694"/>
+                  </g>
+                </g>
+
+                <!-- 6. Bijhuisje: bestaand huis + vrijstaand oranje bijgebouw -->
+                <g data-viz-scene="bijhuisje" display="none">
+                  <g data-viz-house>
+                    <path d="M36 210 V112 L122 46 L208 112 V210 Z" stroke="#F5F7F8" stroke-width="7" stroke-linejoin="round"/>
+                    <path d="M158 72 V38 h14 v42" stroke="#F5F7F8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="90" y="136" width="46" height="46" stroke="#F5F7F8" stroke-width="5.5"/>
+                    <line x1="113" y1="136" x2="113" y2="182" stroke="#F5F7F8" stroke-width="4.5"/>
+                    <line x1="90" y1="159" x2="136" y2="159" stroke="#F5F7F8" stroke-width="4.5"/>
+                  </g>
+                  <g data-viz-ext="bijhuisje" transform="translate(268, 122)">
+                    <path d="M0 88 V28 L65 -8 L130 28 V88 Z" fill="#E07830"/>
+                    <rect x="42" y="38" width="46" height="36" fill="#007694"/>
+                    <line x1="65" y1="38" x2="65" y2="74" stroke="#E07830" stroke-width="3"/>
+                  </g>
+                </g>
               </svg>
             </div>
             <p class="live-summary" data-live-summary>Nog geen keuzes</p>
@@ -265,10 +316,13 @@
             <div class="calc-step is-active" data-step="1">
               <h3>Wat wil je realiseren?</h3>
               <p>Dit bepaalt de basis van je indicatie en welke vervolgvragen relevant zijn.</p>
-              <div class="choice-grid cols-3">
+              <div class="choice-grid cols-types">
                 <button type="button" class="choice" data-choice="type" data-value="aanbouw">Aanbouw<small>Uitbouw naast je woning</small></button>
                 <button type="button" class="choice" data-choice="type" data-value="nok">Nokverhoging<small>Schuin dak hoger / meer stahoogte</small></button>
                 <button type="button" class="choice" data-choice="type" data-value="dakopbouw">Dakopbouw<small>Extra verdieping op plat dak</small></button>
+                <button type="button" class="choice" data-choice="type" data-value="dakterras">Dakterras<small>Terras op plat dak, met hekwerk</small></button>
+                <button type="button" class="choice" data-choice="type" data-value="dakkapel">Dakkapel<small>Meer ruimte en licht onder het dak</small></button>
+                <button type="button" class="choice" data-choice="type" data-value="bijhuisje">Bijhuisje<small>Tuinhuis of bijgebouw bij je woning</small></button>
               </div>
               <div class="calc-nav">
                 <button type="button" class="btn btn-primary" data-next="2">Volgende</button>
@@ -278,18 +332,18 @@
             <!-- 2 Afmetingen -->
             <div class="calc-step" data-step="2">
               <h3>Welke afmetingen?</h3>
-              <p>Breedte × diepte = totale oppervlakte. Hoogte telt mee in comfort én prijs.</p>
+              <p data-step2-lead>Breedte × diepte = totale oppervlakte. Hoogte telt mee in comfort én prijs.</p>
               <div class="area-pill">Totale oppervlakte: <strong data-area-out>12 m²</strong></div>
               <div class="field-grid">
                 <div class="range-row">
-                  <label for="calc-width">Breedte <output data-width-out>4 m</output></label>
+                  <label for="calc-width"><span data-label-width>Breedte</span> <output data-width-out>4 m</output></label>
                   <input id="calc-width" type="range" min="2" max="12" step="0.5" value="4" />
                 </div>
                 <div class="range-row">
-                  <label for="calc-depth">Diepte (lengte) <output data-depth-out>3 m</output></label>
+                  <label for="calc-depth"><span data-label-depth>Diepte (lengte)</span> <output data-depth-out>3 m</output></label>
                   <input id="calc-depth" type="range" min="2" max="10" step="0.5" value="3" />
                 </div>
-                <div class="range-row">
+                <div class="range-row" data-dim-height>
                   <label for="calc-height">Hoogte <output data-height-out>2.8 m</output></label>
                   <input id="calc-height" type="range" min="2.4" max="3.4" step="0.1" value="2.8" />
                 </div>
@@ -300,15 +354,35 @@
               </div>
             </div>
 
-            <!-- 3 Gevel -->
+            <!-- 3 Opties A (per type) -->
             <div class="calc-step" data-step="3">
-              <h3>Welk gevelmateriaal?</h3>
-              <p>Hoe moet de buitenkant eruitzien? Dit heeft invloed op uitstraling en kosten.</p>
-              <div class="choice-grid">
-                <button type="button" class="choice" data-choice="gevel" data-value="steen">Steen<small>Klassiek, sluit vaak aan op bestaande gevel</small></button>
-                <button type="button" class="choice" data-choice="gevel" data-value="stuc">Stucwerk<small>Strak en modern</small></button>
-                <button type="button" class="choice" data-choice="gevel" data-value="hout">Hout<small>Warm, natuurlijk karakter</small></button>
-                <button type="button" class="choice" data-choice="gevel" data-value="match">Gelijk aan woning<small>We matchen zoveel mogelijk je bestaande gevel</small></button>
+              <div data-flow="casco">
+                <h3>Welk gevelmateriaal?</h3>
+                <p>Hoe moet de buitenkant eruitzien? Dit heeft invloed op uitstraling en kosten.</p>
+                <div class="choice-grid">
+                  <button type="button" class="choice" data-choice="gevel" data-value="steen">Steen<small>Klassiek, sluit vaak aan op bestaande gevel</small></button>
+                  <button type="button" class="choice" data-choice="gevel" data-value="stuc">Stucwerk<small>Strak en modern</small></button>
+                  <button type="button" class="choice" data-choice="gevel" data-value="hout">Hout<small>Warm, natuurlijk karakter</small></button>
+                  <button type="button" class="choice" data-choice="gevel" data-value="match">Gelijk aan woning<small>We matchen zoveel mogelijk je bestaande gevel</small></button>
+                </div>
+              </div>
+              <div data-flow="dakterras" hidden>
+                <h3>Hoe bereik je het dakterras?</h3>
+                <p>Duikluik is vaak de compacte optie; een dakopgang/hutje is ruimer maar zwaarder in constructie.</p>
+                <div class="choice-grid">
+                  <button type="button" class="choice" data-choice="toegang" data-value="duikluik">Duikluik<small>Opening in het dak, trap van binnen</small></button>
+                  <button type="button" class="choice" data-choice="toegang" data-value="dakopgang">Dakopgang / hutje<small>Vaste opgang met deur of overkapping</small></button>
+                  <button type="button" class="choice" data-choice="toegang" data-value="beide">Beide<small>Luik én aparte dakopgang</small></button>
+                </div>
+              </div>
+              <div data-flow="dakkapel" hidden>
+                <h3>Welke dakvorm?</h3>
+                <p>Plat is meestal de scherpste keuze; lessenaars of zadeldak vragen meer werk.</p>
+                <div class="choice-grid">
+                  <button type="button" class="choice" data-choice="dakvorm" data-value="plat">Plat dak<small>Meest gekozen, vaak scherpst geprijsd</small></button>
+                  <button type="button" class="choice" data-choice="dakvorm" data-value="lessenaar">Lessenaarsdak<small>Eén helling, strak aanzicht</small></button>
+                  <button type="button" class="choice" data-choice="dakvorm" data-value="zadel">Zadeldak<small>Klassiek, meer detaillering</small></button>
+                </div>
               </div>
               <div class="calc-nav">
                 <button type="button" class="btn btn-teal" data-prev="2">Terug</button>
@@ -316,15 +390,35 @@
               </div>
             </div>
 
-            <!-- 4 Kozijnen -->
+            <!-- 4 Opties B (per type) -->
             <div class="calc-step" data-step="4">
-              <h3>Welk type kozijn?</h3>
-              <p>Materiaal van de kozijnen — onderhoud, uitstraling en prijs verschillen.</p>
-              <div class="choice-grid">
-                <button type="button" class="choice" data-choice="kozijn" data-value="kunststof">Kunststof<small>Onderhoudsarm en scherp geprijsd</small></button>
-                <button type="button" class="choice" data-choice="kozijn" data-value="aluminium">Aluminium<small>Strak, slank en duurzaam</small></button>
-                <button type="button" class="choice" data-choice="kozijn" data-value="hout">Hout<small>Klassieke uitstraling</small></button>
-                <button type="button" class="choice" data-choice="kozijn" data-value="houtalu">Hout / aluminium<small>Hout binnen, alu buiten</small></button>
+              <div data-flow="casco">
+                <h3>Welk type kozijn?</h3>
+                <p>Materiaal van de kozijnen — onderhoud, uitstraling en prijs verschillen.</p>
+                <div class="choice-grid">
+                  <button type="button" class="choice" data-choice="kozijn" data-value="kunststof">Kunststof<small>Onderhoudsarm en scherp geprijsd</small></button>
+                  <button type="button" class="choice" data-choice="kozijn" data-value="aluminium">Aluminium<small>Strak, slank en duurzaam</small></button>
+                  <button type="button" class="choice" data-choice="kozijn" data-value="hout">Hout<small>Klassieke uitstraling</small></button>
+                  <button type="button" class="choice" data-choice="kozijn" data-value="houtalu">Hout / aluminium<small>Hout binnen, alu buiten</small></button>
+                </div>
+              </div>
+              <div data-flow="dakterras" hidden>
+                <h3>Welk hekwerk?</h3>
+                <p>Verplicht voor veiligheid. Glas is open en duurder; spijlen of hout zijn gangbaarder.</p>
+                <div class="choice-grid">
+                  <button type="button" class="choice" data-choice="hekwerk" data-value="spijlen">Spijlen / aluminium<small>Licht, onderhoudsarm, scherpst</small></button>
+                  <button type="button" class="choice" data-choice="hekwerk" data-value="hout">Hout<small>Warm karakter, meer onderhoud</small></button>
+                  <button type="button" class="choice" data-choice="hekwerk" data-value="glas">Glas<small>Maximaal uitzicht, premium</small></button>
+                </div>
+              </div>
+              <div data-flow="dakkapel" hidden>
+                <h3>Materiaal / afwerking</h3>
+                <p>Buitenafwerking van de dakkapel — bepaalt uitstraling en onderhoud.</p>
+                <div class="choice-grid">
+                  <button type="button" class="choice" data-choice="dakkapelMateriaal" data-value="kunststof">Kunststof<small>Onderhoudsarm, vaak scherpst</small></button>
+                  <button type="button" class="choice" data-choice="dakkapelMateriaal" data-value="hout">Hout<small>Klassiek, schilderen nodig</small></button>
+                  <button type="button" class="choice" data-choice="dakkapelMateriaal" data-value="zink">Zink<small>Premium, lange levensduur</small></button>
+                </div>
               </div>
               <div class="calc-nav">
                 <button type="button" class="btn btn-teal" data-prev="3">Terug</button>
@@ -332,23 +426,45 @@
               </div>
             </div>
 
-            <!-- 5 Isolatie + heipalen -->
+            <!-- 5 Opties C (per type) -->
             <div class="calc-step" data-step="5">
-              <h3>Isolatie &amp; fundering</h3>
-              <p>Technische keuzes die comfort en prijs bepalen. Twijfel je? Kies “weet ik niet” — dat bepalen we op locatie.</p>
-              <h4 class="calc-sub">Isolatie</h4>
-              <div class="choice-grid">
-                <button type="button" class="choice" data-choice="isolatie" data-value="standaard">Standaard<small>Voldoet aan huidige eisen</small></button>
-                <button type="button" class="choice" data-choice="isolatie" data-value="extra">Extra isolatie<small>Meer comfort, lagere energiekosten</small></button>
-                <button type="button" class="choice" data-choice="isolatie" data-value="onbekend">Weet ik niet<small>Advies tijdens de afspraak</small></button>
+              <div data-flow="casco">
+                <h3>Isolatie &amp; fundering</h3>
+                <p>Technische keuzes die comfort en prijs bepalen. Twijfel je? Kies “weet ik niet” — dat bepalen we op locatie.</p>
+                <h4 class="calc-sub">Isolatie</h4>
+                <div class="choice-grid">
+                  <button type="button" class="choice" data-choice="isolatie" data-value="standaard">Standaard<small>Voldoet aan huidige eisen</small></button>
+                  <button type="button" class="choice" data-choice="isolatie" data-value="extra">Extra isolatie<small>Meer comfort, lagere energiekosten</small></button>
+                  <button type="button" class="choice" data-choice="isolatie" data-value="onbekend">Weet ik niet<small>Advies tijdens de afspraak</small></button>
+                </div>
+                <div data-heipalen-block>
+                  <h4 class="calc-sub">Heipalen nodig?</h4>
+                  <p class="note">Bij aanbouw en bijhuisje: hangt af van de grond en fundering. Weet je het niet zeker? Geen probleem.</p>
+                  <div class="choice-grid cols-3">
+                    <button type="button" class="choice" data-choice="heipalen" data-value="ja">Ja / waarschijnlijk</button>
+                    <button type="button" class="choice" data-choice="heipalen" data-value="nee">Nee</button>
+                    <button type="button" class="choice" data-choice="heipalen" data-value="onbekend">Weet ik niet</button>
+                  </div>
+                </div>
               </div>
-              <div data-heipalen-block>
-                <h4 class="calc-sub">Heipalen nodig?</h4>
-                <p class="note">Vooral bij aanbouw: hangt af van de grond en fundering. Weet je het niet zeker? Geen probleem.</p>
-                <div class="choice-grid cols-3">
-                  <button type="button" class="choice" data-choice="heipalen" data-value="ja">Ja / waarschijnlijk</button>
-                  <button type="button" class="choice" data-choice="heipalen" data-value="nee">Nee</button>
-                  <button type="button" class="choice" data-choice="heipalen" data-value="onbekend">Weet ik niet</button>
+              <div data-flow="dakterras" hidden>
+                <h3>Welk dek / vloer?</h3>
+                <p>Afwerking van het loopvlak — tegels zijn lichter; hout en composiet voelen warmer.</p>
+                <div class="choice-grid">
+                  <button type="button" class="choice" data-choice="dek" data-value="tegels">Tegels<small>Strak, relatief licht en scherp</small></button>
+                  <button type="button" class="choice" data-choice="dek" data-value="douglas">Douglas<small>Warm hout, betaalbaar</small></button>
+                  <button type="button" class="choice" data-choice="dek" data-value="composiet">Composiet<small>Onderhoudsarm, iets zwaarder in prijs</small></button>
+                  <button type="button" class="choice" data-choice="dek" data-value="hardhout">Hardhout<small>Duurzaam en premium uitstraling</small></button>
+                </div>
+              </div>
+              <div data-flow="dakkapel" hidden>
+                <h3>Welk type kozijn?</h3>
+                <p>Kozijnen in de dakkapel — zelfde keuzes als bij een aanbouw.</p>
+                <div class="choice-grid">
+                  <button type="button" class="choice" data-choice="kozijn" data-value="kunststof">Kunststof<small>Onderhoudsarm en scherp geprijsd</small></button>
+                  <button type="button" class="choice" data-choice="kozijn" data-value="aluminium">Aluminium<small>Strak, slank en duurzaam</small></button>
+                  <button type="button" class="choice" data-choice="kozijn" data-value="hout">Hout<small>Klassieke uitstraling</small></button>
+                  <button type="button" class="choice" data-choice="kozijn" data-value="houtalu">Hout / aluminium<small>Hout binnen, alu buiten</small></button>
                 </div>
               </div>
               <div class="calc-nav">
@@ -366,8 +482,8 @@
                 <span data-price-note>Indicatie · verandert mee met je keuzes. Geen definitieve offerte.</span>
               </div>
               <div class="scope-compact" aria-label="Wat zit erbij">
-                <p class="scope-compact-lead"><strong>Casco:</strong> wind- &amp; waterdicht, geïsoleerd, met kozijnen. Geen binnenafwerking.</p>
-                <div class="scope-compact-cols">
+                <p class="scope-compact-lead" data-scope-lead><strong>Casco:</strong> wind- &amp; waterdicht, geïsoleerd, met kozijnen. Geen binnenafwerking.</p>
+                <div class="scope-compact-cols" data-scope-more>
                   <ul class="scope-list scope-list--in">
                     <li><span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="16" height="16"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Hijskraan</li>
                     <li><span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="16" height="16"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Kozijnen</li>
@@ -381,7 +497,7 @@
                     <li><span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="16" height="16"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>Geen complete afbouw</li>
                   </ul>
                 </div>
-                <p class="scope-compact-more"><a href="#wat-zit-erbij">Volledige uitleg →</a></p>
+                <p class="scope-compact-more" data-scope-more><a href="#wat-zit-erbij">Volledige uitleg →</a></p>
               </div>
               <p class="note">Laat je gegevens achter. Wij ontvangen je aanvraag en plannen een afspraak voor de definitieve offerte.</p>
               <form id="lead-form" class="field-grid" name="calculator-lead" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" netlify>
@@ -400,8 +516,18 @@
                 <label>Toelichting (optioneel)<textarea name="toelichting" rows="3" placeholder="Bijv. timing, wensen, bestaande situatie"></textarea></label>
                 <!-- Extra velden vult JS in vóór submit -->
                 <input type="hidden" name="project" value="" />
+                <input type="hidden" name="project_type" value="" />
                 <input type="hidden" name="oppervlakte_m2" value="" />
                 <input type="hidden" name="prijsindicatie" value="" />
+                <input type="hidden" name="gevel" value="" />
+                <input type="hidden" name="kozijn" value="" />
+                <input type="hidden" name="isolatie" value="" />
+                <input type="hidden" name="heipalen" value="" />
+                <input type="hidden" name="toegang" value="" />
+                <input type="hidden" name="hekwerk" value="" />
+                <input type="hidden" name="dek" value="" />
+                <input type="hidden" name="dakvorm" value="" />
+                <input type="hidden" name="dakkapel_materiaal" value="" />
                 <p class="lead-form-status" data-lead-status hidden role="alert"></p>
                 <p class="note lead-form-reassure">Na versturen nemen wij contact met je op.</p>
                 <div class="calc-nav">
@@ -994,6 +1120,7 @@
       </p>
     </div>
   </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
   <script src="js/email-config.js" defer></script>
   <script src="js/customer-mail.js" defer></script>

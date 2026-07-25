@@ -761,6 +761,10 @@ section.alt { background: var(--ad-chalk); }
 @media (min-width: 520px) {
   .choice-grid { gap: 0.65rem; }
   .choice-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .choice-grid.cols-types { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 700px) {
+  .choice-grid.cols-types { grid-template-columns: repeat(3, 1fr); }
 }
 .choice {
   appearance: none;

@@ -5,47 +5,108 @@
     width: 4,
     depth: 3,
     height: 2.8,
+    // Casco-opties
     gevel: null,
     kozijn: null,
     isolatie: null,
     heipalen: null,
+    // Dakterras
+    toegang: null,
+    hekwerk: null,
+    dek: null,
+    // Dakkapel
+    dakvorm: null,
+    dakkapelMateriaal: null,
   };
 
-  // Interne basis €/m² (niet tonen in UI) — aanbouw ~€2800
+  /*
+   * Interne basis €/m² (niet tonen in UI).
+   * Bronnen (richtprijzen NL, relative — geen garantie):
+   * - Aanbouw / bijhuisje ~€2800 (bestaande bedrijfsrichtlijn)
+   * - Dakterras ~€750–1250/m² all-in (ConstructieShop, Verbouwkosten) → mid 900
+   * - Dakkapel ~€6500–12000 bij 2,5–5 m breed (Homedeal, Dakkapel-kosten.nl)
+   *   → footprint-rate ~€1600/m² (bijv. 3×2 = €9600)
+   */
   const rates = {
     aanbouw: 2800,
     nok: 2200,
     dakopbouw: 3000,
+    dakterras: 900,
+    dakkapel: 1600,
+    bijhuisje: 2800, // zelfde basis als aanbouw (tuinhuis / bijgebouw)
   };
 
-  // Relatieve opslagen t.o.v. baseline per categorie (zichtbaar in live range)
+  // Casco-flow: gevel → kozijn → isolatie (+ heipalen bij aanbouw/bijhuisje)
+  const CASCO_TYPES = new Set(["aanbouw", "nok", "dakopbouw", "bijhuisje"]);
+  const HEIPALEN_TYPES = new Set(["aanbouw", "bijhuisje"]);
+
+  // Relatieve opslagen t.o.v. baseline per categorie
   const multipliers = {
     gevel: {
-      stuc: 0.92, // goedkoper: sneller / eenvoudiger afwerking
-      steen: 1.0, // baseline
-      hout: 1.08, // duurder: materiaal + detaillering
-      match: 1.1, // maatwerk aansluiting bestaande gevel
+      stuc: 0.92,
+      steen: 1.0,
+      hout: 1.08,
+      match: 1.1,
     },
     kozijn: {
-      kunststof: 1.0, // scherpst geprijsd
+      kunststof: 1.0,
       aluminium: 1.1,
       hout: 1.12,
-      houtalu: 1.18, // premium combinatie
+      houtalu: 1.18,
     },
     isolatie: {
       standaard: 1.0,
-      onbekend: 1.04, // middenbuffer tot advies op locatie
-      extra: 1.1, // dikkere opbouw / betere Rc
+      onbekend: 1.04,
+      extra: 1.1,
     },
     heipalen: {
       nee: 1.0,
       onbekend: 1.08,
-      ja: 1.15, // fundering met heipalen duidelijk duurder
+      ja: 1.15,
+    },
+    // Dakterras — toegang: duikluik goedkoper dan dakopgang/hutje + vaste trap
+    // (dakluik ~€1450–2650 vs trap+opgang duidelijk hoger; Verbouwkosten/BouwadviesShop)
+    toegang: {
+      duikluik: 1.0,
+      dakopgang: 1.18,
+      beide: 1.28,
+    },
+    // Hekwerk: spijlen/aluminium baseline, hout +, glas ++ (~€120–220 vs €150–300 vs €300–550/m¹)
+    hekwerk: {
+      spijlen: 1.0,
+      hout: 1.08,
+      glas: 1.22,
+    },
+    // Dek/vlonder: tegels goedkoopst, douglas mid, composiet/hardhout duurder
+    dek: {
+      tegels: 0.95,
+      douglas: 1.0,
+      composiet: 1.1,
+      hardhout: 1.14,
+    },
+    // Dakkapel dakvorm: plat standaard, lessenaar +, zadel ++ (~€1000–1250 meerprijs)
+    dakvorm: {
+      plat: 1.0,
+      lessenaar: 1.08,
+      zadel: 1.15,
+    },
+    // Dakkapel materiaal: kunststof scherpst, hout +, zink/polyester premium
+    dakkapelMateriaal: {
+      kunststof: 1.0,
+      hout: 1.12,
+      zink: 1.22,
     },
   };
 
   const labels = {
-    type: { aanbouw: "Aanbouw", nok: "Nokverhoging", dakopbouw: "Dakopbouw" },
+    type: {
+      aanbouw: "Aanbouw",
+      nok: "Nokverhoging",
+      dakopbouw: "Dakopbouw",
+      dakterras: "Dakterras",
+      dakkapel: "Dakkapel",
+      bijhuisje: "Bijhuisje",
+    },
     gevel: { steen: "Steen", stuc: "Stucwerk", hout: "Hout", match: "Gelijk aan woning" },
     kozijn: {
       kunststof: "Kunststof",
@@ -63,6 +124,41 @@
       nee: "Heipalen: nee",
       onbekend: "Heipalen: weet ik niet",
     },
+    toegang: {
+      duikluik: "Toegang: duikluik",
+      dakopgang: "Toegang: dakopgang",
+      beide: "Toegang: duikluik + opgang",
+    },
+    hekwerk: {
+      spijlen: "Hekwerk: spijlen",
+      hout: "Hekwerk: hout",
+      glas: "Hekwerk: glas",
+    },
+    dek: {
+      tegels: "Dek: tegels",
+      douglas: "Dek: douglas",
+      composiet: "Dek: composiet",
+      hardhout: "Dek: hardhout",
+    },
+    dakvorm: {
+      plat: "Dak: plat",
+      lessenaar: "Dak: lessenaars",
+      zadel: "Dak: zadeldak",
+    },
+    dakkapelMateriaal: {
+      kunststof: "Materiaal: kunststof",
+      hout: "Materiaal: hout",
+      zink: "Materiaal: zink",
+    },
+  };
+
+  const typeDefaults = {
+    aanbouw: { width: 4, depth: 3, height: 2.8 },
+    nok: { width: 6, depth: 8, height: 2.8 },
+    dakopbouw: { width: 6, depth: 4, height: 2.6 },
+    dakterras: { width: 4, depth: 4, height: 2.8 },
+    dakkapel: { width: 3, depth: 1.5, height: 2.5 },
+    bijhuisje: { width: 4, depth: 3, height: 2.6 },
   };
 
   const totalSteps = 6;
@@ -85,9 +181,23 @@
     livePrices: [...document.querySelectorAll("[data-live-price]")],
     form: document.querySelector("#lead-form"),
     heipalenStep: document.querySelector('[data-step="5"]'),
+    heightRow: document.querySelector("[data-dim-height]"),
+    step2Lead: document.querySelector("[data-step2-lead]"),
+    widthLabel: document.querySelector("[data-label-width]"),
+    depthLabel: document.querySelector("[data-label-depth]"),
   };
 
   let priceFlashTimer = null;
+
+  function flowFor(type) {
+    if (!type) return "casco";
+    if (CASCO_TYPES.has(type)) return "casco";
+    return type;
+  }
+
+  function usesHeight(type) {
+    return type !== "dakterras" && type !== "dakkapel";
+  }
 
   function m2() {
     return Math.round(state.width * state.depth * 10) / 10;
@@ -97,17 +207,26 @@
     const type = state.type || "aanbouw";
     let mid = rates[type] * m2();
 
-    // Hoogte: boven 2.6 iets duurder
-    if (state.height >= 3.0) mid *= 1.06;
-    else if (state.height >= 2.8) mid *= 1.03;
+    if (usesHeight(type)) {
+      if (state.height >= 3.0) mid *= 1.06;
+      else if (state.height >= 2.8) mid *= 1.03;
+    }
 
-    if (state.gevel) mid *= multipliers.gevel[state.gevel] || 1;
-    if (state.kozijn) mid *= multipliers.kozijn[state.kozijn] || 1;
-    if (state.isolatie) mid *= multipliers.isolatie[state.isolatie] || 1;
-
-    // Heipalen vooral relevant bij aanbouw
-    if (type === "aanbouw" && state.heipalen) {
-      mid *= multipliers.heipalen[state.heipalen] || 1;
+    if (CASCO_TYPES.has(type)) {
+      if (state.gevel) mid *= multipliers.gevel[state.gevel] || 1;
+      if (state.kozijn) mid *= multipliers.kozijn[state.kozijn] || 1;
+      if (state.isolatie) mid *= multipliers.isolatie[state.isolatie] || 1;
+      if (HEIPALEN_TYPES.has(type) && state.heipalen) {
+        mid *= multipliers.heipalen[state.heipalen] || 1;
+      }
+    } else if (type === "dakterras") {
+      if (state.toegang) mid *= multipliers.toegang[state.toegang] || 1;
+      if (state.hekwerk) mid *= multipliers.hekwerk[state.hekwerk] || 1;
+      if (state.dek) mid *= multipliers.dek[state.dek] || 1;
+    } else if (type === "dakkapel") {
+      if (state.dakvorm) mid *= multipliers.dakvorm[state.dakvorm] || 1;
+      if (state.dakkapelMateriaal) mid *= multipliers.dakkapelMateriaal[state.dakkapelMateriaal] || 1;
+      if (state.kozijn) mid *= multipliers.kozijn[state.kozijn] || 1;
     }
 
     mid = Math.round(mid / 100) * 100;
@@ -129,14 +248,130 @@
     if (state.type) parts.push(labels.type[state.type]);
     parts.push(`${m2()} m²`);
     parts.push(`${state.width} × ${state.depth} m`);
-    parts.push(`hoogte ${state.height} m`);
-    if (state.gevel) parts.push(labels.gevel[state.gevel]);
-    if (state.kozijn) parts.push(labels.kozijn[state.kozijn]);
-    if (state.isolatie) parts.push(labels.isolatie[state.isolatie]);
-    if (state.type === "aanbouw" && state.heipalen) {
-      parts.push(labels.heipalen[state.heipalen]);
+    if (usesHeight(state.type)) {
+      parts.push(`hoogte ${state.height} m`);
+    }
+
+    const type = state.type;
+    if (CASCO_TYPES.has(type)) {
+      if (state.gevel) parts.push(labels.gevel[state.gevel]);
+      if (state.kozijn) parts.push(labels.kozijn[state.kozijn]);
+      if (state.isolatie) parts.push(labels.isolatie[state.isolatie]);
+      if (HEIPALEN_TYPES.has(type) && state.heipalen) {
+        parts.push(labels.heipalen[state.heipalen]);
+      }
+    } else if (type === "dakterras") {
+      if (state.toegang) parts.push(labels.toegang[state.toegang]);
+      if (state.hekwerk) parts.push(labels.hekwerk[state.hekwerk]);
+      if (state.dek) parts.push(labels.dek[state.dek]);
+    } else if (type === "dakkapel") {
+      if (state.dakvorm) parts.push(labels.dakvorm[state.dakvorm]);
+      if (state.dakkapelMateriaal) parts.push(labels.dakkapelMateriaal[state.dakkapelMateriaal]);
+      if (state.kozijn) parts.push(labels.kozijn[state.kozijn]);
     }
     return parts;
+  }
+
+  function syncFlowPanels() {
+    const flow = flowFor(state.type);
+    document.querySelectorAll("[data-flow]").forEach((panel) => {
+      const match = panel.dataset.flow === flow;
+      panel.hidden = !match;
+    });
+
+    const pileBlock = document.querySelector("[data-heipalen-block]");
+    if (pileBlock) {
+      pileBlock.hidden = !HEIPALEN_TYPES.has(state.type);
+    }
+
+    if (els.heightRow) {
+      els.heightRow.hidden = state.type ? !usesHeight(state.type) : false;
+    }
+
+    if (els.step2Lead) {
+      if (state.type === "dakterras") {
+        els.step2Lead.textContent =
+          "Breedte × diepte = oppervlakte van je dakterras. Metrage is verplicht voor de indicatie.";
+      } else if (state.type === "dakkapel") {
+        els.step2Lead.textContent =
+          "Breedte is het belangrijkst. Diepte is hoe ver de dakkapel uitsteekt (typisch 1–2,5 m).";
+      } else if (state.type === "bijhuisje") {
+        els.step2Lead.textContent =
+          "Breedte × diepte = vloeroppervlak van je bijhuisje. Hoogte telt mee in comfort én prijs.";
+      } else {
+        els.step2Lead.textContent =
+          "Breedte × diepte = totale oppervlakte. Hoogte telt mee in comfort én prijs.";
+      }
+    }
+
+    if (els.widthLabel) {
+      els.widthLabel.textContent =
+        state.type === "dakkapel" ? "Breedte (langs de gevel)" : "Breedte";
+    }
+    if (els.depthLabel) {
+      if (state.type === "dakkapel") els.depthLabel.textContent = "Diepte (uitsteek)";
+      else if (state.type === "dakterras") els.depthLabel.textContent = "Diepte";
+      else els.depthLabel.textContent = "Diepte (lengte)";
+    }
+
+    // Slider ranges per type
+    const widthInput = document.querySelector("#calc-width");
+    const depthInput = document.querySelector("#calc-depth");
+    if (widthInput && depthInput && state.type === "dakkapel") {
+      widthInput.min = "1.5";
+      widthInput.max = "8";
+      depthInput.min = "1";
+      depthInput.max = "2.5";
+      depthInput.step = "0.25";
+    } else if (widthInput && depthInput) {
+      widthInput.min = "2";
+      widthInput.max = "12";
+      depthInput.min = "2";
+      depthInput.max = state.type === "dakterras" ? "12" : "10";
+      depthInput.step = "0.5";
+    }
+
+    updateScopeCopy();
+  }
+
+  function updateScopeCopy() {
+    const lead = document.querySelector("[data-scope-lead]");
+    const moreEls = document.querySelectorAll("[data-scope-more]");
+    const type = state.type;
+    if (!lead) return;
+
+    const hideMore = type === "dakterras";
+
+    if (type === "dakterras") {
+      lead.innerHTML =
+        "<strong>Indicatie dakterras:</strong> constructie/versterking, waterdichting, dek, hekwerk en toegang zoals gekozen. Definitief na check draagkracht op locatie.";
+    } else if (type === "dakkapel") {
+      lead.innerHTML =
+        "<strong>Indicatie dakkapel:</strong> casco-plaatsing incl. dakwerk, isolatie en kozijnen volgens je keuzes. Geen complete binnenafbouw tenzij afgesproken.";
+    } else if (type === "bijhuisje") {
+      lead.innerHTML =
+        "<strong>Casco bijhuisje:</strong> wind- &amp; waterdicht, geïsoleerd, met kozijnen — zelfde basis als een aanbouw. Geen binnenafwerking.";
+    } else {
+      lead.innerHTML =
+        "<strong>Casco:</strong> wind- &amp; waterdicht, geïsoleerd, met kozijnen. Geen binnenafwerking.";
+    }
+    moreEls.forEach((el) => {
+      el.hidden = hideMore;
+    });
+  }
+
+  function applyTypeDefaults(type) {
+    const d = typeDefaults[type];
+    if (!d) return;
+    state.width = d.width;
+    state.depth = d.depth;
+    state.height = d.height;
+    const widthInput = document.querySelector("#calc-width");
+    const depthInput = document.querySelector("#calc-depth");
+    const heightInput = document.querySelector("#calc-height");
+    if (widthInput) widthInput.value = String(d.width);
+    if (depthInput) depthInput.value = String(d.depth);
+    if (heightInput) heightInput.value = String(d.height);
   }
 
   function updateDimsUI() {
@@ -154,9 +389,15 @@
   function updateLiveSummary() {
     const text = buildSummaryParts().join(" · ");
     if (els.liveSummary) els.liveSummary.textContent = text;
-    if (els.vizLabel) els.vizLabel.textContent = state.type
-      ? `${labels.type[state.type]} · ${m2()} m² · ${state.height} m hoog`
-      : "Kies een type om te starten";
+    if (els.vizLabel) {
+      if (!state.type) {
+        els.vizLabel.textContent = "Kies een type om te starten";
+      } else if (usesHeight(state.type)) {
+        els.vizLabel.textContent = `${labels.type[state.type]} · ${m2()} m² · ${state.height} m hoog`;
+      } else {
+        els.vizLabel.textContent = `${labels.type[state.type]} · ${m2()} m² · ${state.width} × ${state.depth} m`;
+      }
+    }
   }
 
   function flashLivePrice() {
@@ -188,7 +429,7 @@
     }
     showVizScene(type);
 
-    const hNorm = (state.height - 2.4) / (3.4 - 2.4); // 0..1
+    const hNorm = (state.height - 2.4) / (3.4 - 2.4);
     const areaNorm = Math.min(state.width * state.depth, 60) / 60;
 
     if (type === "aanbouw") {
@@ -222,13 +463,12 @@
       const newEdge = document.querySelector("[data-viz-new-roof-edge]");
       const oldRoof = document.querySelector("[data-viz-old-roof]");
       if (!ext || !newRoof) return;
-      // Footprint breedte schaalt licht met breedte; nokhoogte met hoogte-slider
       const midX = 220;
       const left = 70 - Math.min(state.width, 12) * 1.2;
       const right = 370 + Math.min(state.width, 12) * 1.2;
       const eavesY = 130;
       const oldPeak = 58 - areaNorm * 4;
-      const newPeak = 48 - hNorm * 28 - areaNorm * 6; // hoger = lagere Y
+      const newPeak = 48 - hNorm * 28 - areaNorm * 6;
       const peakY = Math.max(12, newPeak);
       newRoof.setAttribute(
         "d",
@@ -246,7 +486,6 @@
           `M${left} ${eavesY} L${midX} ${oldPeak} L${right} ${eavesY}`
         );
       }
-      // Kozijn in oranje dak meeschalen
       const win = ext.querySelector("rect");
       if (win) {
         const winH = 22 + hNorm * 12;
@@ -264,7 +503,7 @@
       if (!ext) return;
       const baseW = 224;
       const baseH = 70;
-      const roofTop = 118; // plat dak van bestaande woning
+      const roofTop = 118;
       const wFactor = 0.85 + Math.min(state.width, 12) / 20;
       const dFactor = 0.9 + Math.min(state.depth, 10) / 25;
       const extW = Math.min(280, baseW * wFactor * dFactor);
@@ -274,6 +513,62 @@
       const sx = extW / baseW;
       const sy = extH / baseH;
       ext.setAttribute("transform", `translate(${x}, ${y}) scale(${sx}, ${sy})`);
+      return;
+    }
+
+    if (type === "dakterras") {
+      const deck = document.querySelector("[data-viz-deck]");
+      const rail = document.querySelector("[data-viz-rail]");
+      if (!deck) return;
+      const roofY = 118;
+      const wFactor = 0.7 + Math.min(state.width, 12) / 18;
+      const dFactor = 0.75 + Math.min(state.depth, 12) / 20;
+      const deckW = Math.min(260, 160 * wFactor * dFactor);
+      const deckH = Math.min(28, 14 + areaNorm * 10);
+      const x = 220 - deckW / 2;
+      const y = roofY - deckH - 4;
+      deck.setAttribute("x", String(x));
+      deck.setAttribute("y", String(y));
+      deck.setAttribute("width", String(deckW));
+      deck.setAttribute("height", String(deckH));
+      if (rail) {
+        rail.setAttribute("d", `M${x} ${y} H${x + deckW} V${y - 22} H${x} Z`);
+      }
+      return;
+    }
+
+    if (type === "dakkapel") {
+      const ext = document.querySelector('[data-viz-ext="dakkapel"]');
+      if (!ext) return;
+      const baseW = 110;
+      const wFactor = 0.7 + Math.min(state.width, 8) / 10;
+      const dFactor = 0.85 + Math.min(state.depth, 2.5) / 8;
+      const extW = Math.min(200, baseW * wFactor);
+      const extH = Math.min(70, 42 + dFactor * 18);
+      const x = 220 - extW / 2;
+      const y = 88 - extH * 0.15;
+      ext.setAttribute(
+        "transform",
+        `translate(${x}, ${y}) scale(${extW / baseW}, ${extH / 55})`
+      );
+      return;
+    }
+
+    if (type === "bijhuisje") {
+      const ext = document.querySelector('[data-viz-ext="bijhuisje"]');
+      if (!ext) return;
+      const baseW = 130;
+      const baseH = 88;
+      const wFactor = 0.8 + Math.min(state.width, 12) / 18;
+      const dFactor = 0.85 + Math.min(state.depth, 10) / 22;
+      const extW = Math.min(200, baseW * wFactor * dFactor);
+      const extH = Math.min(115, 72 + hNorm * 28 + areaNorm * 8);
+      const x = 268;
+      const y = 210 - extH;
+      ext.setAttribute(
+        "transform",
+        `translate(${x}, ${y}) scale(${extW / baseW}, ${extH / baseH})`
+      );
     }
   }
 
@@ -296,7 +591,6 @@
     });
     if (show && prev && prev !== rangeText) flashLivePrice();
 
-    // Stap 6 / lead: zelfde range als live UI
     if (els.price) els.price.textContent = rangeText;
     if (els.priceNote) {
       const { m2: area } = estimate();
@@ -324,20 +618,43 @@
       step.classList.toggle("is-active", Number(step.dataset.step) === n);
     });
     renderProgress(n);
+    syncFlowPanels();
     updateLiveSummary();
     updatePrice();
-
-    // Heipalen-vraag alleen bij aanbouw tonen in stap 5 copy
-    const pileBlock = document.querySelector("[data-heipalen-block]");
-    if (pileBlock) {
-      pileBlock.hidden = state.type !== "aanbouw";
-    }
   }
 
   function requireChoice(value, message) {
     if (!value) {
       alert(message);
       return false;
+    }
+    return true;
+  }
+
+  function validateStepOptions(step) {
+    const type = state.type;
+    const flow = flowFor(type);
+
+    if (step === 3) {
+      if (flow === "casco") return requireChoice(state.gevel, "Kies een gevelmateriaal.");
+      if (flow === "dakterras") return requireChoice(state.toegang, "Kies hoe je het dakterras bereikt.");
+      if (flow === "dakkapel") return requireChoice(state.dakvorm, "Kies een dakvorm.");
+    }
+    if (step === 4) {
+      if (flow === "casco") return requireChoice(state.kozijn, "Kies een type kozijn.");
+      if (flow === "dakterras") return requireChoice(state.hekwerk, "Kies een soort hekwerk.");
+      if (flow === "dakkapel") return requireChoice(state.dakkapelMateriaal, "Kies een materiaal/afwerking.");
+    }
+    if (step === 5) {
+      if (flow === "casco") {
+        if (!requireChoice(state.isolatie, "Kies een isolatieniveau.")) return false;
+        if (HEIPALEN_TYPES.has(type) && !requireChoice(state.heipalen, "Geef aan of er heipalen nodig zijn (of weet je het nog niet).")) {
+          return false;
+        }
+        return true;
+      }
+      if (flow === "dakterras") return requireChoice(state.dek, "Kies een dek-/vloerafwerking.");
+      if (flow === "dakkapel") return requireChoice(state.kozijn, "Kies een type kozijn.");
     }
     return true;
   }
@@ -353,13 +670,15 @@
         .querySelectorAll(`[data-choice="${group}"]`)
         .forEach((b) => b.classList.remove("is-selected"));
       btn.classList.add("is-selected");
-      updateLiveSummary();
+
       if (group === "type") {
-        updateViz();
-        const pileBlock = document.querySelector("[data-heipalen-block]");
-        if (pileBlock) pileBlock.hidden = value !== "aanbouw";
+        applyTypeDefaults(value);
+        syncFlowPanels();
+        updateDimsUI();
+      } else {
+        updateLiveSummary();
+        updatePrice();
       }
-      updatePrice();
     });
   });
 
@@ -390,14 +709,9 @@
     btn.addEventListener("click", () => {
       const next = Number(btn.dataset.next);
       if (state.step === 1 && !requireChoice(state.type, "Kies eerst een type project.")) return;
-      if (state.step === 3 && !requireChoice(state.gevel, "Kies een gevelmateriaal.")) return;
-      if (state.step === 4 && !requireChoice(state.kozijn, "Kies een type kozijn.")) return;
-      if (state.step === 5) {
-        if (!requireChoice(state.isolatie, "Kies een isolatieniveau.")) return;
-        if (state.type === "aanbouw" && !requireChoice(state.heipalen, "Geef aan of er heipalen nodig zijn (of weet je het nog niet).")) {
-          return;
-        }
-      }
+      if (state.step === 3 && !validateStepOptions(3)) return;
+      if (state.step === 4 && !validateStepOptions(4)) return;
+      if (state.step === 5 && !validateStepOptions(5)) return;
       setStep(next);
     });
   });
@@ -424,7 +738,6 @@
         highLabel,
       };
     }
-    // Fallback als customer-mail.js niet geladen is
     const plain = [
       `Hoi ${(naam || "").trim().split(/\s+/)[0] || "daar"},`,
       ``,
@@ -460,7 +773,7 @@
       ``,
       `Project: ${summary}`,
       `Oppervlakte: ${area} m²`,
-      `Prijsindicatie (casco): ${prijs}`,
+      `Prijsindicatie: ${prijs}`,
       ``,
       `— Verstuurd omdat het online formulier (FormSubmit) niet werkte.`,
     ].join("\n");
@@ -576,6 +889,27 @@
     return true;
   }
 
+  function syncHiddenLeadFields(summary, area, prijs) {
+    if (!els.form) return;
+    const set = (name, value) => {
+      const field = els.form.elements.namedItem(name);
+      if (field && "value" in field) field.value = value;
+    };
+    set("project", summary);
+    set("oppervlakte_m2", `${area} m²`);
+    set("prijsindicatie", prijs);
+    set("project_type", state.type || "");
+    set("toegang", state.toegang || "");
+    set("hekwerk", state.hekwerk || "");
+    set("dek", state.dek || "");
+    set("dakvorm", state.dakvorm || "");
+    set("dakkapel_materiaal", state.dakkapelMateriaal || "");
+    set("gevel", state.gevel || "");
+    set("kozijn", state.kozijn || "");
+    set("isolatie", state.isolatie || "");
+    set("heipalen", state.heipalen || "");
+  }
+
   if (els.form) {
     els.form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -596,13 +930,7 @@
       const messages = buildCustomerMessages({ naam: data.naam, low, high });
       const autoresponse = messages.plain;
 
-      // Hidden fields (legacy Netlify / debugging)
-      const projectField = els.form.elements.namedItem("project");
-      const areaField = els.form.elements.namedItem("oppervlakte_m2");
-      const prijsField = els.form.elements.namedItem("prijsindicatie");
-      if (projectField && "value" in projectField) projectField.value = summary;
-      if (areaField && "value" in areaField) areaField.value = `${area} m²`;
-      if (prijsField && "value" in prijsField) prijsField.value = prijs;
+      syncHiddenLeadFields(summary, area, prijs);
 
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -612,7 +940,6 @@
       try {
         const emailjsReady = CustomerMail && CustomerMail.isEmailjsReady();
 
-        // Parallel: lead naar bedrijf (FormSubmit) + HTML-klantmail (EmailJS indien geconfigureerd)
         const formPayload = {
           naam: data.naam,
           email: data.email,
@@ -620,21 +947,28 @@
           postcode: data.postcode,
           toelichting: data.toelichting || "-",
           project: summary,
+          project_type: state.type || "-",
           oppervlakte_m2: `${area} m²`,
           jouw_indicatie: prijs,
+          toegang: state.toegang || "-",
+          hekwerk: state.hekwerk || "-",
+          dek: state.dek || "-",
+          dakvorm: state.dakvorm || "-",
+          dakkapel_materiaal: state.dakkapelMateriaal || "-",
+          gevel: state.gevel || "-",
+          kozijn: state.kozijn || "-",
+          isolatie: state.isolatie || "-",
+          heipalen: state.heipalen || "-",
           let_op:
             "Dit is een goede richting op basis van je keuzes. De definitieve prijs leggen we samen vast op locatie (na afspraak).",
           prijsindicatie: prijs,
           _subject: `Aanbouw-direct: aanvraag + prijsindicatie — ${data.naam}`,
           _template: "table",
           _captcha: "false",
-          // Best-effort plain autoresponse (FormSubmit: vaak uitgeschakeld bij AJAX + captcha uit)
           _autoresponse: autoresponse,
           _replyto: data.email,
         };
 
-        // Zonder EmailJS: CC naar klant zodat zij wél een mail met de indicatie ontvangen
-        // (FormSubmit-tabel, niet huisstijl-HTML). Met EmailJS: geen CC (dubbele mail vermijden).
         if (!emailjsReady) {
           formPayload._cc = data.email;
         }
@@ -696,7 +1030,6 @@
           ? `Online versturen lukt nog niet. Je aanvraag gaat niet verloren: stuur hem nu via e-mail — project en prijs staan al ingevuld. Of bel / WhatsApp / Mail. Daarna: check je inbox; we nemen contact op.`
           : `Versturen via het formulier lukte niet. Stuur je aanvraag nu via e-mail (project + prijs staan al klaar), of bel / WhatsApp / Mail ${PHONE_DISPLAY}.`;
 
-        // Fallback: bedankt-stap toont mail/Bel/WhatsApp; mailto opent direct
         fillThankYou({
           note: statusMsg,
           low,
@@ -709,7 +1042,6 @@
         });
         setStep(7);
 
-        // Open mailto direct — lead komt in mailclient terecht
         window.location.href = mailtoHref;
       } finally {
         if (submitBtn) {
@@ -775,7 +1107,6 @@
       !(navigator.connection && navigator.connection.saveData);
 
     if (canAutoplay) {
-      // Load video only if lite file is reachable (404 → keep poster)
       fetch(src, { method: "HEAD" })
         .then((r) => {
           if (!r.ok) return;
