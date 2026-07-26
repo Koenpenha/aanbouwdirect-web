@@ -143,5 +143,48 @@
     startTimer();
   }
 
+  function initReviewsScroll(root) {
+    const track = root.querySelector("[data-reviews-track]");
+    const prevBtn = root.querySelector("[data-reviews-prev]");
+    const nextBtn = root.querySelector("[data-reviews-next]");
+    if (!track) return;
+
+    function step() {
+      const card = track.querySelector(".review-card");
+      if (!card) return track.clientWidth * 0.85;
+      const styles = window.getComputedStyle(track);
+      const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function scrollByDir(dir) {
+      track.scrollBy({ left: dir * step(), behavior: "smooth" });
+    }
+
+    function syncButtons() {
+      const max = track.scrollWidth - track.clientWidth - 2;
+      const atStart = track.scrollLeft <= 2;
+      const atEnd = track.scrollLeft >= max;
+      if (prevBtn) prevBtn.disabled = atStart;
+      if (nextBtn) nextBtn.disabled = atEnd;
+    }
+
+    prevBtn?.addEventListener("click", () => scrollByDir(-1));
+    nextBtn?.addEventListener("click", () => scrollByDir(1));
+    track.addEventListener("scroll", syncButtons, { passive: true });
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        scrollByDir(-1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        scrollByDir(1);
+      }
+    });
+    window.addEventListener("resize", syncButtons);
+    syncButtons();
+  }
+
   document.querySelectorAll("[data-carousel]").forEach(initCarousel);
+  document.querySelectorAll("[data-reviews-scroll]").forEach(initReviewsScroll);
 })();
