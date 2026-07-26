@@ -167,10 +167,11 @@ p.lead {
 }
 
 /* Contact — primaire CTA + secundaire bel/whatsapp/mail */
-.contact-cta-primary { width: 100%; box-sizing: border-box; }
+.contact-cta-primary,
+.contact-cta-secondary { width: 100%; box-sizing: border-box; }
 .contact-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.55rem;
   width: 100%;
 }
@@ -1563,6 +1564,13 @@ input[type="range"]::-moz-range-thumb {
   margin: 0;
   max-width: 32rem;
 }
+.contact-season {
+  margin: 0.65rem 0 0;
+  max-width: 32rem;
+  font-size: 0.95rem;
+  color: var(--ad-stone);
+  line-height: 1.45;
+}
 .contact-actions {
   display: flex;
   flex-direction: column;
@@ -1645,10 +1653,11 @@ input[type="range"]::-moz-range-thumb {
     flex-wrap: wrap;
     align-items: stretch;
   }
-  .contact-cta-primary {
+  .contact-cta-primary,
+  .contact-cta-secondary {
     width: auto;
     flex: 0 1 auto;
-    min-width: 14rem;
+    min-width: 12.5rem;
   }
   .contact-row {
     flex: 1 1 16rem;
