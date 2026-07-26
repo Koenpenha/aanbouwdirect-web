@@ -221,3 +221,18 @@
 .site-footer .footer-nav a[href*="blog"] {
   opacity: 0.9;
 }
+
+.blog-figure {
+  margin: 1.75rem 0 2rem;
+}
+.blog-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.blog-figure figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--ad-stone);
+}
