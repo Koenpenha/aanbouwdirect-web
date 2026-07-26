@@ -1022,45 +1022,6 @@
       section.classList.add("is-scope-updating");
     }
 
-    updateScopeTip();
-  }
-
-  function updateScopeTip() {
-    const tip = document.querySelector("[data-scope-tip]");
-    const textEl = document.querySelector("[data-scope-tip-text]");
-    if (!tip || !textEl) return;
-
-    const show = Boolean(state.type) && state.step >= 1 && state.step <= 5;
-    tip.hidden = !show;
-    if (!show) {
-      textEl.textContent = "";
-      return;
-    }
-
-    const flow = flowFor(state.type);
-    let msg;
-    if (state.step === 5) {
-      if (flow === "dakterras") {
-        msg =
-          "Bij je prijs zie je wat wél en niet bij deze dakterras-indicatie hoort.";
-      } else if (flow === "dakkapel") {
-        msg =
-          "Bij je prijs zie je wat wél en niet in je dakkapel-indicatie zit.";
-      } else {
-        msg =
-          "Bij je prijs zie je wat wél en niet in je casco-indicatie zit.";
-      }
-    } else if (flow === "dakterras") {
-      msg =
-        "Indicatie voor een dakterras (geen woonruimte). Wat erbij zit → bij je prijs.";
-    } else if (flow === "dakkapel") {
-      msg =
-        "Casco-dakkapel: plaatsing en schil. Geen complete zolderafbouw — details bij je prijs.";
-    } else {
-      msg =
-        "Casco-indicatie: wind- & waterdicht, geen binnenafbouw. Wat wél/niet → bij je prijs.";
-    }
-    textEl.textContent = msg;
   }
 
   function applyTypeDefaults(type) {
@@ -1361,7 +1322,6 @@
     syncFlowPanels();
     updateLiveSummary();
     updatePrice();
-    updateScopeTip();
   }
 
   function requireChoice(value, message) {
