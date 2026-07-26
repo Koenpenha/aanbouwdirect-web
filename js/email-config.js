@@ -21,7 +21,7 @@ window.AANBOUW_EMAIL = {
   siteUrl: "https://aanbouw.direct/",
   /** Absolute URL — e-mailclients ondersteunen SVG wisselend; PNG heeft voorkeur */
   logoUrl: "https://aanbouw.direct/assets/aanbouwdirect-mark.svg",
-  address: "Oosteindeweg 21, 1432 AC Aalsmeer",
+  address: "Burgemeester Rijderslaan 410, Amstelveen",
   emailjs: {
     publicKey: "", // Account → General → Public Key
     serviceId: "", // Email Services → service_xxxxx

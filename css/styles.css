@@ -436,7 +436,7 @@ p.lead {
   position: relative;
   min-height: min(88vh, 820px);
   display: grid;
-  align-items: end;
+  align-items: center;
   color: var(--ad-white);
   background: #005A72;
   overflow: hidden;
@@ -482,14 +482,14 @@ p.lead {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(28,36,40,0.4) 0%, rgba(0,90,114,0.58) 42%, rgba(0,90,114,0.92) 100%),
+    linear-gradient(180deg, rgba(28,36,40,0.45) 0%, rgba(0,90,114,0.52) 38%, rgba(0,90,114,0.78) 72%, rgba(0,90,114,0.92) 100%),
     linear-gradient(90deg, rgba(0,90,114,0.55) 0%, rgba(0,90,114,0.15) 55%, transparent 100%);
   pointer-events: none;
 }
 .hero-inner {
   position: relative;
   z-index: 1;
-  padding-block: clamp(3rem, 10vh, 7rem) clamp(2.5rem, 7vh, 5rem);
+  padding-block: clamp(4.5rem, 12vh, 7rem) clamp(4rem, 11vh, 6.5rem);
   /* Geen width:100% — dat overschreef .wrap en plakte CTA’s tegen de rand */
   max-width: min(38rem, 100%);
   box-sizing: border-box;
@@ -536,8 +536,7 @@ p.lead {
 @media (max-width: 479px) {
   .hero { min-height: min(82vh, 680px); }
   .hero-inner {
-    padding-top: 2.75rem;
-    padding-bottom: 3.25rem;
+    padding-block: 3.5rem 4rem;
   }
   .hero-cta {
     width: 100%;
@@ -678,50 +677,32 @@ section.alt { background: transparent; }
 .calc-intro-season {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.45rem 0.65rem;
+  align-items: baseline;
+  gap: 0.35rem 0.7rem;
   margin: 0 0 0.85rem;
-}
-.calc-intro-pulse {
-  position: relative;
-  flex-shrink: 0;
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
-  background: var(--ad-teal);
-  box-shadow: 0 0 0 0 rgba(0, 118, 148, 0.45);
-  animation: calcPulse 2.4s var(--ease) infinite;
-}
-.calc-intro-pulse::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 118, 148, 0.35);
-  animation: calcPulseRing 2.4s var(--ease) infinite;
 }
 .calc-intro-month {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ad-teal-dark);
-}
-.calc-intro-divider {
-  display: none;
-  width: 1.15rem;
-  height: 1px;
-  background: rgba(0, 90, 114, 0.35);
-}
-@media (min-width: 480px) {
-  .calc-intro-divider { display: block; }
+  color: var(--ad-teal);
 }
 .calc-intro-season-text {
   font-size: 0.92rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ad-stone);
   letter-spacing: 0.01em;
+}
+.calc-intro-season-text::before {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 1px;
+  margin-right: 0.7rem;
+  vertical-align: middle;
+  background: rgba(0, 90, 114, 0.28);
 }
 .calc-intro-lead {
   margin: 0 0 1rem;
@@ -766,21 +747,11 @@ section.alt { background: transparent; }
   font-weight: 600;
   text-decoration-thickness: 1.5px;
 }
-@keyframes calcPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 118, 148, 0.4); }
-  55% { box-shadow: 0 0 0 7px rgba(0, 118, 148, 0); }
-}
-@keyframes calcPulseRing {
-  0%, 100% { opacity: 0.7; transform: scale(1); }
-  55% { opacity: 0; transform: scale(1.55); }
-}
 @keyframes calcTypeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .calc-intro-pulse,
-  .calc-intro-pulse::after { animation: none; }
   .calc-intro-types li { animation: none; }
 }
 
@@ -1579,6 +1550,99 @@ input[type="range"]::-moz-range-thumb {
 .reviews-carousel {
   margin: 0;
 }
+.reviews-grid {
+  display: grid;
+  gap: 1rem 1.15rem;
+  margin: 0;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .reviews-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 900px) {
+  .reviews-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .reviews-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 639px) {
+  .reviews-grid {
+    display: flex;
+    gap: 0.85rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.35rem;
+    margin-inline: -0.15rem;
+    padding-inline: 0.15rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .reviews-grid::-webkit-scrollbar { height: 4px; }
+  .reviews-grid::-webkit-scrollbar-thumb {
+    background: rgba(0, 118, 148, 0.28);
+    border-radius: 999px;
+  }
+  .review-card {
+    flex: 0 0 min(78vw, 17.5rem);
+    scroll-snap-align: start;
+  }
+}
+.review-card {
+  margin: 0;
+  padding: 1.15rem 1.05rem 1.2rem;
+  background: rgba(255, 255, 255, 0.72);
+  border-top: 1px solid rgba(0, 118, 148, 0.14);
+  border-left: 3px solid rgba(224, 120, 48, 0.55);
+}
+.review-card .review-stars {
+  margin: 0 0 0.65rem;
+  color: var(--ad-orange);
+  letter-spacing: 0.1em;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+.review-card blockquote {
+  margin: 0 0 0.85rem;
+}
+.review-card blockquote p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 2.1vw, 1.02rem);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--ad-graphite);
+}
+.review-card cite {
+  display: block;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--ad-teal-dark);
+}
+.review-card cite::before {
+  content: "";
+  display: inline-block;
+  width: 1.15rem;
+  height: 2px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  background: var(--ad-orange);
+}
+.reviews-caption {
+  margin: 1rem 0 0;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ad-stone);
+  letter-spacing: 0.01em;
+}
 .reviews-viewport {
   position: relative;
   overflow: hidden;
@@ -1744,10 +1808,7 @@ input[type="range"]::-moz-range-thumb {
 
 @media (max-width: 479px) {
   .reviews-score {
-    padding: 1.2rem 1.15rem;
-  }
-  .review-slide {
-    padding: 1.35rem 1.2rem 1.4rem 1.35rem;
+    padding-left: 0.85rem;
   }
   .carousel-dots {
     max-width: 100%;
@@ -1790,24 +1851,30 @@ input[type="range"]::-moz-range-thumb {
   font-size: 0.88rem;
 }
 
-/* FAQ */
-.faq { display: grid; gap: 0; border-top: 1px solid rgba(28,36,40,0.12); }
+/* FAQ — strak, onderdeel van de flow */
+.faq {
+  display: grid;
+  gap: 0;
+  max-width: 40rem;
+  border-top: 1px solid rgba(28,36,40,0.1);
+}
 .faq details {
-  border-bottom: 1px solid rgba(28,36,40,0.12);
-  padding: 0.35rem 0.15rem;
+  border-bottom: 1px solid rgba(28,36,40,0.1);
+  padding: 0;
 }
 .faq summary {
   font-family: var(--font-display);
   font-weight: 600;
+  font-size: 1.02rem;
   cursor: pointer;
   list-style: none;
-  color: var(--ad-graphite);
+  color: var(--ad-teal-dark);
   min-height: var(--tap);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.9rem 0.15rem;
+  padding: 0.95rem 0;
   -webkit-tap-highlight-color: transparent;
 }
 .faq summary::-webkit-details-marker { display: none; }
@@ -1822,8 +1889,11 @@ input[type="range"]::-moz-range-thumb {
 .faq details[open] summary::after { content: "–"; }
 .faq details p {
   margin: 0 0 1rem;
-  max-width: 40rem;
-  padding-right: 1.5rem;
+  max-width: 38rem;
+  padding-right: 1.25rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--ad-graphite);
 }
 
 /* Contact */
@@ -1869,6 +1939,47 @@ input[type="range"]::-moz-range-thumb {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--ad-teal-dark);
+}
+.contact-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 0.15rem;
+  padding: 0.85rem 1rem;
+  max-width: 100%;
+  border: 1.5px solid rgba(0, 118, 148, 0.22);
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--ad-teal-dark);
+  text-decoration: none;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.contact-instagram:hover {
+  border-color: var(--ad-teal);
+  background: var(--ad-white);
+  color: var(--ad-teal);
+}
+.contact-instagram__svg {
+  display: block;
+  flex-shrink: 0;
+}
+.contact-instagram__text {
+  display: grid;
+  gap: 0.15rem;
+  line-height: 1.25;
+}
+.contact-instagram__text strong {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.contact-instagram__text span {
+  font-size: 0.9rem;
+  color: var(--ad-stone);
+  font-weight: 500;
+}
+.contact-instagram:hover .contact-instagram__text span {
+  color: var(--ad-teal);
 }
 .contact-social {
   margin: 0;
