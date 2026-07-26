@@ -149,9 +149,9 @@
           Aanbouwdirect
         </div>
         <h1>Waarom verhuizen als je kan uitbouwen?</h1>
-        <p class="lead">Stel je plan samen en zie meteen een prijsindicatie. Daarna plannen we een afspraak voor de definitieve offerte.</p>
+        <p class="lead">Kies type en formaat voor een casco-bandbreedte. Daarna plannen we een afspraak voor de definitieve offerte.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary hero-cta-primary" href="#calculator">Direct een prijsindicatie</a>
+          <a class="btn btn-primary hero-cta-primary" href="#calculator">Casco-prijsindicatie</a>
           <div class="hero-contact-row" role="group" aria-label="Direct contact">
             <a class="btn btn-ghost" href="tel:+31232052483" aria-label="Bel 023 205 2483">Bel</a>
             <a class="btn btn-ghost" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
@@ -164,14 +164,14 @@
     <section id="calculator" class="alt">
       <div class="wrap">
         <div class="calc-intro reveal">
-          <div class="calc-intro-season" aria-label="Seizoenstip augustus">
+          <div class="calc-intro-season" aria-label="Seizoenstip">
             <span class="calc-intro-pulse" aria-hidden="true"></span>
-            <span class="calc-intro-month">Augustus</span>
+            <span class="calc-intro-month" data-season-month>Juli</span>
             <span class="calc-intro-divider" aria-hidden="true"></span>
-            <span class="calc-intro-season-text">Zomer is plannen Â· najaar bouwen</span>
+            <span class="calc-intro-season-text">Zomer is plannen · najaar bouwen</span>
           </div>
-          <h2>Stel samen. Zie meteen wat het ongeveer kost.</h2>
-          <p class="calc-intro-lead">Je krijgt een bandbreedte â€” geen definitieve offerte. Wel een helder startpunt, nu in augustus, voor bouwen in het najaar.</p>
+          <h2>Casco-prijsindicatie</h2>
+          <p class="calc-intro-lead">Kies type en formaat. Je ziet een bandbreedte, geen definitieve offerte. Daarna plannen we een afspraak op locatie.</p>
           <ul class="calc-intro-types">
             <li>Aanbouw</li>
             <li>Nokverhoging</li>
@@ -861,7 +861,7 @@
               </svg>
             </span>
             <h3>Eerst indicatie, dan zekerheid</h3>
-            <p>Stel je plan online samen en zie meteen een bandbreedte. De definitieve offerte volgt na een afspraak op locatie â€” zo weet je waar je aan toe bent.</p>
+            <p>Online krijg je een casco-bandbreedte. De definitieve offerte volgt na een afspraak op locatie, zo weet je waar je aan toe bent.</p>
           </li>
           <li>
             <span class="why-icon" aria-hidden="true">
@@ -1112,12 +1112,12 @@
       <div class="wrap contact-panel reveal">
         <div class="contact-intro">
           <h2>Contact</h2>
-          <p class="lead">Klaar voor een afspraak op locatie? Bel of WhatsApp â€” we plannen het in. Liever eerst een bandbreedte? Gebruik de calculator.</p>
-          <p class="contact-season">Zomer is plannen Â· najaar bouwen â€” augustus is het moment om te starten.</p>
+          <p class="lead">Klaar voor een afspraak op locatie? Bel of WhatsApp, we plannen het in. Liever eerst een bandbreedte? Gebruik de calculator.</p>
+          <p class="contact-season">Zomer is plannen · najaar bouwen. Nu starten geeft rust in het najaar.</p>
         </div>
         <div class="contact-actions">
           <a class="btn btn-primary contact-cta-primary" href="tel:+31232052483" aria-label="Bel 023 205 2483 om een afspraak te plannen">Plan een afspraak</a>
-          <a class="btn btn-teal contact-cta-secondary" href="#calculator">Direct een prijsindicatie</a>
+          <a class="btn btn-teal contact-cta-secondary" href="#calculator">Casco-prijsindicatie</a>
           <div class="contact-row" role="group" aria-label="Direct contact">
             <a class="btn btn-teal" href="https://wa.me/31232052483?text=Hoi%2C%20ik%20wil%20graag%20een%20afspraak%20plannen%20voor%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
             <a class="btn btn-teal" href="mailto:info@aanbouw.direct?subject=Afspraak%20aanvraag%20aanbouw%20%2F%20uitbouw" aria-label="Mail ons">Mail</a>
@@ -1165,6 +1165,13 @@
     </div>
   </footer>
 
+  <script>
+    (function () {
+      var months = ["Januari","Februari","Maart","April","Mei","Juni","Juli","Augustus","September","Oktober","November","December"];
+      var el = document.querySelector("[data-season-month]");
+      if (el) el.textContent = months[new Date().getMonth()];
+    })();
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
   <script src="js/email-config.js" defer></script>
   <script src="js/customer-mail.js" defer></script>
