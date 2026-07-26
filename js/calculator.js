@@ -1032,7 +1032,10 @@
 
     const show = Boolean(state.type) && state.step >= 1 && state.step <= 5;
     tip.hidden = !show;
-    if (!show) return;
+    if (!show) {
+      textEl.textContent = "";
+      return;
+    }
 
     const flow = flowFor(state.type);
     let msg;

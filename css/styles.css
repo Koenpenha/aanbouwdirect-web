@@ -1098,6 +1098,10 @@ input[type="range"]::-moz-range-thumb {
   background: rgba(0, 118, 148, 0.07);
   border-radius: 6px;
 }
+/* display:flex overrides UA [hidden]{display:none} — empty "i" bar otherwise */
+.calc-scope-tip[hidden] {
+  display: none !important;
+}
 .calc-scope-tip-mark {
   flex-shrink: 0;
   display: inline-flex;
