@@ -21,7 +21,9 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --nav-h: 3.5rem;
   --tap: 2.75rem;
-  --section-gap: clamp(3.25rem, 8vw, 5.75rem);
+  --section-gap: clamp(3rem, 7vw, 5rem);
+  --flow-teal-wash: rgba(0, 118, 148, 0.06);
+  --flow-sand-wash: rgba(243, 224, 208, 0.35);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -32,8 +34,17 @@ body {
   font-size: 1.0625rem;
   line-height: 1.55;
   color: var(--ad-graphite);
-  background: var(--ad-white);
+  background: var(--ad-chalk);
   overflow-x: hidden;
+}
+main {
+  /* Doorlopende pagina — secties wassen in elkaar i.p.v. harde blokken */
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      var(--ad-chalk) 0%
+    );
 }
 body.nav-open { overflow: hidden; }
 img { max-width: 100%; display: block; }
@@ -122,47 +133,46 @@ p.lead {
   .btn-group .btn { width: auto; }
 }
 
-/* Hero CTA: primaire knop + gelijke rij Bel | WhatsApp | Mail */
+/* Hero CTA: primaire knop + max 1 secundaire tekstlink */
 .hero-cta {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 0.65rem;
+  align-items: flex-start;
+  gap: 0.85rem;
   width: 100%;
-  max-width: 28rem;
+  max-width: 22rem;
 }
 .hero-cta-primary {
   width: 100%;
   box-sizing: border-box;
 }
-.hero-contact-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.55rem;
-  width: 100%;
-}
-.hero-contact-row .btn {
-  width: 100%;
-  box-sizing: border-box;
-  white-space: nowrap;
-  padding-inline: 0.45rem;
+.hero-cta-secondary {
+  font-family: var(--font-display);
+  font-weight: 600;
   font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  padding-bottom: 0.1rem;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.hero-cta-secondary:hover {
+  color: var(--ad-white);
+  border-bottom-color: rgba(255, 255, 255, 0.75);
 }
 @media (min-width: 640px) {
   .hero-cta {
     max-width: none;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: stretch;
+    align-items: center;
+    gap: 1rem 1.35rem;
   }
   .hero-cta-primary {
     width: auto;
     flex: 0 1 auto;
     min-width: 14rem;
-  }
-  .hero-contact-row {
-    flex: 1 1 16rem;
-    max-width: 22rem;
   }
 }
 
@@ -421,7 +431,7 @@ p.lead {
   .logo-word { font-size: 1.05rem; }
 }
 
-/* Hero — full bleed */
+/* Hero — full bleed, loopt visueel door naar calculator */
 .hero {
   position: relative;
   min-height: min(88vh, 820px);
@@ -430,6 +440,24 @@ p.lead {
   color: var(--ad-white);
   background: #005A72;
   overflow: hidden;
+  /* Negatieve marge + fade: geen harde snede naar calc */
+  padding-bottom: 0;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(3.5rem, 10vw, 5.5rem);
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(232, 241, 244, 0.55) 55%,
+    var(--ad-chalk) 100%
+  );
 }
 .hero-media {
   position: absolute;
@@ -490,21 +518,32 @@ p.lead {
   color: rgba(255,255,255,0.92);
   margin-bottom: 1.35rem;
 }
+/* Hero presence — 1 bewuste motion */
+.hero-brand,
+.hero h1,
+.hero .lead,
+.hero-cta {
+  animation: hero-rise 0.75s var(--ease) both;
+}
+.hero h1 { animation-delay: 0.08s; }
+.hero .lead { animation-delay: 0.16s; }
+.hero-cta { animation-delay: 0.24s; }
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
 
 @media (max-width: 479px) {
   .hero { min-height: min(82vh, 680px); }
   .hero-inner {
     padding-top: 2.75rem;
-    padding-bottom: 2.75rem;
+    padding-bottom: 3.25rem;
   }
   .hero-cta {
     width: 100%;
     max-width: 100%;
   }
   .hero-cta-primary {
-    width: 100%;
-  }
-  .hero-contact-row {
     width: 100%;
   }
   .section-head {
@@ -541,11 +580,63 @@ p.lead {
     background:
       center / cover no-repeat url("../assets/hero-poster.jpg");
   }
+  .hero-brand,
+  .hero h1,
+  .hero .lead,
+  .hero-cta { animation: none; }
 }
 
-/* Sections */
-section { padding: var(--section-gap) 0; }
-section.alt { background: var(--ad-chalk); }
+/* Sections — flow zones (geen harde chalk/wit-wissel) */
+section {
+  padding: var(--section-gap) 0;
+  position: relative;
+  background: transparent;
+}
+section.alt { background: transparent; }
+.zone {
+  isolation: isolate;
+}
+.zone--tool {
+  margin-top: -2.5rem;
+  padding-top: clamp(2.5rem, 6vw, 3.75rem);
+  background:
+    linear-gradient(180deg, var(--ad-chalk) 0%, #f8fafb 35%, var(--ad-chalk) 100%);
+}
+.zone--proof {
+  padding-top: clamp(2.5rem, 5vw, 3.5rem);
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(232, 241, 244, 0.65) 18%, transparent 100%);
+}
+.zone--craft {
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.7) 30%, transparent 100%);
+}
+.zone--path {
+  background:
+    linear-gradient(180deg, transparent 0%, var(--flow-sand-wash) 40%, transparent 100%);
+}
+.zone--scan {
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
+}
+.zone--ref {
+  padding-top: clamp(2.25rem, 5vw, 3rem);
+  padding-bottom: clamp(2.25rem, 5vw, 3rem);
+  background:
+    linear-gradient(180deg, transparent 0%, var(--flow-teal-wash) 45%, transparent 100%);
+}
+.zone--aside {
+  padding-block: clamp(1.75rem, 4vw, 2.5rem);
+  background: transparent;
+}
+.zone--faq {
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.65) 25%, var(--ad-chalk) 100%);
+}
+.zone--close {
+  background:
+    linear-gradient(180deg, var(--ad-chalk) 0%, #eef4f6 55%, var(--ad-sand) 140%);
+  padding-bottom: clamp(3.5rem, 8vw, 5.5rem);
+}
 .section-head { max-width: 36rem; margin-bottom: 1.75rem; }
 .section-head .eyebrow {
   margin: 0 0 0.55rem;
@@ -561,25 +652,19 @@ section.alt { background: var(--ad-chalk); }
 }
 .section-head p { margin-bottom: 0; }
 
-/* Calculator intro — seizoenspulse (Minimalist/Refined) */
+/* Calculator intro — seizoenslijn als versterker, in dezelfde adem als hero */
 .calc-intro {
   position: relative;
   max-width: 40rem;
-  margin-bottom: 1.75rem;
-  padding: 1.15rem 0 1.15rem 1.15rem;
-  border-left: 3px solid var(--ad-teal);
-  background:
-    linear-gradient(
-      105deg,
-      rgba(243, 224, 208, 0.55) 0%,
-      rgba(243, 224, 208, 0.18) 42%,
-      transparent 72%
-    );
+  margin-bottom: 1.5rem;
+  padding: 0.35rem 0 1rem;
+  border-left: none;
+  background: none;
 }
 @media (min-width: 768px) {
   .calc-intro {
-    margin-bottom: 2.15rem;
-    padding: 1.35rem 0 1.35rem 1.5rem;
+    margin-bottom: 1.85rem;
+    padding: 0.5rem 0 1.15rem;
   }
 }
 .calc-intro h2 {
@@ -699,44 +784,21 @@ section.alt { background: var(--ad-chalk); }
   .calc-intro-types li { animation: none; }
 }
 
-/* Why */
-.why-list {
-  display: grid;
-  gap: 1.75rem;
+/* Why — demoted: één zin, geen icon-grid */
+.why-aside-text {
   margin: 0;
-  padding: 0;
-  list-style: none;
+  max-width: 40rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: var(--ad-teal-dark);
 }
-@media (min-width: 700px) {
-  .why-list { grid-template-columns: repeat(2, 1fr); gap: 2rem 2.5rem; }
+.why-aside-text span {
+  color: var(--ad-stone);
+  font-weight: 500;
 }
-@media (min-width: 980px) {
-  .why-list { grid-template-columns: repeat(4, 1fr); gap: 1.75rem; }
-}
-.why-list li {
-  border-top: 3px solid var(--ad-teal);
-  padding-top: 1.15rem;
-  display: grid;
-  gap: 0.55rem;
-  align-content: start;
-}
-.why-icon {
-  display: flex;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-bottom: 0.15rem;
-}
-.why-icon svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.why-list h3 {
-  color: var(--ad-graphite);
-  margin: 0;
-  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
-}
-.why-list p { margin: 0; font-size: 0.98rem; }
 
 /* Services */
 .services {
@@ -818,10 +880,11 @@ section.alt { background: var(--ad-chalk); }
   display: grid;
   gap: 0;
   background: var(--ad-white);
-  border: 1px solid rgba(28,36,40,0.1);
-  border-radius: 10px;
+  border: 1px solid rgba(28,36,40,0.08);
+  border-radius: 12px;
   overflow: hidden;
   margin-inline: 0;
+  box-shadow: 0 18px 48px rgba(0, 90, 114, 0.07);
 }
 @media (min-width: 900px) {
   .calc-shell { grid-template-columns: 1.1fr 0.9fr; min-height: 520px; }
@@ -1120,9 +1183,8 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .scope-section--ref {
-  padding-top: 3.25rem;
-  padding-bottom: 3.25rem;
-  background: var(--ad-kalk);
+  /* zone--ref neemt achtergrond over */
+  background: transparent;
 }
 .scope-section--ref .section-head {
   max-width: 40rem;
@@ -1317,16 +1379,17 @@ input[type="range"]::-moz-range-thumb {
 .project-card {
   margin: 0;
   overflow: hidden;
-  border-radius: 10px;
-  background: var(--ad-white);
-  border: 1px solid rgba(0, 118, 148, 0.1);
-  box-shadow: 0 10px 28px rgba(28, 36, 40, 0.06);
+  border-radius: 8px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 .project-card img {
   width: 100%;
   aspect-ratio: 16/10;
   object-fit: cover;
   display: block;
+  border-radius: 8px;
 }
 .project-card figcaption {
   display: flex;
@@ -1334,8 +1397,8 @@ input[type="range"]::-moz-range-thumb {
   align-items: baseline;
   justify-content: space-between;
   gap: 0.35rem 1rem;
-  padding: 0.95rem 1.1rem 1.05rem;
-  border-top: 1px solid rgba(28, 36, 40, 0.06);
+  padding: 0.85rem 0 0.25rem;
+  border-top: 0;
 }
 .project-type {
   font-family: var(--font-display);
@@ -1444,15 +1507,15 @@ input[type="range"]::-moz-range-thumb {
   .live-price--panel { display: none !important; }
 }
 
-/* Reviews — opvallende social-proof sectie */
+/* Reviews — proof in dezelfde adem als calculator */
 .reviews-section {
   position: relative;
-  background:
-    radial-gradient(ellipse 80% 55% at 12% 0%, rgba(0, 118, 148, 0.12), transparent 55%),
-    radial-gradient(ellipse 70% 50% at 92% 100%, rgba(224, 120, 48, 0.1), transparent 50%),
-    linear-gradient(180deg, #e8f1f4 0%, var(--ad-chalk) 48%, #eef3f5 100%);
-  border-block: 1px solid rgba(0, 118, 148, 0.12);
+  background: transparent;
+  border-block: 0;
   overflow: clip;
+}
+.reviews-section .section-head {
+  margin-bottom: 1.25rem;
 }
 .reviews-section .section-head p:last-child {
   max-width: 34em;
@@ -1466,14 +1529,15 @@ input[type="range"]::-moz-range-thumb {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.15rem 1.75rem;
-  margin: 0 0 1.85rem;
-  padding: clamp(1.25rem, 4vw, 1.75rem) clamp(1.25rem, 4vw, 2rem);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.72));
-  border: 1px solid rgba(0, 118, 148, 0.14);
-  border-left: 5px solid var(--ad-orange);
-  border-radius: 0 10px 10px 0;
-  box-shadow: 0 10px 28px rgba(28, 36, 40, 0.06);
+  gap: 0.85rem 1.5rem;
+  margin: 0 0 1.5rem;
+  padding: 0.35rem 0;
+  background: none;
+  border: 0;
+  border-left: 3px solid var(--ad-orange);
+  border-radius: 0;
+  box-shadow: none;
+  padding-left: 1rem;
 }
 .reviews-score-num {
   display: flex;
@@ -1483,7 +1547,7 @@ input[type="range"]::-moz-range-thumb {
   line-height: 1;
 }
 .reviews-score-num strong {
-  font-size: clamp(3.25rem, 12vw, 4.75rem);
+  font-size: clamp(2.4rem, 8vw, 3.25rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   color: var(--ad-teal);
@@ -1518,7 +1582,7 @@ input[type="range"]::-moz-range-thumb {
 .reviews-viewport {
   position: relative;
   overflow: hidden;
-  min-height: 16rem;
+  min-height: 12rem;
   outline: none;
   touch-action: pan-y;
 }
@@ -1536,28 +1600,17 @@ input[type="range"]::-moz-range-thumb {
   display: none;
   position: relative;
   margin: 0;
-  padding: clamp(1.5rem, 4.5vw, 2.15rem) clamp(1.35rem, 4vw, 2.25rem) clamp(1.5rem, 4vw, 2rem);
-  padding-left: clamp(1.65rem, 5vw, 2.5rem);
-  background: var(--ad-white);
-  border-radius: 10px;
-  border-left: 5px solid var(--ad-teal);
-  box-shadow:
-    0 1px 0 rgba(0, 118, 148, 0.06),
-    0 14px 36px rgba(28, 36, 40, 0.08);
+  padding: clamp(1.25rem, 3.5vw, 1.75rem) 0 clamp(1.15rem, 3vw, 1.5rem);
+  padding-left: 0;
+  background: transparent;
+  border-radius: 0;
+  border-left: 0;
+  border-top: 1px solid rgba(0, 118, 148, 0.14);
+  box-shadow: none;
   animation: review-in 0.45s var(--ease);
 }
 .review-slide::before {
-  content: "“";
-  position: absolute;
-  top: 0.35rem;
-  right: clamp(0.85rem, 3vw, 1.35rem);
-  font-family: var(--font-display);
-  font-size: clamp(4.5rem, 14vw, 6.5rem);
-  font-weight: 800;
-  line-height: 1;
-  color: rgba(224, 120, 48, 0.22);
-  pointer-events: none;
-  user-select: none;
+  content: none;
 }
 .review-slide.is-active { display: block; }
 @keyframes review-in {
@@ -1948,10 +2001,14 @@ input[type="range"]::-moz-range-thumb {
 
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
 }
 .reveal.is-in { opacity: 1; transform: none; }
+/* Tweede motion: zachte zone-fade via delayed children */
+.zone .reveal:nth-child(2) { transition-delay: 0.06s; }
+.zone .reveal:nth-child(3) { transition-delay: 0.12s; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
+  .zone .reveal { transition-delay: 0s; }
 }

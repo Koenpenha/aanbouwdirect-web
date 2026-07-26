@@ -1816,7 +1816,7 @@
             : `Je prijsindicatie (${prijs}) staat hieronder. Check je mail op ${data.email} (bevestiging) of gebruik “Mail mezelf de indicatie”.`;
 
         fillThankYou({
-          note: `We hebben je aanvraag ontvangen. ${mailHint} We plannen graag een afspraak op locatie voor je definitieve offerte — bel ${PHONE_DISPLAY}, WhatsApp, of mail ons.`,
+          note: `Aanvraag ontvangen. ${mailHint} We nemen contact op voor een afspraak op locatie — bel ${PHONE_DISPLAY}, WhatsApp of mail.`,
           low,
           high,
           summary,
@@ -1833,8 +1833,8 @@
           (err.message === "FORMSUBMIT_ACTIVATION" ||
             (err.leadResult && err.leadResult.activation));
         const statusMsg = isActivation
-          ? `Online versturen lukt nog niet (FormSubmit-activatie). Je aanvraag gaat niet verloren: stuur hem via e-mail — project en prijs staan al ingevuld. Of bel / WhatsApp / Mail.`
-          : `Versturen via het formulier lukte niet. Stuur je aanvraag via e-mail (project + prijs staan klaar), of bel / WhatsApp / Mail ${PHONE_DISPLAY}.`;
+          ? `Online versturen lukt nog niet (FormSubmit-activatie). Stuur via e-mail — project en prijs staan klaar. Of bel / WhatsApp.`
+          : `Versturen lukte niet. Stuur via e-mail (project + prijs staan klaar), of bel / WhatsApp ${PHONE_DISPLAY}.`;
 
         fillThankYou({
           note: statusMsg,
