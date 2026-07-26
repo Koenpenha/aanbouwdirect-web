@@ -235,11 +235,12 @@
         {
           title: "Geen vloeren",
           detail: "geen dekvloer-afwerking of vloerbedekking",
-          short: "Geen vloeren / keuken",
+          short: "Geen vloeren",
         },
         {
           title: "Geen keuken of sanitair",
           detail: "inbouw en afwerking van keuken/bad doe jij apart",
+          short: "Geen keuken / sanitair",
         },
         {
           title: "Geen schilderwerk binnen",
@@ -377,11 +378,12 @@
         {
           title: "Geen vloeren",
           detail: "geen dekvloer-afwerking of vloerbedekking",
-          short: "Geen vloeren / keuken",
+          short: "Geen vloeren",
         },
         {
           title: "Geen keuken of sanitair",
           detail: "inbouw en afwerking doe jij apart",
+          short: "Geen keuken / sanitair",
         },
         {
           title: "Geen schilderwerk binnen",
@@ -397,11 +399,11 @@
     dakterras: {
       label: "Dakterras",
       intro:
-        "Indicatie voor een <strong>dakterras</strong> (geen dakopbouw): waterdicht dakvlak, dek, hekwerk en toegang zoals je kiest. Definitief na check van draagkracht op locatie — geen standaard complete binnenafwerking.",
+        "Indicatie voor een <strong>dakterras</strong> (geen dakopbouw): waterdicht dakvlak, dek, hekwerk en toegang zoals je kiest. Definitief na check van draagkracht op locatie.",
       lead:
         "<strong>Indicatie dakterras:</strong> constructie/versterking, waterdichting, dek, hekwerk en toegang. Definitief na check draagkracht.",
       inLead: "Dit hoort bij de richting van je dakterras-indicatie.",
-      outLead: "Geen woonruimte of binnenafbouw — dit is een terras op het dak.",
+      outLead: "Dit is een terras op het dak — geen woonruimte of dakopbouw.",
       foot: "Draagkracht, waterdichting en toegang checken we op locatie voor de definitieve offerte.",
       include: [
         {
@@ -437,27 +439,24 @@
       ],
       exclude: [
         {
-          title: "Geen complete binnenafwerking",
-          detail: "geen stuc, schilderwerk of woonklare afbouw onder het terras",
-          short: "Geen binnenafbouw",
-        },
-        {
-          title: "Geen woonruimte / dakopbouw",
+          title: "Geen dakopbouw / woonruimte",
           detail: "dit is een terras, geen extra verdieping met muren en dak",
           short: "Geen dakopbouw",
         },
         {
-          title: "Geen keuken of sanitair",
-          detail: "geen buitenkeuken of sanitair in de standaardindicatie",
-          short: "Geen keuken / sanitair",
+          title: "Geen overkapping of buitenkeuken",
+          detail: "overkapping, buitenkeuken of vaste buiteninbouw rekenen we apart als je dat wilt",
+          short: "Geen overkapping",
         },
         {
           title: "Geen meubilair of beplanting",
           detail: "inrichting van het terras doe je zelf",
+          short: "Geen meubilair",
         },
         {
-          title: "Geen garantie zonder draagkrachtcheck",
+          title: "Definitief na draagkrachtcheck",
           detail: "prijs en uitvoering hangen af van de check op locatie",
+          short: "Check op locatie",
         },
       ],
     },
@@ -576,11 +575,12 @@
         {
           title: "Geen vloeren",
           detail: "geen dekvloer-afwerking of vloerbedekking",
-          short: "Geen vloeren / keuken",
+          short: "Geen vloeren",
         },
         {
           title: "Geen keuken of sanitair",
           detail: "inbouw en afwerking doe jij apart",
+          short: "Geen keuken / sanitair",
         },
         {
           title: "Geen schilderwerk binnen",
@@ -1428,7 +1428,7 @@
   });
 
   const emailCfg = window.AANBOUW_EMAIL || {};
-  const LEAD_EMAIL = emailCfg.leadEmail || "info@maatkozijndirect.nl";
+  const LEAD_EMAIL = emailCfg.leadEmail || "info@aanbouw.direct";
   const PHONE_DISPLAY = emailCfg.phoneDisplay || "023 205 2483";
   const CustomerMail = window.AanbouwCustomerMail;
 

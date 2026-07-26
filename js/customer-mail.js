@@ -136,7 +136,7 @@
 
       `Liever zelf bellen of WhatsAppen? ${phone}.`,
 
-      `Of mail: ${c.displayEmail || "info@aanbouw-direct.nl"}`,
+      `Of mail: ${c.displayEmail || "info@aanbouw.direct"}`,
 
       ``,
 
@@ -166,7 +166,7 @@
 
     const phoneTel = c.phoneTel || "+31232052483";
 
-    const displayEmail = c.displayEmail || "info@aanbouw-direct.nl";
+    const displayEmail = c.displayEmail || "info@aanbouw.direct";
 
     const siteUrl = c.siteUrl || "https://aanbouw.direct/";
 
@@ -468,7 +468,7 @@
 
         to_email: toEmail,
 
-        reply_to: cfg().displayEmail || "info@aanbouw-direct.nl",
+        reply_to: cfg().displayEmail || "info@aanbouw.direct",
 
         from_name: "Aanbouw-direct",
 
@@ -514,7 +514,7 @@
 
     const c = cfg();
 
-    const to = c.leadEmail || "info@maatkozijndirect.nl";
+    const to = c.leadEmail || "info@aanbouw.direct";
 
     const htmlBody = buildLeadHtml({ data, summary, area, prijs });
 

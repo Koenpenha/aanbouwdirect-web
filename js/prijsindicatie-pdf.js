@@ -4,7 +4,7 @@
  */
 (() => {
   const CONTACT = {
-    email: "info@aanbouw-direct.nl",
+    email: "info@aanbouw.direct",
     phone: "023 205 2483",
     phoneTel: "+31232052483",
     address: "Oosteindeweg 21, 1432 AC Aalsmeer",
