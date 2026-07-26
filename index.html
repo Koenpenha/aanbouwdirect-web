@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20260725-ig" />
+  <link rel="stylesheet" href="css/styles.css?v=20260726-trust1" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -110,8 +110,8 @@
       <nav id="site-menu" class="nav-panel" aria-label="Hoofdmenu">
         <ul class="nav-links">
           <li><a href="#calculator">Samenstellen</a></li>
-          <li class="nav-extra"><a href="#wat-zit-erbij">Wat zit erbij</a></li>
           <li><a href="#reviews">Reviews</a></li>
+          <li class="nav-extra"><a href="#wat-zit-erbij">Wat zit erbij</a></li>
           <li class="nav-extra"><a href="#waarom">Waarom</a></li>
           <li><a href="#diensten">Diensten</a></li>
           <li class="nav-extra"><a href="#werkwijze">Werkwijze</a></li>
@@ -161,12 +161,40 @@
       </div>
     </section>
 
+    <div class="trust-strip" aria-label="Vertrouwen">
+      <div class="wrap trust-strip-inner">
+        <p class="trust-strip-score">
+          <span class="trust-strip-stars" aria-hidden="true">★★★★★</span>
+          <strong>4,8</strong><span class="trust-strip-of">/5</span>
+          <span class="trust-strip-sep" aria-hidden="true">·</span>
+          <a href="#reviews">68 reviews</a>
+        </p>
+        <p class="trust-strip-meta">
+          <span>8 jr ervaring</span>
+          <span class="trust-strip-sep" aria-hidden="true">·</span>
+          <span>Aalsmeer e.o.</span>
+        </p>
+      </div>
+    </div>
+
     <section id="calculator" class="alt">
       <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow">Augustus: goed moment om te plannen</p>
-          <h2>Stel samen en zie meteen wat het ongeveer kost</h2>
-          <p>Zomer is plannen, najaar bouwen. Kies aanbouw, nokverhoging, dakopbouw of dakterras — je krijgt meteen een bandbreedte. Geen definitieve offerte, wel een helder startpunt. Andere verbouwing? Doorloop de stappen of bel ons.</p>
+        <div class="calc-intro reveal">
+          <div class="calc-intro-season" aria-label="Seizoenstip augustus">
+            <span class="calc-intro-pulse" aria-hidden="true"></span>
+            <span class="calc-intro-month">Augustus</span>
+            <span class="calc-intro-divider" aria-hidden="true"></span>
+            <span class="calc-intro-season-text">Zomer is plannen · najaar bouwen</span>
+          </div>
+          <h2>Stel samen. Zie meteen wat het ongeveer kost.</h2>
+          <p class="calc-intro-lead">Je krijgt een bandbreedte — geen definitieve offerte. Wel een helder startpunt, nu in augustus, voor bouwen in het najaar.</p>
+          <ul class="calc-intro-types">
+            <li>Aanbouw</li>
+            <li>Nokverhoging</li>
+            <li>Dakopbouw</li>
+            <li>Dakterras</li>
+          </ul>
+          <p class="calc-intro-aside">Andere verbouwing? Doorloop de stappen of <a href="tel:+31232052483">bel ons</a>.</p>
         </div>
 
         <div class="calc-shell reveal">
@@ -314,6 +342,10 @@
               </div>
               <span class="live-price-note">Verandert mee met je keuzes</span>
             </div>
+            <p class="calc-scope-tip" data-scope-tip hidden>
+              <span class="calc-scope-tip-mark" aria-hidden="true">i</span>
+              <span data-scope-tip-text></span>
+            </p>
 
             <!-- 1 Type -->
             <div class="calc-step is-active" data-step="1">
@@ -484,7 +516,8 @@
                 <strong data-price>€ –</strong>
                 <span data-price-note>Indicatie · verandert mee met je keuzes. Geen definitieve offerte.</span>
               </div>
-              <div class="scope-compact" aria-label="Wat zit erbij">
+              <div id="calc-scope" class="scope-compact" aria-label="Wat zit erbij">
+                <h4 class="scope-compact-title">Wat zit erbij — en wat niet</h4>
                 <p class="scope-compact-lead" data-scope-lead><strong>Casco:</strong> wind- &amp; waterdicht, geïsoleerd, met kozijnen. Geen binnenafwerking.</p>
                 <div class="scope-compact-cols">
                   <ul class="scope-list scope-list--in" data-scope-compact-in>
@@ -500,7 +533,7 @@
                     <li><span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="16" height="16"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>Geen complete afbouw</li>
                   </ul>
                 </div>
-                <p class="scope-compact-more"><a href="#wat-zit-erbij">Volledige uitleg →</a></p>
+                <p class="scope-compact-more"><a href="#wat-zit-erbij">Uitgebreide uitleg →</a></p>
               </div>
               <p class="note">Laat je gegevens achter. Wij ontvangen je aanvraag en plannen een afspraak voor de definitieve offerte.</p>
               <form id="lead-form" class="field-grid" name="calculator-lead" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" netlify>
@@ -545,7 +578,7 @@
             <!-- 7 Bedankt -->
             <div class="calc-step" data-step="7">
               <h3>Aanvraag ontvangen</h3>
-              <p data-thank-note>We hebben je aanvraag ontvangen. Hieronder staat je prijsindicatie — bewaar die. Wij nemen zo snel mogelijk contact op.</p>
+              <p data-thank-note>We hebben je aanvraag ontvangen. Hieronder staat je prijsindicatie — bewaar die. We plannen graag een afspraak op locatie voor je definitieve offerte.</p>
               <div class="price-box" data-thank-price-box hidden>
                 <strong data-thank-price>€ –</strong>
                 <span data-thank-summary></span>
@@ -565,82 +598,6 @@
                 <button type="button" class="btn btn-teal" data-next="1">Nieuwe berekening</button>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="wat-zit-erbij" data-scope-section>
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow">Transparant over scope</p>
-          <h2>Wat zit erbij — en wat niet</h2>
-          <p class="scope-for-choice" data-scope-for aria-live="polite">Voor jouw keuze: <strong data-scope-type-label>Aanbouw</strong></p>
-          <p data-scope-intro>Onze prijsindicatie is <strong>casco</strong>: wind- &amp; waterdicht, geïsoleerd, met kozijnen en elektra tot casco-niveau. Bouwtechnisch klaar om verder af te werken — geen complete binnenafwerking.</p>
-        </div>
-
-        <div class="scope-grid reveal">
-          <div class="scope-card scope-card--in">
-            <h3>Inclusief</h3>
-            <p class="scope-card-lead" data-scope-in-lead>Dit zit standaard in de richting van je indicatie.</p>
-            <ul class="scope-list scope-list--in" data-scope-in-list>
-              <li>
-                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span><strong>Hijskraan</strong> — bereikbaarheid en hijswerk op de bouw meegenomen waar nodig</span>
-              </li>
-              <li>
-                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span><strong>Kozijnen</strong> — ramen en deuren in de schil (type kies je in de calculator)</span>
-              </li>
-              <li>
-                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span><strong>Casco oplevering</strong> — constructie, gevels/dak, wind- &amp; waterdicht</span>
-              </li>
-              <li>
-                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span><strong>Stroom aangelegd</strong> — elektra aangebracht tot casco-niveau</span>
-              </li>
-              <li>
-                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span><strong>Waterdicht maken</strong> — dak, aansluitingen en dichting tegen weer</span>
-              </li>
-              <li>
-                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span><strong>Isoleren</strong> — schilisolatie volgens de afgesproken eisen</span>
-              </li>
-              <li>
-                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span><strong>Aansluiting op je woning</strong> — openingen, doorbraken en nette aansluiting</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="scope-card scope-card--out">
-            <h3>Niet inbegrepen</h3>
-            <p class="scope-card-lead" data-scope-out-lead>Geen vage beloftes: dit is exclusief interieurafbouw.</p>
-            <ul class="scope-list scope-list--out" data-scope-out-list>
-              <li>
-                <span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
-                <span><strong>Geen gestucte binnenafwerking</strong> — wanden en plafonds blijven ongestuct</span>
-              </li>
-              <li>
-                <span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
-                <span><strong>Geen vloeren</strong> — geen dekvloer-afwerking of vloerbedekking</span>
-              </li>
-              <li>
-                <span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
-                <span><strong>Geen keuken of sanitair</strong> — inbouw en afwerking van keuken/bad doe jij apart</span>
-              </li>
-              <li>
-                <span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
-                <span><strong>Geen schilderwerk binnen</strong> — binnen schilderen en lakwerk niet inbegrepen</span>
-              </li>
-              <li>
-                <span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
-                <span><strong>Geen complete interieurafwerking</strong> — geen turn-key woonklare afbouw</span>
-              </li>
-            </ul>
-            <p class="scope-card-foot" data-scope-foot>Wil je wél afbouw meenemen? Zeg het bij de afspraak — we rekenen dat apart uit.</p>
           </div>
         </div>
       </div>
@@ -808,6 +765,87 @@
           </div>
           <p class="carousel-caption">Selectie uit 68 reviews</p>
         </div>
+      </div>
+    </section>
+
+    <section id="wat-zit-erbij" class="scope-section--ref" data-scope-section>
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Naslag</p>
+          <h2>Wat zit erbij — en wat niet</h2>
+          <p class="scope-for-choice" data-scope-for aria-live="polite">Voor jouw keuze: <strong data-scope-type-label>Aanbouw</strong></p>
+          <p data-scope-intro>Onze prijsindicatie is <strong>casco</strong>: wind- &amp; waterdicht, geïsoleerd, met kozijnen en elektra tot casco-niveau. Bouwtechnisch klaar om verder af te werken — geen complete binnenafwerking.</p>
+          <p class="scope-ref-cta">In de calculator zie je dit ook bij je prijsindicatie — afgestemd op jouw type.</p>
+          <p><a class="btn btn-teal" href="#calculator">Naar de prijsindicatie →</a></p>
+        </div>
+
+        <details class="scope-details reveal">
+          <summary>Volledige lijst inclusief / exclusief</summary>
+          <div class="scope-grid">
+          <div class="scope-card scope-card--in">
+            <h3>Inclusief</h3>
+            <p class="scope-card-lead" data-scope-in-lead>Dit zit standaard in de richting van je indicatie.</p>
+            <ul class="scope-list scope-list--in" data-scope-in-list>
+              <li>
+                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span><strong>Hijskraan</strong> — bereikbaarheid en hijswerk op de bouw meegenomen waar nodig</span>
+              </li>
+              <li>
+                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span><strong>Kozijnen</strong> — ramen en deuren in de schil (type kies je in de calculator)</span>
+              </li>
+              <li>
+                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span><strong>Casco oplevering</strong> — constructie, gevels/dak, wind- &amp; waterdicht</span>
+              </li>
+              <li>
+                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span><strong>Stroom aangelegd</strong> — elektra aangebracht tot casco-niveau</span>
+              </li>
+              <li>
+                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span><strong>Waterdicht maken</strong> — dak, aansluitingen en dichting tegen weer</span>
+              </li>
+              <li>
+                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span><strong>Isoleren</strong> — schilisolatie volgens de afgesproken eisen</span>
+              </li>
+              <li>
+                <span class="scope-mark scope-mark--in" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span><strong>Aansluiting op je woning</strong> — openingen, doorbraken en nette aansluiting</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="scope-card scope-card--out">
+            <h3>Niet inbegrepen</h3>
+            <p class="scope-card-lead" data-scope-out-lead>Geen vage beloftes: dit is exclusief interieurafbouw.</p>
+            <ul class="scope-list scope-list--out" data-scope-out-list>
+              <li>
+                <span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+                <span><strong>Geen gestucte binnenafwerking</strong> — wanden en plafonds blijven ongestuct</span>
+              </li>
+              <li>
+                <span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+                <span><strong>Geen vloeren</strong> — geen dekvloer-afwerking of vloerbedekking</span>
+              </li>
+              <li>
+                <span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+                <span><strong>Geen keuken of sanitair</strong> — inbouw en afwerking van keuken/bad doe jij apart</span>
+              </li>
+              <li>
+                <span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+                <span><strong>Geen schilderwerk binnen</strong> — binnen schilderen en lakwerk niet inbegrepen</span>
+              </li>
+              <li>
+                <span class="scope-mark scope-mark--out" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+                <span><strong>Geen complete interieurafwerking</strong> — geen turn-key woonklare afbouw</span>
+              </li>
+            </ul>
+            <p class="scope-card-foot" data-scope-foot>Wil je wél afbouw meenemen? Zeg het bij de afspraak — we rekenen dat apart uit.</p>
+          </div>
+          </div>
+        </details>
       </div>
     </section>
 
@@ -1048,7 +1086,7 @@
           </details>
           <details>
             <summary>Wat zit er in de prijsindicatie?</summary>
-            <p>Hangt af van wat je kiest. Bij aanbouw, nok of dakopbouw: <strong>casco</strong> — wind- &amp; waterdicht, geïsoleerd, met kozijnen en stroom tot casco-niveau. Exclusief interieurafbouw (geen stucwerk, vloeren, keuken of schilderwerk binnen). Bij een <strong>dakterras</strong>: dakvlak, dek, hekwerk en toegang — geen woonruimte of dakopbouw. Details wisselen mee onder <a href="#wat-zit-erbij">Wat zit erbij</a>.</p>
+            <p>Hangt af van wat je kiest. Bij aanbouw, nok of dakopbouw: <strong>casco</strong> — wind- &amp; waterdicht, geïsoleerd, met kozijnen en stroom tot casco-niveau. Exclusief interieurafbouw (geen stucwerk, vloeren, keuken of schilderwerk binnen). Bij een <strong>dakterras</strong>: dakvlak, dek, hekwerk en toegang — geen woonruimte of dakopbouw. Je ziet dit ook bij je prijs in de calculator; naslag onder <a href="#wat-zit-erbij">Wat zit erbij</a>.</p>
           </details>
           <details>
             <summary>Doen jullie alleen aanbouw, nok en dakopbouw?</summary>
@@ -1091,7 +1129,7 @@
         <div class="contact-intro">
           <h2>Contact</h2>
           <p class="lead">Klaar voor een afspraak op locatie? Bel of WhatsApp — we plannen het in. Liever eerst een bandbreedte? Gebruik de calculator.</p>
-          <p class="contact-season">Zomer is plannen, najaar bouwen — augustus is een goed moment om te starten.</p>
+          <p class="contact-season">Zomer is plannen · najaar bouwen — augustus is het moment om te starten.</p>
         </div>
         <div class="contact-actions">
           <a class="btn btn-primary contact-cta-primary" href="tel:+31232052483" aria-label="Bel 023 205 2483 om een afspraak te plannen">Plan een afspraak</a>
@@ -1121,21 +1159,25 @@
       </a>
       <nav class="footer-nav" aria-label="Footer">
         <a href="#calculator">Samenstellen</a>
-        <a href="#wat-zit-erbij">Wat zit erbij</a>
         <a href="#reviews">Reviews</a>
+        <a href="#wat-zit-erbij">Wat zit erbij</a>
         <a href="#projecten">Projecten</a>
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
         <a href="kennisbank/">Kennisbank</a>
         <a href="privacy.html">Privacy</a>
       </nav>
-      <p>© 2026 Aanbouw-direct.nl · Aalsmeer</p>
-      <p>
-        <a href="mailto:info@aanbouw.direct">info@aanbouw.direct</a>
-        · <a href="tel:+31232052483">023 205 2483</a>
-        · <a href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
-        · <a class="social-icon" href="https://www.instagram.com/aanbouwdirect/" target="_blank" rel="noopener" aria-label="Instagram Aanbouw Direct"><svg class="social-icon__svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.15" fill="currentColor" stroke="none"/></svg></a>
-      </p>
+            <div class="footer-legal">
+        <p class="footer-legal__name">Aanbouw Direct</p>
+        <p>Oosteindeweg 21, 1432 AC Aalsmeer</p>
+        <p>
+          <a href="tel:+31232052483">023 205 2483</a>
+          · <a href="mailto:info@aanbouw.direct">info@aanbouw.direct</a>
+          · <a href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+        </p>
+        <p>KVK 96015349 · Maatkozijndirect</p>
+        <p class="footer-legal__meta">© 2026 Aanbouw Direct · <a href="privacy.html">Privacy</a></p>
+      </div>
     </div>
   </footer>
 
@@ -1143,7 +1185,7 @@
   <script src="js/email-config.js" defer></script>
   <script src="js/customer-mail.js" defer></script>
   <script src="js/prijsindicatie-pdf.js?v=20260725-pdf1" defer></script>
-  <script src="js/calculator.js?v=20260726-scope1" defer></script>
+  <script src="js/calculator.js?v=20260726-trust1" defer></script>
   <script src="js/carousel.js" defer></script>
 </body>
 </html>
