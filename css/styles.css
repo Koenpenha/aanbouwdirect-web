@@ -657,10 +657,10 @@ section.alt { background: transparent; }
 }
 .section-head p { margin-bottom: 0; }
 
-/* Calculator intro — seizoenslijn als versterker, in dezelfde adem als hero */
+/* Calculator intro — banner-anker boven de stappen */
 .calc-intro {
   position: relative;
-  max-width: 40rem;
+  max-width: 44rem;
   margin-bottom: 1.5rem;
   padding: 0.35rem 0 1rem;
   border-left: none;
@@ -672,20 +672,12 @@ section.alt { background: transparent; }
     padding: 0.5rem 0 1.15rem;
   }
 }
-.calc-intro h2 {
-  margin: 0 0 0.55rem;
-  max-width: 18ch;
-  color: var(--ad-teal-dark);
-  font-size: clamp(1.55rem, 4.8vw, 2.45rem);
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-}
 .calc-intro-season {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0.35rem 0.7rem;
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.75rem;
 }
 .calc-intro-month {
   font-family: var(--font-display);
@@ -710,32 +702,67 @@ section.alt { background: transparent; }
   vertical-align: middle;
   background: rgba(0, 90, 114, 0.28);
 }
+.calc-banner {
+  position: relative;
+  margin: 0 0 1.2rem;
+  padding: 1.15rem 1.25rem 1.25rem 1.35rem;
+  background:
+    linear-gradient(
+      105deg,
+      rgba(0, 118, 148, 0.1) 0%,
+      rgba(243, 224, 208, 0.42) 48%,
+      rgba(245, 247, 248, 0.95) 100%
+    );
+  border-left: 3px solid var(--ad-teal);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+@media (min-width: 768px) {
+  .calc-banner {
+    padding: 1.35rem 1.65rem 1.45rem 1.75rem;
+    margin-bottom: 1.35rem;
+  }
+}
+.calc-banner-eyebrow {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ad-orange);
+}
+.calc-banner h2 {
+  margin: 0 0 0.65rem;
+  max-width: 22ch;
+  color: var(--ad-teal-dark);
+  font-size: clamp(1.55rem, 4.6vw, 2.35rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+.calc-banner-support {
+  margin: 0 0 0.55rem;
+  max-width: 36em;
+  font-family: var(--font-display);
+  font-size: clamp(1.02rem, 2.4vw, 1.14rem);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: var(--ad-graphite);
+}
+.calc-banner-micro {
+  margin: 0;
+  max-width: 34em;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ad-stone);
+}
 .calc-intro-lead {
   margin: 0 0 1rem;
   max-width: 34em;
   font-size: clamp(1.02rem, 2.4vw, 1.12rem);
   line-height: 1.5;
   color: var(--ad-graphite);
-}
-.calc-creed {
-  margin: 0 0 1.15rem;
-  max-width: 32em;
-  display: grid;
-  gap: 0.35rem;
-}
-.calc-creed p {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.02rem, 2.5vw, 1.14rem);
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: -0.015em;
-  color: var(--ad-graphite);
-}
-.calc-creed p:last-child {
-  margin-top: 0.15rem;
-  font-weight: 500;
-  color: var(--ad-stone);
 }
 .calc-intro-types {
   display: flex;
