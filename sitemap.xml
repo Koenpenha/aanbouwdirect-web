@@ -56,6 +56,16 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://aanbouw.direct/blog/verbouwen-of-verhuizen.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aanbouw.direct/blog/huis-uitbreiden-ipv-verhuizen.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://aanbouw.direct/privacy.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
