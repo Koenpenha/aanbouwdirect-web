@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Huis uitbreiden in Nieuw-Vennep i.p.v. verhuizen | Aanbouwdirect</title>
+  <meta name="description" content="Meer ruimte in Nieuw-Vennep zonder te verhuizen? Lees over aanbouw, dakopbouw en nokverhoging, en hoe je een prijsindicatie krijgt via Aanbouwdirect." />
+  <link rel="canonical" href="https://aanbouw.direct/blog/aanbouw-nieuw-vennep.html" />
+  <link rel="icon" href="../assets/aanbouwdirect-mark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="blog.css" />
+</head>
+<body>
+  <header class="site-nav blog-nav">
+    <div class="wrap">
+      <a class="logo-link" href="../index.html" aria-label="Aanbouwdirect home">
+        <img class="logo-mark" src="../assets/aanbouwdirect-mark.svg" alt="" width="40" height="35" />
+        <span class="logo-word">Aanbouwdirect</span>
+      </a>
+      <div class="nav-actions">
+        <a class="btn btn-primary nav-cta-mobile" href="../index.html#calculator">Prijsindicatie</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu openen">
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav id="site-menu" class="nav-panel" aria-label="Hoofdmenu">
+        <ul class="nav-links">
+          <li><a href="../index.html#calculator">Samenstellen</a></li>
+          <li><a href="../index.html#diensten">Diensten</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a href="../kennisbank/">Kennisbank</a></li>
+          <li><a href="index.html">Tips &amp; blogs</a></li>
+        </ul>
+        <a class="btn btn-primary nav-cta" href="../index.html#calculator">Prijsindicatie</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="blog-article">
+    <div class="wrap">
+      <a class="blog-back" href="index.html">← Alle tips &amp; blogs</a>
+
+      <header class="blog-article-header">
+        <p class="meta">Nieuw-Vennep · Dakopbouw &amp; aanbouw</p>
+        <h1>Huis uitbreiden in Nieuw-Vennep i.p.v. verhuizen</h1>
+        <p class="lead">Gezin groeit, thuiswerken blijft, of je wilt eindelijk een fatsoenlijke slaapkamer erbij, in Nieuw-Vennep kiezen steeds meer mensen voor uitbouwen in plaats van verkopen. Hier lees je hoe dat werkt en wat je van Aanbouwdirect kunt verwachten.</p>
+      </header>
+
+      <article class="blog-prose">
+        <h2>Nieuw-Vennep: blijven loont vaak</h2>
+        <p>Nieuw-Vennep ligt handig in Haarlemmermeer: ruimte, voorzieningen en bereikbaarheid. Verhuizen naar “iets groters” klinkt simpel, maar betekent vaak een hogere koopsom, overdrachtskosten en maanden onzekerheid. Een aanbouw of dakopbouw houdt je buurt, school en hypotheek bij elkaar, en voegt meters toe waar je ze nodig hebt.</p>
+        <p>Niet elke woning kan hetzelfde. Plat dak of schuin dak, diepe of ondiepe tuin, rijwoning of twee-onder-een-kap: dat bepaalt of een aanbouw, dakopbouw of nokverhoging het meest logisch is.</p>
+
+        <figure class="blog-figure">
+  <img
+    src="../assets/projects/project-schuifpui-dek.jpg"
+    alt="Aanbouw met veel licht, voorbeeld zoals we dat ook in Nieuw-Vennep realiseren"
+    width="1200"
+    height="800"
+    loading="lazy"
+    decoding="async"
+    title="Aanbouw met veel licht, voorbeeld zoals we dat ook in Nieuw-Vennep realiseren"
+  />
+  <figcaption>Voorbeeld uit onze projecten: casco-aanbouw zoals we die ook in Nieuw-Vennep realiseren.</figcaption>
+</figure>
+
+        <h2>Drie routes naar meer ruimte</h2>
+        <ul>
+          <li>Aanbouw: uitbouw op de begane grond, vaak naar de tuin</li>
+          <li>Dakopbouw: extra verdieping als je begane grond al vol zit</li>
+          <li>Nokverhoging: meer hoogte en bruikbaar volume onder een schuin dak</li>
+        </ul>
+        <p>Wij leveren dit als <strong>casco</strong>: wind- en waterdicht, isolatie, kozijnen, elektra tot casco-niveau. Geen complete binnenafwerking in de standaardindicatie. Zo blijft helder wat je koopt, en wat je later nog afbouwt. Zie ook <a href="../index.html#wat-zit-erbij">Wat zit erbij</a>.</p>
+
+        <h2>Zo kom je tot een prijsindicatie</h2>
+        <ol>
+          <li>Open de <a href="../index.html#calculator">calculator</a> en kies je type project</li>
+          <li>Vul formaat en opties in, de visualisatie groeit mee</li>
+          <li>Bekijk de transparante prijsindicatie</li>
+          <li>Plan een afspraak voor de definitieve offerte op locatie</li>
+        </ol>
+        <p>Aanbouwdirect werkt vanuit Aalsmeer. Nieuw-Vennep en Hoofddorp liggen in ons werkgebied; we komen graag langs als je verder wilt.</p>
+
+        <h2>Vergunning en planning</h2>
+        <p>Of je vergunningvrij mag bouwen of een omgevingsvergunning nodig hebt, hangt af van jouw kavel en plannen. Gemeente Haarlemmermeer / het omgevingsloket is leidend. Reken vergunningstijd mee in je planning, vooral bij dakopbouw of grotere volumes. Wij denken mee over de bouwpraktijk; de formele toetsing blijft bij de gemeente.</p>
+
+        <h2>Veelgestelde vragen</h2>
+        <h3>Wat kost een dakopbouw in Nieuw-Vennep?</h3>
+        <p>Dat hangt af van m², constructie en opties. Online krijg je een bandbreedte; de definitieve prijs volgt na opname. Geen vaste “vanaf”-spam, wel een eerlijke indicatie.</p>
+        <h3>Kunnen jullie ook in mijn straat werken?</h3>
+        <p>Meestal wel. Twijfel je? Mail of bel met je postcode, we zeggen eerlijk of het past.</p>
+        <h3>Is casco genoeg om in te wonen?</h3>
+        <p>Casco is bouwtechnisch dicht en geïsoleerd, maar nog niet afgewerkt van binnen. Plan afbouw apart als je direct wilt intrekken in de nieuwe ruimte.</p>
+
+        <div class="blog-cta">
+          <h2>Verder met jouw plan?</h2>
+          <p>Check de casco-prijsindicatie online, of bel ons in Aalsmeer. Definitieve offerte na afspraak op locatie.</p>
+          <div class="blog-cta-actions">
+            <a class="btn btn-primary" href="../index.html#calculator">Casco-prijsindicatie</a>
+            <a class="btn btn-ghost" href="tel:+31232052483">Bel 023 205 2483</a>
+            <a class="btn btn-ghost" href="mailto:info@aanbouw.direct">Mail ons</a>
+          </div>
+        </div>
+
+        <aside class="blog-related" aria-labelledby="related-heading">
+          <h2 id="related-heading">Gerelateerd in de buurt</h2>
+          <ul>
+            <li><a href="aanbouw-hoofddorp.html">Aanbouw in Hoofddorp</a></li>
+            <li><a href="aanbouw-aalsmeer.html">Aanbouw in Aalsmeer</a></li>
+            <li><a href="aanbouw-uithoorn.html">Aanbouw in Uithoorn</a></li>
+          </ul>
+        </aside>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="logo-link logo-link--footer" href="../index.html" aria-label="Aanbouwdirect home">
+        <img class="logo-mark" src="../assets/aanbouwdirect-mark.svg" alt="" width="36" height="31" />
+        <span class="logo-word">Aanbouwdirect</span>
+      </a>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="../index.html#calculator">Samenstellen</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../kennisbank/">Kennisbank</a>
+        <a href="index.html">Tips &amp; blogs</a>
+        <a href="../privacy.html">Privacy</a>
+      </nav>
+      <div class="footer-legal">
+        <p class="footer-legal__name">Aanbouw Direct</p>
+        <p>Burgemeester Rijderslaan 410, Amstelveen</p>
+        <p>
+          <a href="tel:+31232052483">023 205 2483</a>
+          · <a href="mailto:info@aanbouw.direct">info@aanbouw.direct</a>
+          · <a href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+        </p>
+        <p>KVK 96015349 · Maatkozijndirect</p>
+        <p class="footer-legal__meta">© 2026 Aanbouw Direct · <a href="../privacy.html">Privacy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var toggle = document.querySelector(".nav-toggle");
+      var panel = document.getElementById("site-menu");
+      if (!toggle || !panel) return;
+      toggle.addEventListener("click", function () {
+        var open = document.body.classList.toggle("nav-open");
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        toggle.setAttribute("aria-label", open ? "Menu sluiten" : "Menu openen");
+      });
+    })();
+  </script>
+</body>
+</html>

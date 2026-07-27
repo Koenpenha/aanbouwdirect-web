@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kennisbank — Aanbouwdirect | Aanbouw, uitbreiden &amp; proces</title>
+  <meta name="description" content="Kennisbank over aanbouw, huis uitbreiden en het proces in Aalsmeer en omstreken. Gemeente-gidsen, uitbreiden i.p.v. verhuizen, en praktische tips — daarna een prijsindicatie via de calculator." />
+  <link rel="canonical" href="https://aanbouw.direct/kennisbank/" />
+  <meta property="og:title" content="Kennisbank — Aanbouwdirect" />
+  <meta property="og:description" content="Alles over aanbouw en huisuitbreiding in Aalsmeer e.o.: gemeentes, uitbreiden, proces. Daarna naar de calculator voor een casco-prijsindicatie." />
+  <meta property="og:url" content="https://aanbouw.direct/kennisbank/" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="../assets/aanbouwdirect-mark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../blog/blog.css" />
+  <link rel="stylesheet" href="kennisbank.css" />
+</head>
+<body>
+  <header class="site-nav blog-nav">
+    <div class="wrap">
+      <a class="logo-link" href="../index.html" aria-label="Aanbouwdirect home">
+        <img class="logo-mark" src="../assets/aanbouwdirect-mark.svg" alt="" width="40" height="35" />
+        <span class="logo-word">Aanbouwdirect</span>
+      </a>
+      <div class="nav-actions">
+        <a class="btn btn-primary nav-cta-mobile" href="../index.html#calculator">Prijsindicatie</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu openen">
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav id="site-menu" class="nav-panel" aria-label="Hoofdmenu">
+        <ul class="nav-links">
+          <li><a href="../index.html#calculator">Samenstellen</a></li>
+          <li><a href="../index.html#diensten">Diensten</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a href="index.html" aria-current="page">Kennisbank</a></li>
+        </ul>
+        <a class="btn btn-primary nav-cta" href="../index.html#calculator">Prijsindicatie</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-hero kb-hero">
+      <div class="wrap">
+        <p class="eyebrow">Kennisbank</p>
+        <h1>Alles over uitbouwen</h1>
+        <p class="lead">Kies een onderwerp hieronder. Gemeente-gidsen, uitbreiden i.p.v. verhuizen, en hoe het proces werkt — voor Aalsmeer en omstreken.</p>
+        <p class="kb-hero-cta">
+          <a class="btn btn-primary" href="../index.html#calculator">Naar de calculator</a>
+          <a class="kb-secondary-link" href="../blog/">Alle artikelen →</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="kb-hub" aria-label="Onderwerpen">
+      <div class="wrap kb-hub-inner">
+
+        <details class="kb-drop" id="gemeentes" open>
+          <summary class="kb-drop__summary">
+            <span class="kb-drop__title">
+              <span class="kb-drop__label">Gemeentes</span>
+              <span class="kb-drop__count">16 live</span>
+            </span>
+            <span class="kb-drop__hint">Aalsmeer e.o.</span>
+            <span class="kb-drop__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="kb-drop__body">
+            <p class="kb-drop__intro">Lokale pagina’s over aanbouw en huisuitbreiding bij jou in de buurt.</p>
+            <ul class="blog-cards kb-drop__list">
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-aalsmeer.html">
+                  <p class="meta">Aalsmeer · Aanbouw</p>
+                  <h3>Aanbouw in Aalsmeer</h3>
+                  <p>Wat speelt er lokaal, en hoe kom je tot een heldere prijsindicatie.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-amstelveen.html">
+                  <p class="meta">Amstelveen · Uitbreiden</p>
+                  <h3>Huis uitbreiden in Amstelveen</h3>
+                  <p>Uitbouwen i.p.v. verhuizen — praktisch en dichtbij Aalsmeer.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-hoofddorp.html">
+                  <p class="meta">Hoofddorp · Haarlemmermeer</p>
+                  <h3>Aanbouw in Hoofddorp</h3>
+                  <p>Huis uitbreiden in Haarlemmermeer — proces en casco-scope.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-kudelstaart.html">
+                  <p class="meta">Kudelstaart &amp; Rijsenhout</p>
+                  <h3>Aanbouw dicht bij Aalsmeer</h3>
+                  <p>Lokaal uitbouwen in Kudelstaart en Rijsenhout.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-nieuw-vennep.html">
+                  <p class="meta">Nieuw-Vennep</p>
+                  <h3>Uitbreiden in Nieuw-Vennep</h3>
+                  <p>Groeiend gezin, woning te klein? Opties zonder verhuizen.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-uithoorn.html">
+                  <p class="meta">Uithoorn · Aanbouw</p>
+                  <h3>Aanbouw in Uithoorn</h3>
+                  <p>Meer ruimte zonder te verkopen: aanbouw, nok of dakopbouw.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-haarlem.html">
+                  <p class="meta">Haarlem · Aanbouw</p>
+                  <h3>Aanbouw in Haarlem</h3>
+                  <p>Ring 2 vanuit Aalsmeer — lokaal en eerlijk over bereik.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-diemen.html">
+                  <p class="meta">Diemen · Aanbouw</p>
+                  <h3>Aanbouw in Diemen</h3>
+                  <p>Tussen Amsterdam en Amstelveen — uitbouwen i.p.v. verhuizen.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-ouder-amstel.html">
+                  <p class="meta">Ouder-Amstel · Aanbouw</p>
+                  <h3>Aanbouw in Ouder-Amstel</h3>
+                  <p>Duivendrecht, Ouderkerk — rustig wonen met tuin en extra ruimte.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-heemstede.html">
+                  <p class="meta">Heemstede · Aanbouw</p>
+                  <h3>Aanbouw in Heemstede</h3>
+                  <p>Jaren-30-woningen, grote tuinen — casco uitbreiding vanuit Aalsmeer.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-bloemendaal.html">
+                  <p class="meta">Bloemendaal · Aanbouw</p>
+                  <h3>Aanbouw in Bloemendaal</h3>
+                  <p>Duinen dichtbij — welstand en perceel eerlijk besproken.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-amsterdam.html">
+                  <p class="meta">Amsterdam · Aanbouw</p>
+                  <h3>Aanbouw in Amsterdam</h3>
+                  <p>Eerlijk over bereik — serieuze casco-projecten vanuit Aalsmeer.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-zandvoort.html">
+                  <p class="meta">Zandvoort · Aanbouw</p>
+                  <h3>Aanbouw in Zandvoort</h3>
+                  <p>Kustwoningen uitbreiden — aanbouw of nokverhoging.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-hilversum.html">
+                  <p class="meta">Hilversum · Aanbouw</p>
+                  <h3>Aanbouw in Hilversum</h3>
+                  <p>Het Gooi — tuin-aanbouw en dakopbouw met casco-indicatie.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-zaanstad.html">
+                  <p class="meta">Zaanstad · Aanbouw</p>
+                  <h3>Aanbouw in Zaanstad</h3>
+                  <p>Zaandam e.o. — gezinswoningen uitbreiden zonder verhuizen.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-purmerend.html">
+                  <p class="meta">Purmerend · Aanbouw</p>
+                  <h3>Aanbouw in Purmerend</h3>
+                  <p>Groeiende stad — extra ruimte via casco aanbouw.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="kb-drop" id="uitbreiden">
+          <summary class="kb-drop__summary">
+            <span class="kb-drop__title">
+              <span class="kb-drop__label">Uitbreiden</span>
+              <span class="kb-drop__count">6 live · 1 draft</span>
+            </span>
+            <span class="kb-drop__hint">Kosten · casco · keuze</span>
+            <span class="kb-drop__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="kb-drop__body">
+            <p class="kb-drop__intro">Intent-gidsen: kosten, casco, en waarom blijven i.p.v. verhuizen.</p>
+            <ul class="blog-cards kb-drop__list">
+              <li>
+                <a class="blog-card" href="../blog/kosten-aanbouw.html">
+                  <p class="meta">Kosten</p>
+                  <h3>Wat kost een aanbouw?</h3>
+                  <p>Bandbreedte en wat wél/niet in casco zit — zonder vage beloftes.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/casco-aanbouw-uitleg.html">
+                  <p class="meta">Casco</p>
+                  <h3>Casco aanbouw uitgelegd</h3>
+                  <p>Wat je krijgt bij een casco-indicatie, en wat later komt bij afbouw.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/huis-uitbreiden-ipv-verhuizen.html">
+                  <p class="meta">Keuze</p>
+                  <h3>Uitbreiden i.p.v. verhuizen</h3>
+                  <p>Waarom verhuizen als je kan uitbouwen? Wanneer blijven logischer is.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/verbouwen-of-verhuizen.html">
+                  <p class="meta">Keuze</p>
+                  <h3>Verbouwen of verhuizen</h3>
+                  <p>Kosten, stress en doorlooptijd — eerlijk naast elkaar gezet.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/uitbouw-kosten.html">
+                  <p class="meta">Kosten</p>
+                  <h3>Uitbouw kosten</h3>
+                  <p>Hetzelfde plan, andere zoekterm — bandbreedte via de calculator.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-of-uitbouw.html">
+                  <p class="meta">Keuze</p>
+                  <h3>Aanbouw of uitbouw</h3>
+                  <p>Het verschil in taal en gebruik — en wat jij het beste kiest.</p>
+                  <span class="read-more">Lees →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/uitbouw-achterkant-huis.html">
+                  <p class="meta">Uitbouw · draft</p>
+                  <h3>Uitbouw achterkant huis</h3>
+                  <p>Tuin, erfgrens en fundering — waar let je op achteraan?</p>
+                  <span class="read-more">Review draft →</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="kb-drop" id="proces">
+          <summary class="kb-drop__summary">
+            <span class="kb-drop__title">
+              <span class="kb-drop__label">Proces</span>
+              <span class="kb-drop__count">8 · draft + live</span>
+            </span>
+            <span class="kb-drop__hint">Werkwijze · FAQ · vergunning</span>
+            <span class="kb-drop__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="kb-drop__body">
+            <p class="kb-drop__intro">Van idee naar afspraak: hoe wij werken, en antwoorden op veelgestelde vragen.</p>
+            <ul class="blog-cards kb-drop__list">
+              <li>
+                <a class="blog-card" href="../index.html#faq">
+                  <p class="meta">FAQ</p>
+                  <h3>Veelgestelde vragen</h3>
+                  <p>Korte antwoorden over prijsindicatie, regio, vergunning en doorlooptijd.</p>
+                  <span class="read-more">Naar FAQ →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../index.html#werkwijze">
+                  <p class="meta">Werkwijze</p>
+                  <h3>Zo werken wij</h3>
+                  <p>Van samenstellen en indicatie tot afspraak voor de definitieve offerte.</p>
+                  <span class="read-more">Bekijk werkwijze →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/prijsindicatie-aanbouw.html">
+                  <p class="meta">Calculator · draft</p>
+                  <h3>Prijsindicatie aanbouw</h3>
+                  <p>Hoe de calculator-flow werkt — van samenstellen tot afspraak.</p>
+                  <span class="read-more">Review draft →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/nokverhoging-vs-dakopbouw.html">
+                  <p class="meta">Vergelijking · draft</p>
+                  <h3>Nokverhoging vs dakopbouw</h3>
+                  <p>Het verschil in één heldere gids — plat vs schuin dak.</p>
+                  <span class="read-more">Review draft →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/aanbouw-vergunning-nodig.html">
+                  <p class="meta">Vergunning · draft</p>
+                  <h3>Heb je een vergunning nodig?</h3>
+                  <p>Omgevingsloket, vergunningvrij bouwen — geen juridisch advies.</p>
+                  <span class="read-more">Review draft →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/vergunning-aanbouw-aalsmeer.html">
+                  <p class="meta">Aalsmeer · draft</p>
+                  <h3>Vergunning aanbouw Aalsmeer e.o.</h3>
+                  <p>Wat je kunt verwachten; definitief kijken we mee op locatie.</p>
+                  <span class="read-more">Review draft →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/dakkapel-of-dakopbouw.html">
+                  <p class="meta">Dak · draft</p>
+                  <h3>Dakkapel of dakopbouw</h3>
+                  <p>Eén kamer vs volledige verdieping — wanneer past wat?</p>
+                  <span class="read-more">Review draft →</span>
+                </a>
+              </li>
+              <li>
+                <a class="blog-card" href="../blog/fundering-aanbouw.html">
+                  <p class="meta">Techniek · draft</p>
+                  <h3>Fundering bij een aanbouw</h3>
+                  <p>Bodem, bestaande fundering — beoordeling op locatie.</p>
+                  <span class="read-more">Review draft →</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <section class="kb-cta-band">
+      <div class="wrap">
+        <h2>Klaar voor een indicatie?</h2>
+        <p>Stel je aanbouw samen — casco-prijsindicatie, daarna afspraak voor een definitieve offerte.</p>
+        <a class="btn btn-primary" href="../index.html#calculator">Start de calculator</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="logo-link logo-link--footer" href="../index.html" aria-label="Aanbouwdirect home">
+        <img class="logo-mark" src="../assets/aanbouwdirect-mark.svg" alt="" width="36" height="31" />
+        <span class="logo-word">Aanbouwdirect</span>
+      </a>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="../index.html#calculator">Samenstellen</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="index.html">Kennisbank</a>
+        <a href="../blog/">Tips &amp; blogs</a>
+        <a href="../privacy.html">Privacy</a>
+      </nav>
+      <div class="footer-legal">
+        <p class="footer-legal__name">Aanbouw Direct</p>
+        <p>Burgemeester Rijderslaan 410, Amstelveen</p>
+        <p>
+          <a href="tel:+31232052483">023 205 2483</a>
+          · <a href="mailto:info@aanbouw.direct">info@aanbouw.direct</a>
+          · <a href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+        </p>
+        <p>KVK 96015349 · Maatkozijndirect</p>
+        <p class="footer-legal__meta">© 2026 Aanbouw Direct · <a href="../privacy.html">Privacy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var toggle = document.querySelector(".nav-toggle");
+      var panel = document.getElementById("site-menu");
+      if (toggle && panel) {
+        toggle.addEventListener("click", function () {
+          var open = document.body.classList.toggle("nav-open");
+          toggle.setAttribute("aria-expanded", open ? "true" : "false");
+          toggle.setAttribute("aria-label", open ? "Menu sluiten" : "Menu openen");
+        });
+      }
+
+      /* Deep-link #gemeentes / #uitbreiden / #proces → open die dropdown */
+      function openFromHash() {
+        var id = (location.hash || "").replace(/^#/, "");
+        if (!id) return;
+        var el = document.getElementById(id);
+        if (el && el.tagName === "DETAILS") {
+          el.open = true;
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+      openFromHash();
+      window.addEventListener("hashchange", openFromHash);
+    })();
+  </script>
+</body>
+</html>

@@ -1,4 +1,146 @@
-User-agent: *
-Allow: /
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy — Aanbouwdirect</title>
+  <meta name="description" content="Privacyverklaring van Aanbouwdirect: welke gegevens we verwerken bij een prijsindicatie of contactaanvraag, en hoe we daarmee omgaan." />
+  <link rel="canonical" href="https://aanbouw.direct/privacy.html" />
+  <meta name="robots" content="noindex,follow" />
+  <link rel="icon" href="assets/aanbouwdirect-mark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=20260725-ig" />
+  <style>
+    .legal-page { padding: clamp(2.5rem, 6vw, 4rem) 0 var(--section-gap); }
+    .legal-page .wrap { max-width: 40rem; }
+    .legal-page h1 { color: var(--ad-teal-dark); margin-bottom: 0.5rem; }
+    .legal-page .lead { margin-bottom: 1.75rem; }
+    .legal-page h2 {
+      margin-top: 1.75rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.15rem;
+      color: var(--ad-graphite);
+    }
+    .legal-page ul { margin: 0 0 1em; padding-left: 1.2em; color: var(--ad-stone); }
+    .legal-page li { margin-bottom: 0.35em; }
+    .legal-meta { font-size: 0.92rem; color: var(--ad-stone); margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <header class="site-nav">
+    <div class="wrap">
+      <a class="logo-link" href="index.html" aria-label="Aanbouwdirect home">
+        <img class="logo-mark" src="assets/aanbouwdirect-mark.svg" alt="" width="40" height="35" />
+        <span class="logo-word">Aanbouwdirect</span>
+      </a>
+      <div class="nav-actions">
+        <a class="btn btn-primary nav-cta-mobile" href="index.html#calculator">Prijsindicatie</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu openen">
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav id="site-menu" class="nav-panel" aria-label="Hoofdmenu">
+        <ul class="nav-links">
+          <li><a href="index.html#calculator">Samenstellen</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="kennisbank/">Kennisbank</a></li>
+        </ul>
+        <a class="btn btn-primary nav-cta" href="index.html#calculator">Prijsindicatie</a>
+      </nav>
+    </div>
+  </header>
 
-Sitemap: https://aanbouw.direct/sitemap.xml
+  <main class="legal-page">
+    <div class="wrap">
+      <h1>Privacy</h1>
+      <p class="lead">Kort en duidelijk: wat we met je gegevens doen als je contact opneemt of een prijsindicatie aanvraagt.</p>
+
+      <h2>Wie zijn wij?</h2>
+      <p>
+        Aanbouwdirect (Aanbouw-direct.nl)<br />
+        Burgemeester Rijderslaan 410, Amstelveen<br />
+        <a href="mailto:info@aanbouw.direct">info@aanbouw.direct</a> ·
+        <a href="tel:+31232052483">023 205 2483</a>
+      </p>
+
+      <h2>Welke gegevens verwerken we?</h2>
+      <p>Alleen wat je zelf doorgeeft via het formulier of per telefoon, WhatsApp of e-mail, bijvoorbeeld:</p>
+      <ul>
+        <li>naam, telefoonnummer, e-mailadres</li>
+        <li>postcode / plaats</li>
+        <li>jouw projectkeuzes en prijsindicatie (type, afmetingen, opties)</li>
+        <li>eventuele toelichting die je meestuurt</li>
+      </ul>
+
+      <h2>Waarvoor gebruiken we die gegevens?</h2>
+      <p>
+        Om je aanvraag te behandelen, contact op te nemen en een afspraak of offerte te plannen.
+        We gebruiken je gegevens niet voor marketingmails of doorverkoop aan derden.
+      </p>
+
+      <h2>Cookies &amp; tracking</h2>
+      <p>
+        Deze website gebruikt <strong>geen</strong> Google Analytics, Meta Pixel of andere trackingcookies.
+        Wel functionele techniek die nodig is om de site te laten werken (bijvoorbeeld om je calculator-keuzes
+        tijdelijk vast te houden tijdens je sessie). Daarvoor is geen cookie-banner verplicht.
+      </p>
+
+      <h2>Bewaartermijn</h2>
+      <p>
+        Aanvragen bewaren we zolang nodig om je te helpen en voor administratie.
+        Wil je dat we je gegevens eerder wissen? Mail of bel ons — dan regelen we dat.
+      </p>
+
+      <h2>Jouw rechten</h2>
+      <p>
+        Je mag inzage vragen, correctie of verwijdering van je gegevens.
+        Neem contact op via <a href="mailto:info@aanbouw.direct">info@aanbouw.direct</a>.
+      </p>
+
+      <p class="legal-meta">Laatst bijgewerkt: juli 2026</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="logo-link logo-link--footer" href="index.html" aria-label="Aanbouwdirect home">
+        <img class="logo-mark" src="assets/aanbouwdirect-mark.svg" alt="" width="36" height="31" />
+        <span class="logo-word">Aanbouwdirect</span>
+      </a>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="index.html#calculator">Samenstellen</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="kennisbank/">Kennisbank</a>
+        <a href="privacy.html" aria-current="page">Privacy</a>
+      </nav>
+      <div class="footer-legal">
+        <p class="footer-legal__name">Aanbouw Direct</p>
+        <p>Burgemeester Rijderslaan 410, Amstelveen</p>
+        <p>
+          <a href="tel:+31232052483">023 205 2483</a>
+          · <a href="mailto:info@aanbouw.direct">info@aanbouw.direct</a>
+          · <a href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
+        </p>
+        <p>KVK 96015349 · Maatkozijndirect</p>
+        <p class="footer-legal__meta">© 2026 Aanbouw Direct · <a href="privacy.html">Privacy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var toggle = document.querySelector(".nav-toggle");
+      var panel = document.getElementById("site-menu");
+      if (!toggle || !panel) return;
+      toggle.addEventListener("click", function () {
+        var open = document.body.classList.toggle("nav-open");
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+    })();
+  </script>
+</body>
+</html>
