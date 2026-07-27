@@ -37,7 +37,8 @@
       s.parentNode.insertBefore(t, s);
     })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
     fbq("init", "1086640393713616");
-    fbq("track", "PageView");
+    /* REMOVE AFTER TEST — Meta Events Manager Test Events */
+    fbq("track", "PageView", {}, { testEventCode: "TEST46576" });
   </script>
   <noscript
     ><img
@@ -48,7 +49,7 @@
       alt=""
   /></noscript>
   <!-- End Meta Pixel Code — Lead/CompleteRegistration via js/meta-pixel.js -->
-  <script src="js/meta-pixel.js?v=20260727-pixel-inline" defer></script>
+  <script src="js/meta-pixel.js?v=20260727-test46576" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
