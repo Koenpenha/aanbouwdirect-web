@@ -1798,6 +1798,22 @@
           showSelfMail: !gotBrandedMail,
         });
         setStep(7);
+        /* Meta Pixel: Lead + CompleteRegistration na geslaagde calculator-submit */
+        try {
+          var meta = window.AanbouwMeta;
+          if (meta && meta.ready) {
+            var metaPayload = {
+              content_name: "calculator-lead",
+              status: true,
+              value: typeof low === "number" ? low : undefined,
+              currency: "EUR",
+            };
+            meta.trackLead(metaPayload);
+            meta.trackCompleteRegistration(metaPayload);
+          }
+        } catch (metaErr) {
+          /* tracking mag lead-flow nooit blokkeren */
+        }
       } catch (err) {
         console.error(err);
         const isActivation =
