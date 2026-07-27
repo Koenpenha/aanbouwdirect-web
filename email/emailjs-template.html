@@ -1,19 +1,22 @@
 <!--
-  EmailJS-template voor Aanbouw-direct klantmail
-  ================================================
-  Plak dit in EmailJS → Email Templates → Content (HTML-modus).
+  EmailJS — klantmail template (HTML-content)
+  ============================================
+  Plak ALLEEN de regel hieronder in EmailJS → Email Templates → Content (HTML-modus).
 
-  Instellingen in het EmailJS-dashboard:
+  Dashboard-instellingen:
   - To Email:   {{to_email}}
-  - From Name:  Aanbouw-direct  (of {{from_name}})
-  - Reply To:   info@aanbouw.direct  (of {{reply_to}})
-  - Subject:    Je prijsindicatie van Aanbouw-direct
-                (of {{subject}})
+  - From Name:  Aanbouw-direct
+  - Reply To:   info@aanbouw.direct
+  - Subject:    Je prijsindicatie van Aanbouw-direct   (of {{subject}})
 
-  Belangrijk: gebruik driedubbele accolades zodat HTML niet ge-escaped wordt:
-  {{{html_body}}}
-
-  Optioneel plain-text fallback in EmailJS “Plain text content”:
-  {{message}}
+  Belangrijk: driedubbele accolades zodat HTML niet ge-escaped wordt:
 -->
 {{{html_body}}}
+
+<!--
+  Optioneel — Plain text content in EmailJS:
+  {{message}}
+
+  Preview in browser: email/preview-klant.html
+  Setup (≈10 min): zie website/EMAIL.md
+-->

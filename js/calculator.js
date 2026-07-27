@@ -1511,7 +1511,8 @@
   }
 
   /** FormSubmit lead — altijd canonieke _url (siteUrl). Location.href (hash/utm/github.io) triggert anders opnieuw activatie of “web server”-fout. */
-  async function sendLeadViaFormSubmit({ data, summary, area, prijs, autoresponse, useCc }) {
+  /** Lead-only via FormSubmit. Geen _cc / _autoresponse — dat levert een lelijke default-tabel bij de klant. Klantmail = EmailJS HTML. */
+  async function sendLeadViaFormSubmit({ data, summary, area, prijs }) {
     const pageUrl = emailCfg.siteUrl || "https://aanbouw.direct/";
 
     const formPayload = {
@@ -1542,11 +1543,6 @@
       _replyto: data.email,
       _url: pageUrl,
     };
-
-    if (useCc && autoresponse) {
-      formPayload._autoresponse = autoresponse;
-      formPayload._cc = data.email;
-    }
 
     async function postOnce(body) {
       const res = await fetch(`https://formsubmit.co/ajax/${LEAD_EMAIL}`, {
@@ -1597,20 +1593,13 @@
     }
   }
 
-  async function sendLead({ data, summary, area, prijs, autoresponse, customerEmailjsReady }) {
+  async function sendLead({ data, summary, area, prijs }) {
     if (CustomerMail && CustomerMail.isLeadEmailjsReady()) {
       const ej = await CustomerMail.sendLeadViaEmailjs({ data, summary, area, prijs });
       if (ej.ok) return ej;
       console.warn("EmailJS lead mislukt, probeer FormSubmit…", ej);
     }
-    return sendLeadViaFormSubmit({
-      data,
-      summary,
-      area,
-      prijs,
-      autoresponse,
-      useCc: !customerEmailjsReady,
-    });
+    return sendLeadViaFormSubmit({ data, summary, area, prijs });
   }
 
   function showLeadStatus(msg, type) {
@@ -1629,7 +1618,17 @@
     el.textContent = "";
   }
 
-  function fillThankYou({ note, low, high, summary, mailtoLeadHref, viaFallback, email, naam }) {
+  function fillThankYou({
+    note,
+    low,
+    high,
+    summary,
+    mailtoLeadHref,
+    viaFallback,
+    email,
+    naam,
+    showSelfMail,
+  }) {
     const thankNote = document.querySelector("[data-thank-note]");
     const thankPrice = document.querySelector("[data-thank-price]");
     const thankSummary = document.querySelector("[data-thank-summary]");
@@ -1648,7 +1647,14 @@
     if (thankBox) thankBox.hidden = false;
 
     if (mailtoSelf) {
-      mailtoSelf.href = buildSelfMailto({ email, low, high, naam });
+      if (showSelfMail) {
+        mailtoSelf.hidden = false;
+        mailtoSelf.href = buildSelfMailto({ email, low, high, naam });
+        mailtoSelf.textContent = "Stuur indicatie naar mezelf";
+      } else {
+        mailtoSelf.hidden = true;
+        mailtoSelf.removeAttribute("href");
+      }
     }
     if (mailtoLead) {
       if (mailtoLeadHref) {
@@ -1738,8 +1744,6 @@
       const summary = buildSummaryParts().join(" · ");
       const prijs = `${formatEuro(low)} – ${formatEuro(high)}`;
       const mailtoHref = buildLeadMailto({ data, summary, low, high, area });
-      const messages = buildCustomerMessages({ naam: data.naam, low, high });
-      const autoresponse = messages.plain;
 
       syncHiddenLeadFields(summary, area, prijs);
 
@@ -1753,14 +1757,7 @@
           CustomerMail && CustomerMail.isCustomerEmailjsReady();
 
         const [leadResult, customerResult] = await Promise.all([
-          sendLead({
-            data,
-            summary,
-            area,
-            prijs,
-            autoresponse,
-            customerEmailjsReady,
-          }),
+          sendLead({ data, summary, area, prijs }),
           sendCustomerMail({
             email: data.email,
             naam: data.naam,
@@ -1780,14 +1777,17 @@
         }
 
         const gotBrandedMail = customerResult && customerResult.ok;
-        const mailHint = gotBrandedMail
-          ? `Check je mail op ${data.email} voor je prijsindicatie (${prijs}).`
-          : customerEmailjsReady
-            ? `We konden je bevestigingsmail niet automatisch sturen. Gebruik “Mail mezelf de indicatie” — je prijs (${prijs}) staat ook hieronder.`
-            : `Je prijsindicatie (${prijs}) staat hieronder. Check je mail op ${data.email} (bevestiging) of gebruik “Mail mezelf de indicatie”.`;
+        let note;
+        if (gotBrandedMail) {
+          note = `Gelukt — we hebben je aanvraag binnen. Je krijgt een bevestiging met prijsindicatie in je inbox. We nemen contact op voor een afspraak op locatie.`;
+        } else if (customerEmailjsReady) {
+          note = `Gelukt — we hebben je aanvraag binnen. Je prijsindicatie staat hieronder; bewaar die gerust (of stuur ’m naar jezelf). We nemen contact op voor een afspraak op locatie.`;
+        } else {
+          note = `Gelukt — we hebben je aanvraag binnen. Je prijsindicatie staat hieronder. We nemen contact op voor een afspraak op locatie — bel (${PHONE_DISPLAY}), WhatsApp of mail als je eerder wilt.`;
+        }
 
         fillThankYou({
-          note: `Aanvraag ontvangen. ${mailHint} We nemen contact op voor een afspraak op locatie — bel ${PHONE_DISPLAY}, WhatsApp of mail.`,
+          note,
           low,
           high,
           summary,
@@ -1795,6 +1795,7 @@
           viaFallback: false,
           email: data.email,
           naam: data.naam,
+          showSelfMail: !gotBrandedMail,
         });
         setStep(7);
       } catch (err) {
@@ -1816,6 +1817,7 @@
           viaFallback: true,
           email: data.email,
           naam: data.naam,
+          showSelfMail: true,
         });
         setStep(7);
         /* Geen auto-mailto: knop is genoeg; voorkomt verwarrende mail-client popup. */
