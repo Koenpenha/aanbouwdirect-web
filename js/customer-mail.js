@@ -146,7 +146,7 @@
 
       phone,
 
-      c.address || "Burgemeester Rijderslaan 410, Amstelveen",
+      c.address || "Molenweg 133, Aalsmeerderbrug",
 
       c.siteUrl || "https://aanbouw.direct/",
 
@@ -172,7 +172,7 @@
 
     const logoUrl = c.logoUrl || "";
 
-    const address = c.address || "Burgemeester Rijderslaan 410, Amstelveen";
+    const address = c.address || "Molenweg 133, Aalsmeerderbrug";
 
     const greet = escapeHtml(firstName(naam));
 

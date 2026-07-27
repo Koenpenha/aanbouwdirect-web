@@ -141,7 +141,7 @@ function pickCandidates(rows, headers, today) {
 
 function main() {
   const today = todayAmsterdam();
-  const raw = readFileSync(QUEUE_PATH, "utf8").replace(/^\uFEFF/, "");
+  const raw = readFileSync(QUEUE_PATH, "utf8");
   const table = parseCsv(raw.trimEnd());
 
   if (table.length === 0) {
@@ -149,7 +149,7 @@ function main() {
     return;
   }
 
-  const headers = table[0].map((h) => h.replace(/^\uFEFF/, ""));
+  const headers = table[0];
   const rows = table.slice(1);
   const statusIdx = headers.indexOf("status");
   const slugIdx = headers.indexOf("slug");

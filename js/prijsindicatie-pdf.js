@@ -7,7 +7,7 @@
     email: "info@aanbouw.direct",
     phone: "023 205 2483",
     phoneTel: "+31232052483",
-    address: "Burgemeester Rijderslaan 410, Amstelveen",
+    address: "Molenweg 133, Aalsmeerderbrug",
     site: "https://aanbouw.direct/",
   };
 

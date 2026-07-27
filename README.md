@@ -1,244 +1,37 @@
-/* Blog layout — bouwt voort op website/css/styles.css */
+# Aanbouwdirect — website
 
-.blog-nav .nav-links a[href*="blog"] {
-  color: var(--ad-teal-dark);
-}
+**Live URL (GitHub Pages):** https://koenpenha.github.io/aanbouwdirect-web/
 
-.blog-hero {
-  padding: calc(var(--nav-h) + 2.5rem) 0 2rem;
-  background:
-    linear-gradient(165deg, rgba(0, 118, 148, 0.08) 0%, transparent 45%),
-    linear-gradient(180deg, var(--ad-chalk) 0%, var(--ad-white) 100%);
-  border-bottom: 1px solid rgba(28, 36, 40, 0.08);
-}
+> De oude Netlify-URL (`dainty-chebakia-2c9893.netlify.app`) is gepauzeerd (bandwidth-limiet). Gebruik bovenstaande link.
 
-.blog-hero .eyebrow {
-  margin: 0 0 0.55rem;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ad-teal);
-}
+## Wat zit erbij
 
-.blog-hero h1 {
-  max-width: 18ch;
-  margin-bottom: 0.5rem;
-}
+Prijsindicatie = **casco** (wind- & waterdicht, isolatie, kozijnen, hijskraan, stroom). Exclusief interieurafbouw (stuc, vloeren, keuken, schilderwerk binnen). Sectie `#wat-zit-erbij` + compacte bullets bij calculator-stap prijs — **live per type** via `includesByType` in `js/calculator.js` (aanbouw, nok, dakopbouw, dakterras, dakkapel, bijhuisje).
 
-.blog-hero .lead {
-  margin-bottom: 0;
-}
+## Blog (lokale SEO) + Kennisbank
 
-.blog-list {
-  padding: var(--section-gap) 0;
-}
+- **Hub:** `kennisbank/` — footer “Kennisbank”, categorieën Gemeentes / Uitbreiden / Proces.  
+  Live: https://koenpenha.github.io/aanbouwdirect-web/kennisbank/
+- **Artikelen:** blijven onder `blog/` (SEO-URL’s niet breken). Zie `blog/README.md`.  
+  Live: https://koenpenha.github.io/aanbouwdirect-web/blog/
+- **Planner:** `marketing/QUEUE.csv` + prompt in `marketing/BLOG-AUTOMATION.md`
 
-.blog-cards {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 1.25rem;
-}
+## Lokaal
 
-@media (min-width: 720px) {
-  .blog-cards {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-}
+Open `index.html` via een lokale server (niet als `file://`), of vanuit deze map:
 
-.blog-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  padding: 1.35rem 0;
-  border-bottom: 1px solid rgba(28, 36, 40, 0.1);
-  text-decoration: none;
-  color: inherit;
-  transition: color 0.2s var(--ease);
-}
+```bash
+npx --yes serve .
+```
 
-.blog-card:hover h2 {
-  color: var(--ad-teal);
-}
+## Deploy opnieuw
 
-.blog-card .meta {
-  margin: 0;
-  font-size: 0.88rem;
-  color: var(--ad-stone);
-  font-family: var(--font-display);
-  font-weight: 600;
-}
+Kopieer de inhoud van `website/` (zonder `hero-bedrijfsfilm.mp4` van ~52 MB) naar de repo [Koenpenha/aanbouwdirect-web](https://github.com/Koenpenha/aanbouwdirect-web) op `main`. Hero gebruikt `hero-bedrijfsfilm-lite.mp4` (~10 MB) op desktop en `hero-bedrijfsfilm-mobile.mp4` (~6 MB) op smalle schermen — muted autoplay; bij OS-blokkade blijft de poster staan (geen film-CTA).
 
-.blog-card h2 {
-  margin: 0;
-  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
-  color: var(--ad-graphite);
-}
+## Leads / mail
 
-.blog-card p {
-  margin: 0;
-  flex: 1;
-}
+Zie `EMAIL.md` en `TEST.md`.
 
-.blog-card .read-more {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.92rem;
-  color: var(--ad-teal);
-  text-decoration: none;
-}
-
-.blog-card:hover .read-more {
-  color: var(--ad-orange);
-}
-
-.blog-article {
-  padding: calc(var(--nav-h) + 2rem) 0 var(--section-gap);
-}
-
-.blog-article-header {
-  max-width: 42rem;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(28, 36, 40, 0.1);
-}
-
-.blog-article-header .meta {
-  margin: 0 0 0.75rem;
-  font-size: 0.88rem;
-  color: var(--ad-stone);
-  font-family: var(--font-display);
-  font-weight: 600;
-}
-
-.blog-article-header h1 {
-  margin-bottom: 0.65rem;
-  max-width: 20ch;
-}
-
-.blog-article-header .lead {
-  margin-bottom: 0;
-}
-
-.blog-prose {
-  max-width: 42rem;
-}
-
-.blog-prose h2 {
-  margin-top: 2.25rem;
-  margin-bottom: 0.75rem;
-  font-size: clamp(1.25rem, 3vw, 1.55rem);
-}
-
-.blog-prose h3 {
-  margin-top: 1.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.blog-prose p,
-.blog-prose li {
-  color: var(--ad-stone);
-  font-size: 1.05rem;
-  line-height: 1.65;
-}
-
-.blog-prose ul,
-.blog-prose ol {
-  margin: 0 0 1.25rem;
-  padding-left: 1.25rem;
-}
-
-.blog-prose li {
-  margin-bottom: 0.45rem;
-}
-
-.blog-prose strong {
-  color: var(--ad-graphite);
-  font-weight: 600;
-}
-
-.blog-cta {
-  margin-top: 2.75rem;
-  padding: 2rem 0 0;
-  background: transparent;
-  border: none;
-  border-top: 1px solid rgba(28, 36, 40, 0.1);
-}
-
-.blog-cta h2 {
-  margin: 0 0 0.45rem;
-  font-size: clamp(1.2rem, 2.5vw, 1.4rem);
-  max-width: 22ch;
-}
-
-.blog-cta p {
-  margin: 0 0 1.1rem;
-  max-width: 36rem;
-  color: var(--ad-stone);
-  font-size: 1.05rem;
-  line-height: 1.6;
-}
-
-.blog-cta-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  align-items: center;
-}
-
-.blog-related {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(28, 36, 40, 0.1);
-}
-
-.blog-related h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.85rem;
-}
-
-.blog-related ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0.5rem;
-}
-
-.blog-related a {
-  font-family: var(--font-display);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.blog-back {
-  display: inline-block;
-  margin-bottom: 1.25rem;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-decoration: none;
-}
-
-.site-footer .footer-nav a[href*="blog"] {
-  opacity: 0.9;
-}
-
-.blog-figure {
-  margin: 1.75rem 0 2rem;
-}
-.blog-figure img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-.blog-figure figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--ad-stone);
-}
+- **Lead** → FormSubmit → `info@aanbouw.direct` (reply-to = klant).
+- **Klantmail** → EmailJS HTML (na setup in `js/email-config.js`) of FormSubmit-CC met prijsindicatie.
+- Na deploy: FormSubmit-activatiemail in die inbox (of Junk) klikken. EmailJS-keys invullen voor huisstijl-HTML.
