@@ -17,11 +17,38 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css?v=20260727-v2restored" />
-  <!-- Meta Pixel: zet ID in js/meta-pixel.js of window.__META_PIXEL_ID__ vóór dit script -->
+  <!-- Meta Pixel Code (inline = Meta Events Manager kan ID + fbevents.js in HTML zien) -->
   <script>
-    window.__META_PIXEL_ID__ = window.__META_PIXEL_ID__ || "";
+    window.__META_PIXEL_ID__ = "1086640393713616";
+    !(function (f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = !0;
+      n.version = "2.0";
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = !0;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s);
+    })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+    fbq("init", "1086640393713616");
+    fbq("track", "PageView");
   </script>
-  <script src="js/meta-pixel.js?v=20260727-pixel" defer></script>
+  <noscript
+    ><img
+      height="1"
+      width="1"
+      style="display: none"
+      src="https://www.facebook.com/tr?id=1086640393713616&ev=PageView&noscript=1"
+      alt=""
+  /></noscript>
+  <!-- End Meta Pixel Code — Lead/CompleteRegistration via js/meta-pixel.js -->
+  <script src="js/meta-pixel.js?v=20260727-pixel-inline" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
