@@ -1510,12 +1510,9 @@
     return { ...result, plain: messages.plain };
   }
 
-  /** FormSubmit lead — altijd _url meesturen (anders: success:false “open via web server”). */
+  /** FormSubmit lead — altijd canonieke _url (siteUrl). Location.href (hash/utm/github.io) triggert anders opnieuw activatie of “web server”-fout. */
   async function sendLeadViaFormSubmit({ data, summary, area, prijs, autoresponse, useCc }) {
-    const pageUrl =
-      (typeof window !== "undefined" && window.location && window.location.href) ||
-      emailCfg.siteUrl ||
-      "https://aanbouw.direct/";
+    const pageUrl = emailCfg.siteUrl || "https://aanbouw.direct/";
 
     const formPayload = {
       naam: data.naam,
@@ -1551,31 +1548,45 @@
       formPayload._cc = data.email;
     }
 
-    try {
+    async function postOnce(body) {
       const res = await fetch(`https://formsubmit.co/ajax/${LEAD_EMAIL}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(formPayload),
+        body: JSON.stringify(body),
       });
       const payload = await res.json().catch(() => ({}));
+      const msg = String(payload.message || "");
       const ok =
         res.ok &&
         payload.success !== false &&
         payload.success !== "false";
-      if (!ok) {
-        const msg = String(payload.message || "");
+      return { res, payload, msg, ok };
+    }
+
+    try {
+      let result = await postOnce(formPayload);
+      /* Zonder geldige _url: FormSubmit klaagt over “web server” — één retry met vaste siteUrl. */
+      if (
+        !result.ok &&
+        /web server|html files/i.test(result.msg) &&
+        formPayload._url !== pageUrl
+      ) {
+        formPayload._url = pageUrl;
+        result = await postOnce(formPayload);
+      }
+      if (!result.ok) {
         return {
           ok: false,
           via: "formsubmit",
-          activation: /activat/i.test(msg),
-          message: msg || `FormSubmit ${res.status}`,
-          payload,
+          activation: /activat/i.test(result.msg),
+          message: result.msg || `FormSubmit ${result.res.status}`,
+          payload: result.payload,
         };
       }
-      return { ok: true, via: "formsubmit", payload };
+      return { ok: true, via: "formsubmit", payload: result.payload };
     } catch (err) {
       return {
         ok: false,
