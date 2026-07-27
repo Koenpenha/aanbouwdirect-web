@@ -1,7 +1,0 @@
-# Deploy excludes
-hero-bedrijfsfilm.mp4
-_qa/
-_qa-smoke.mjs
-*.md
-.vercelignore
-.surgeignore
