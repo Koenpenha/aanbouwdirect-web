@@ -21,7 +21,7 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --nav-h: 3.5rem;
   --tap: 2.75rem;
-  --section-gap: clamp(1.75rem, 4vw, 2.85rem);
+  --section-gap: clamp(2.25rem, 5vw, 3.75rem);
   --flow-teal-wash: rgba(0, 118, 148, 0.06);
   --flow-sand-wash: rgba(243, 224, 208, 0.35);
 }
@@ -2126,4 +2126,141 @@ input[type="range"]::-moz-range-thumb {
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .zone .reveal { transition-delay: 0s; }
+}
+
+/* =========================================================
+   Aanbouw Direct V2 — premium visual layer
+   Behoudt alle bestaande calculator- en formulierlogica.
+   ========================================================= */
+:root {
+  --ad-teal: #262724;
+  --ad-teal-dark: #171815;
+  --ad-sky: #b8b0a3;
+  --ad-orange: #d58b52;
+  --ad-orange-hover: #be7440;
+  --ad-sand: #eee8df;
+  --ad-graphite: #20211e;
+  --ad-stone: #6e6a63;
+  --ad-chalk: #f7f4ee;
+  --ad-white: #ffffff;
+  --radius: 12px;
+  --max: 1240px;
+  --shadow-soft: 0 24px 70px rgba(32, 33, 30, 0.10);
+}
+
+body { background: var(--ad-chalk); }
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(247, 244, 238, 0.90);
+  border-bottom: 1px solid rgba(32, 33, 30, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.site-nav .wrap { min-height: 74px; }
+.logo-word { letter-spacing: -0.01em; text-transform: none; font-size: 1.02rem; }
+.logo-mark { height: 35px; }
+.nav-links { gap: 1.7rem; }
+.nav-links a { color: var(--ad-graphite); font-weight: 600; text-decoration: none; }
+.nav-links a:hover { color: var(--ad-orange-hover); }
+.btn { border-radius: 999px; padding-inline: 1.45rem; }
+.btn-primary { box-shadow: 0 10px 24px rgba(213, 139, 82, 0.24); }
+
+.hero {
+  min-height: 92svh;
+  padding-top: 74px;
+  display: grid;
+  align-items: center;
+  background: #1b1c19;
+}
+.hero-overlay {
+  background:
+    linear-gradient(90deg, rgba(20, 21, 18, 0.90) 0%, rgba(20, 21, 18, 0.70) 42%, rgba(20, 21, 18, 0.20) 78%),
+    linear-gradient(180deg, rgba(20, 21, 18, 0.18), rgba(20, 21, 18, 0.40));
+}
+.hero-inner { padding-top: clamp(5rem, 12vh, 8rem); padding-bottom: clamp(5rem, 12vh, 8rem); }
+.hero-kicker {
+  margin: 0 0 1.25rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.hero h1 {
+  max-width: 760px;
+  color: #fff;
+  font-size: clamp(3rem, 8.5vw, 7rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  margin-bottom: 1.6rem;
+}
+.hero h1 span { color: #e5aa72; }
+.hero .lead { max-width: 620px; color: rgba(255, 255, 255, 0.82); font-size: clamp(1.08rem, 2vw, 1.35rem); }
+.hero-cta { margin-top: 2rem; }
+.hero-cta-primary { min-height: 56px; }
+.hero-cta-secondary { border-bottom: 0; padding: 0.75rem 0; }
+
+.zone { padding-block: clamp(4.5rem, 9vw, 8rem); }
+.zone--tool { background: linear-gradient(180deg, #f7f4ee 0%, #eee8df 100%); }
+/* Alleen reviews ↔ projecten iets dichter — rest blijft V2-ruimte */
+.zone--proof.reviews-section {
+  padding-bottom: clamp(2rem, 4vw, 3.25rem);
+}
+.zone--craft {
+  padding-top: clamp(2rem, 4vw, 3.25rem);
+}
+.calc-intro { max-width: 880px; margin-bottom: 2.5rem; }
+.calc-intro-season { border: 0; background: transparent; padding: 0; }
+.calc-banner { max-width: 780px; }
+.calc-banner h2 { font-size: clamp(2.3rem, 5vw, 4.4rem); letter-spacing: -0.045em; }
+.calc-banner-support { font-size: clamp(1.08rem, 2vw, 1.3rem); }
+.calc-intro-types { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.5rem; }
+.calc-intro-types li {
+  border: 1px solid rgba(32, 33, 30, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  padding: 0.45rem 0.8rem;
+}
+.calc-shell {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(32, 33, 30, 0.08);
+  background: #fff;
+}
+.calc-visual { background: #20211e; }
+.choice {
+  border-radius: 14px;
+  border-color: rgba(32, 33, 30, 0.12);
+  background: #fbfaf7;
+  min-height: 76px;
+  transition: transform 0.2s var(--ease), border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease);
+}
+.choice:hover { transform: translateY(-2px); border-color: rgba(213, 139, 82, 0.65); box-shadow: 0 12px 30px rgba(32, 33, 30, 0.08); }
+.choice.is-selected, .choice[aria-pressed="true"] { background: #f3e4d7; border-color: var(--ad-orange); }
+
+.reviews-section, .zone--craft, .zone--aside, .zone--faq, .zone--close { background: var(--ad-chalk); }
+.project-card, .review-card, .faq-item, .why-card {
+  border-radius: 18px;
+  border-color: rgba(32, 33, 30, 0.10);
+  box-shadow: 0 14px 44px rgba(32, 33, 30, 0.06);
+}
+.project-card img { aspect-ratio: 4 / 3; object-fit: cover; }
+.site-footer { background: #1c1d1a; }
+
+@media (max-width: 767px) {
+  .site-nav .wrap { min-height: 64px; }
+  .hero { min-height: 88svh; padding-top: 64px; }
+  .hero-inner { padding-top: 5.5rem; padding-bottom: 4.5rem; }
+  .hero h1 { font-size: clamp(3rem, 15vw, 4.9rem); }
+  .hero-overlay { background: linear-gradient(180deg, rgba(20, 21, 18, 0.46), rgba(20, 21, 18, 0.88)); }
+  .calc-shell { border-radius: 18px; }
+  .zone { padding-block: 4.5rem; }
+  .zone--proof.reviews-section { padding-bottom: 2.25rem; }
+  .zone--craft { padding-top: 2.25rem; }
 }
