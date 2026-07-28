@@ -1,5 +1,9 @@
 name: Daily SEO go-live
 
+# Elke dag 09:00 Europe/Amsterdam (cron UTC 07:00)
+# Publiceert max. 2 QUEUE-items met status "approved" en datum ≤ vandaag.
+# Nooit idee/draft. Handmatig: Actions → Daily SEO go-live → Run workflow.
+
 on:
   schedule:
     - cron: "0 7 * * *"
@@ -16,9 +20,10 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
 
-      - run: node _seo/daily-golive.mjs
+      - name: Run go-live
+        run: node _seo/daily-golive.mjs
 
       - name: Commit if changed
         run: |

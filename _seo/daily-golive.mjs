@@ -1,14 +1,29 @@
 #!/usr/bin/env node
 /**
  * Daily SEO go-live — max 2 approved queue items per run.
- * Run from repo root: node _seo/daily-golive.mjs
+ *
+ * Rules:
+ * - Only status "approved" (never idee/draft)
+ * - datum ≤ today (Europe/Amsterdam)
+ * - oldest first, max 2
+ * - requires website/blog/{slug}.html
+ * - updates QUEUE → live, sitemap, kennisbank/blog indexes
+ *
+ * Run from aanbouwdirect-web root: node _seo/daily-golive.mjs
+ * Or from workspace via scripts/seo-golive-deploy.mjs
  */
-import { readFileSync, writeFileSync } from "fs";
-import { join } from "path";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
-const ROOT = process.cwd();
-const QUEUE_PATH = join(ROOT, "_seo", "QUEUE.csv");
+// Script leeft in <site-root>/_seo/ — default ROOT = parent van _seo
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+const ROOT = process.env.SEO_ROOT ? process.env.SEO_ROOT : join(SCRIPT_DIR, "..");
+const QUEUE_PATH = process.env.SEO_QUEUE_PATH
+  ? process.env.SEO_QUEUE_PATH
+  : join(ROOT, "_seo", "QUEUE.csv");
 const SITEMAP_PATH = join(ROOT, "sitemap.xml");
+const BLOG_DIR = join(ROOT, "blog");
 const INDEX_FILES = [
   join(ROOT, "kennisbank", "index.html"),
   join(ROOT, "blog", "index.html"),
@@ -16,6 +31,7 @@ const INDEX_FILES = [
 
 const MAX_LIVE = 2;
 const ALLOWED_STATUS = new Set(["approved"]);
+const FORBIDDEN_STATUS = new Set(["idee", "draft"]);
 
 function todayAmsterdam() {
   return new Intl.DateTimeFormat("en-CA", {
@@ -107,6 +123,7 @@ function stripDraftLabels(block) {
 }
 
 function updateIndexForSlug(filePath, slug) {
+  if (!existsSync(filePath)) return;
   let html = readFileSync(filePath, "utf8");
   const cardPattern = new RegExp(
     `<a\\s+class="blog-card"[^>]*href="[^"]*${slug}\\.html"[^>]*>[\\s\\S]*?</a>`,
@@ -119,21 +136,34 @@ function updateIndexForSlug(filePath, slug) {
   }
 }
 
+function blogPathForSlug(slug) {
+  return join(BLOG_DIR, `${slug}.html`);
+}
+
 function pickCandidates(rows, headers, today) {
   const statusIdx = headers.indexOf("status");
   const datumIdx = headers.indexOf("datum");
   const slugIdx = headers.indexOf("slug");
+  const prioIdx = headers.indexOf("prioriteit");
 
   return rows
     .map((row, index) => ({ row, index }))
     .filter(({ row }) => {
       const status = row[statusIdx]?.trim().toLowerCase();
       const datum = row[datumIdx]?.trim();
-      return ALLOWED_STATUS.has(status) && datum && datum <= today;
+      if (FORBIDDEN_STATUS.has(status)) return false;
+      if (!ALLOWED_STATUS.has(status)) return false;
+      if (!datum || datum > today) return false;
+      const slug = row[slugIdx]?.trim();
+      if (!slug) return false;
+      return true;
     })
     .sort((a, b) => {
       const dateCmp = a.row[datumIdx].localeCompare(b.row[datumIdx]);
       if (dateCmp !== 0) return dateCmp;
+      const prioA = Number(a.row[prioIdx] || 99);
+      const prioB = Number(b.row[prioIdx] || 99);
+      if (prioA !== prioB) return prioA - prioB;
       return a.row[slugIdx].localeCompare(b.row[slugIdx]);
     })
     .slice(0, MAX_LIVE);
@@ -141,6 +171,13 @@ function pickCandidates(rows, headers, today) {
 
 function main() {
   const today = todayAmsterdam();
+  console.log(`seo-golive · today=${today} · queue=${QUEUE_PATH}`);
+
+  if (!existsSync(QUEUE_PATH)) {
+    console.error(`QUEUE ontbreekt: ${QUEUE_PATH}`);
+    process.exit(1);
+  }
+
   const raw = readFileSync(QUEUE_PATH, "utf8");
   const table = parseCsv(raw.trimEnd());
 
@@ -155,21 +192,39 @@ function main() {
   const slugIdx = headers.indexOf("slug");
   const notitieIdx = headers.indexOf("notitie");
 
+  for (const required of ["status", "datum", "slug"]) {
+    if (headers.indexOf(required) === -1) {
+      console.error(`QUEUE mist kolom: ${required}`);
+      process.exit(1);
+    }
+  }
+
   const candidates = pickCandidates(rows, headers, today);
   if (candidates.length === 0) {
-    console.log("niets te publiceren");
+    console.log("niets te publiceren (geen approved met datum ≤ vandaag)");
     return;
   }
 
   const liveSlugs = [];
+  const skipped = [];
 
   for (const { row, index } of candidates) {
-    const slug = row[slugIdx];
+    const slug = row[slugIdx]?.trim();
+    const htmlPath = blogPathForSlug(slug);
+
+    if (!existsSync(htmlPath)) {
+      skipped.push(`${slug} (HTML ontbreekt: blog/${slug}.html)`);
+      console.warn(`skip: ${slug} — blog/${slug}.html niet gevonden`);
+      continue;
+    }
+
     row[statusIdx] = "live";
     const suffix = ` · auto live ${today}`;
-    row[notitieIdx] = row[notitieIdx]?.includes(suffix)
-      ? row[notitieIdx]
-      : `${row[notitieIdx] || ""}${suffix}`.trim();
+    if (notitieIdx >= 0) {
+      row[notitieIdx] = row[notitieIdx]?.includes(suffix)
+        ? row[notitieIdx]
+        : `${row[notitieIdx] || ""}${suffix}`.trim();
+    }
     rows[index] = row;
 
     ensureSitemap(slug);
@@ -179,8 +234,15 @@ function main() {
     liveSlugs.push(slug);
   }
 
+  if (liveSlugs.length === 0) {
+    console.log("niets te publiceren");
+    if (skipped.length) console.log(`overgeslagen: ${skipped.join("; ")}`);
+    return;
+  }
+
   writeFileSync(QUEUE_PATH, serializeCsv([headers, ...rows]));
   console.log(`live: ${liveSlugs.join(", ")}`);
+  if (skipped.length) console.log(`overgeslagen: ${skipped.join("; ")}`);
 }
 
 main();
