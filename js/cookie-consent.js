@@ -82,7 +82,7 @@
 
   function privacyHref() {
     var path = (window.location && window.location.pathname) || "";
-    if (/\/(blog|kennisbank)(\/|$)/.test(path)) return "../privacy.html";
+    if (/\/(blog|kennisbank|stats)(\/|$)/.test(path)) return "../privacy.html";
     if (/privacy\.html$/i.test(path)) return "privacy.html";
     return "privacy.html";
   }
