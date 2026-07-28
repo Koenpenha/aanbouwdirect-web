@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bezoekersstatistieken — Aanbouwdirect</title>
+  <meta name="description" content="Interne link naar het GoatCounter-dashboard van Aanbouwdirect." />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="canonical" href="https://aanbouw.direct/stats/" />
+  <link rel="icon" href="../assets/aanbouwdirect-mark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .stats-page { padding: clamp(2.5rem, 6vw, 4rem) 0 var(--section-gap); }
+    .stats-page .wrap { max-width: 36rem; }
+    .stats-page h1 { color: var(--ad-teal-dark); margin-bottom: 0.5rem; }
+    .stats-page .lead { margin-bottom: 1.5rem; color: var(--ad-stone); }
+    .stats-page .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+    .stats-note {
+      margin-top: 1.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid color-mix(in srgb, var(--ad-teal) 18%, transparent);
+      font-size: 0.95rem;
+      color: var(--ad-stone);
+    }
+  </style>
+  <script src="../js/cookie-consent.js?v=20260728-cookie"></script>
+  <script src="../js/analytics-config.js?v=20260728-gc1" defer></script>
+  <script src="../js/analytics.js?v=20260728-cookie" defer></script>
+</head>
+<body>
+  <header class="site-nav">
+    <div class="wrap">
+      <a class="logo-link" href="../index.html" aria-label="Aanbouwdirect home">
+        <img class="logo-mark" src="../assets/aanbouwdirect-mark.svg" alt="" width="40" height="35" />
+        <span class="logo-word">Aanbouwdirect</span>
+      </a>
+      <div class="nav-actions">
+        <a class="btn btn-primary nav-cta-mobile" href="../index.html#calculator">Prijsindicatie</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu openen">
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav id="site-menu" class="nav-panel" aria-label="Hoofdmenu">
+        <ul class="nav-links">
+          <li><a href="../index.html#calculator">Samenstellen</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a href="../kennisbank/">Kennisbank</a></li>
+        </ul>
+        <a class="btn btn-primary nav-cta" href="../index.html#calculator">Prijsindicatie</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="stats-page">
+    <div class="wrap">
+      <h1>Bezoekersstatistieken</h1>
+      <p class="lead">
+        Cijfers staan in GoatCounter (login). Deze pagina toont geen publieke teller —
+        alleen een snelle link naar jouw dashboard.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://aanbouwdirect.goatcounter.com" target="_blank" rel="noopener">
+          Open GoatCounter-dashboard
+        </a>
+        <a class="btn btn-ghost" href="../index.html">Terug naar site</a>
+      </div>
+      <p class="stats-note">
+        Nog geen account? Zie <code>marketing/STATS.md</code> in de workspace (3 stappen, ±2 min).
+        Tellingen starten pas na cookie-consent <strong>Accepteren</strong> én
+        <code>enabled: true</code> in <code>js/analytics-config.js</code>.
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="logo-link logo-link--footer" href="../index.html" aria-label="Aanbouwdirect home">
+        <img class="logo-mark" src="../assets/aanbouwdirect-mark.svg" alt="" width="36" height="31" />
+        <span class="logo-word">Aanbouwdirect</span>
+      </a>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="../index.html#calculator">Samenstellen</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../kennisbank/">Kennisbank</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="#cookie-instellingen" data-cookie-settings>Cookie-instellingen</a>
+      </nav>
+      <div class="footer-legal">
+        <p class="footer-legal__name">Aanbouw Direct</p>
+        <p class="footer-legal__meta">© 2026 Aanbouw Direct · <a href="../privacy.html">Privacy</a> · <a href="#cookie-instellingen" data-cookie-settings>Cookie-instellingen</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var toggle = document.querySelector(".nav-toggle");
+      var panel = document.getElementById("site-menu");
+      if (!toggle || !panel) return;
+      toggle.addEventListener("click", function () {
+        var open = document.body.classList.toggle("nav-open");
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+    })();
+  </script>
+</body>
+</html>

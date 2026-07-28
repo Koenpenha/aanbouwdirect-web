@@ -16,39 +16,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20260727-v2restored" />
-  <!-- Meta Pixel Code — standaard snippet (init + PageView), geen consent-gate -->
-  <script>
-    window.__META_PIXEL_ID__ = "1086640393713616";
-    !(function (f, b, e, v, n, t, s) {
-      if (f.fbq) return;
-      n = f.fbq = function () {
-        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-      };
-      if (!f._fbq) f._fbq = n;
-      n.push = n;
-      n.loaded = !0;
-      n.version = "2.0";
-      n.queue = [];
-      t = b.createElement(e);
-      t.async = !0;
-      t.src = v;
-      s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s);
-    })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
-    fbq("init", "1086640393713616");
-    fbq("track", "PageView");
-  </script>
-  <noscript
-    ><img
-      height="1"
-      width="1"
-      style="display: none"
-      src="https://www.facebook.com/tr?id=1086640393713616&ev=PageView&noscript=1"
-      alt=""
-  /></noscript>
-  <!-- End Meta Pixel Code — Lead/CompleteRegistration via js/meta-pixel.js -->
-  <script src="js/meta-pixel.js?v=20260727-pixel-fix3" defer></script>
+  <link rel="stylesheet" href="css/styles.css?v=20260728-cookie" />
+  <!-- Meta Pixel + GoatCounter: pas na cookie-consent = all (zie cookie-consent.js) -->
+  <script>window.__META_PIXEL_ID__ = "1086640393713616";</script>
+  <script src="js/cookie-consent.js?v=20260728-cookie"></script>
+  <script src="js/meta-pixel.js?v=20260728-cookie" defer></script>
+  <script src="js/analytics-config.js?v=20260728-gc1" defer></script>
+  <script src="js/analytics.js?v=20260728-cookie" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -881,6 +855,7 @@
         <a href="#contact">Contact</a>
         <a href="kennisbank/">Kennisbank</a>
         <a href="privacy.html">Privacy</a>
+        <a href="#cookie-instellingen" data-cookie-settings>Cookie-instellingen</a>
       </nav>
       <div class="footer-legal">
         <p class="footer-legal__name">Aanbouw Direct</p>
@@ -892,7 +867,7 @@
           · <a href="https://www.instagram.com/aanbouwdirect/" target="_blank" rel="noopener" aria-label="Instagram @aanbouwdirect">Instagram</a>
         </p>
         <p>KVK 96015349 · Maatkozijndirect</p>
-        <p class="footer-legal__meta">© 2026 Aanbouw Direct · <a href="privacy.html">Privacy</a></p>
+        <p class="footer-legal__meta">© 2026 Aanbouw Direct · <a href="privacy.html">Privacy</a> · <a href="#cookie-instellingen" data-cookie-settings>Cookie-instellingen</a></p>
       </div>
     </div>
   </footer>

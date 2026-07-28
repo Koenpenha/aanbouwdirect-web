@@ -1,11 +1,10 @@
 /**
  * Meta Pixel helpers — Aanbouw-direct
- * Base code (init + PageView) staat inline in index.html (standaard Meta-snippet).
- * Dit bestand: Lead / CompleteRegistration + AanbouwMeta (+ optionele test code).
+ * Laadt fbq / init / PageView PAS na cookie-consent = "all"
+ * (zie js/cookie-consent.js → AanbouwConsent).
  *
- * Test Events: open Events Manager → Test Events (code TEST46576) en bezoek de site.
- * Optioneel: ?test_event_code=TEST46576 — browser-pixel heeft geen CAPI test_event_code nodig;
- * de code wordt bewaard voor debug. PageView/Lead blijven standaard fbq-calls.
+ * Lead / CompleteRegistration via window.AanbouwMeta.
+ * Test: ?test_event_code=TEST46576
  */
 (function () {
   var PIXEL_ID =
@@ -16,7 +15,9 @@
    * Removable flag: zet op "TEST46576" tijdens verificatie, daarna "" of verwijderen.
    * URL-param ?test_event_code=… wint van deze flag.
    */
-  var TEMPORARY_TEST_EVENT_CODE = "TEST46576";
+  var TEMPORARY_TEST_EVENT_CODE = "";
+
+  var loaded = false;
 
   function resolveTestEventCode() {
     try {
@@ -33,17 +34,28 @@
 
   var TEST_EVENT_CODE = resolveTestEventCode();
 
-  if (!PIXEL_ID || !/^\d{5,20}$/.test(String(PIXEL_ID))) {
+  function noopApi() {
     window.AanbouwMeta = {
       ready: false,
+      consentRequired: true,
+      pixelId: PIXEL_ID,
+      testEventCode: TEST_EVENT_CODE || null,
       trackLead: function () {},
       trackCompleteRegistration: function () {},
     };
+  }
+
+  if (!PIXEL_ID || !/^\d{5,20}$/.test(String(PIXEL_ID))) {
+    noopApi();
     return;
   }
 
-  function ensureFbq() {
-    if (typeof window.fbq === "function") return;
+  function injectFbq() {
+    if (loaded) return;
+    if (typeof window.fbq === "function" && window._fbq) {
+      loaded = true;
+      return;
+    }
     !(function (f, b, e, v, n, t, s) {
       if (f.fbq) return;
       n = f.fbq = function () {
@@ -67,13 +79,21 @@
     );
     fbq("init", PIXEL_ID);
     fbq("track", "PageView");
+    loaded = true;
   }
 
-  ensureFbq();
+  function ensureFbq() {
+    var consent = window.AanbouwConsent;
+    if (consent && !consent.hasMarketing()) return false;
+    /* Geen consent-API (oude pagina): niet laden — banner is verplicht */
+    if (!consent) return false;
+    injectFbq();
+    return true;
+  }
 
   function trackLead(extra) {
     try {
-      ensureFbq();
+      if (!ensureFbq()) return;
       fbq("track", "Lead", extra || {});
     } catch (e) {
       /* ignore */
@@ -82,18 +102,43 @@
 
   function trackCompleteRegistration(extra) {
     try {
-      ensureFbq();
+      if (!ensureFbq()) return;
       fbq("track", "CompleteRegistration", extra || {});
     } catch (e) {
       /* ignore */
     }
   }
 
-  window.AanbouwMeta = {
-    ready: true,
-    pixelId: PIXEL_ID,
-    testEventCode: TEST_EVENT_CODE || null,
-    trackLead: trackLead,
-    trackCompleteRegistration: trackCompleteRegistration,
-  };
+  function activate() {
+    injectFbq();
+    window.AanbouwMeta = {
+      ready: true,
+      consentRequired: false,
+      pixelId: PIXEL_ID,
+      testEventCode: TEST_EVENT_CODE || null,
+      trackLead: trackLead,
+      trackCompleteRegistration: trackCompleteRegistration,
+    };
+  }
+
+  noopApi();
+
+  function boot() {
+    var consent = window.AanbouwConsent;
+    if (consent && typeof consent.whenMarketing === "function") {
+      consent.whenMarketing(activate);
+      return;
+    }
+    /* Fallback: wacht op consent-event */
+    document.addEventListener("ad:consent", function (ev) {
+      var d = ev && ev.detail;
+      if (d && d.consent === "all") activate();
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
 })();

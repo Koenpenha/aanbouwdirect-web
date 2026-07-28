@@ -11,7 +11,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20260725-ig" />
+  <link rel="stylesheet" href="css/styles.css?v=20260728-cookie" />
+  <script src="js/cookie-consent.js?v=20260728-cookie"></script>
+  <script src="js/analytics-config.js" defer></script>
+  <script src="js/analytics.js?v=20260728-gc1" defer></script>
   <style>
     .legal-page { padding: clamp(2.5rem, 6vw, 4rem) 0 var(--section-gap); }
     .legal-page .wrap { max-width: 40rem; }
@@ -82,20 +85,41 @@
         We gebruiken je gegevens niet voor marketingmails of doorverkoop aan derden.
       </p>
 
-      <h2>Cookies &amp; tracking</h2>
+      <h2 id="cookies">Cookies &amp; tracking</h2>
       <p>
-        We gebruiken een <strong>Meta (Facebook) Pixel</strong> (Pixel ID 1086640393713616) om te meten of
-        bezoekers vanaf advertenties onze site en calculator gebruiken, en of ze een prijsindicatie aanvragen
-        (events: PageView, Lead, CompleteRegistration). Dat helpt ons advertenties relevanter te maken.
-        De pixel plaatst cookies van Meta Platforms Ireland Ltd. bij bezoek aan aanbouw.direct.
+        We vragen bij je eerste bezoek om toestemming via een cookiebanner. Je keuze slaan we op in je browser
+        (sleutel <code>ad_cookie_consent</code>: waarde <code>all</code> of <code>necessary</code>).
+      </p>
+      <ul>
+        <li>
+          <strong>Accepteren</strong> — we laden marketing- en statistiekcookies:
+          <strong>Meta (Facebook) Pixel</strong> (Pixel ID 1086640393713616) voor advertentiemeting
+          (events: PageView, Lead, CompleteRegistration), en <strong>GoatCounter</strong> voor
+          bezoekersstatistieken (aantal bezoekers en pagina’s). De Meta Pixel plaatst cookies van
+          Meta Platforms Ireland Ltd. GoatCounter is privacy-vriendelijk en zet zelf geen
+          tracking-cookies; we laden het script alleen na jouw toestemming.
+        </li>
+        <li>
+          <strong>Alleen noodzakelijk</strong> — geen Meta Pixel, geen bezoekersstatistieken.
+          Ads-meting staat uit. Wel functionele techniek die nodig is om de site te laten werken
+          (bijvoorbeeld om je calculator-keuzes tijdelijk vast te houden tijdens je sessie).
+        </li>
+      </ul>
+      <p>We gebruiken geen Google Analytics.</p>
+
+      <h2>Cookie-keuze wijzigen</h2>
+      <p>
+        Klik op <a href="#cookie-instellingen" data-cookie-settings>Cookie-instellingen</a> in de footer
+        (of hieronder) om de banner opnieuw te openen en opnieuw te kiezen.
+        Je kunt ook de sitegegevens / localStorage voor aanbouw.direct wissen in je browser;
+        dan vragen we bij je volgende bezoek opnieuw om toestemming.
       </p>
       <p>
-        We gebruiken geen Google Analytics. Wel functionele techniek die nodig is om de site te laten werken
-        (bijvoorbeeld om je calculator-keuzes tijdelijk vast te houden tijdens je sessie).
+        <button type="button" class="btn btn-primary" data-cookie-settings>Cookie-instellingen</button>
       </p>
       <p>
         Meer over Meta’s cookies: zie de privacy-instellingen in je Facebook/Instagram-account, of mail ons
-        via <a href="mailto:info@aanbouw.direct">info@aanbouw.direct</a> als je tracking wilt uitzetten voor jouw aanvraag.
+        via <a href="mailto:info@aanbouw.direct">info@aanbouw.direct</a>.
       </p>
 
       <h2>Bewaartermijn</h2>
@@ -110,7 +134,7 @@
         Neem contact op via <a href="mailto:info@aanbouw.direct">info@aanbouw.direct</a>.
       </p>
 
-      <p class="legal-meta">Laatst bijgewerkt: juli 2026</p>
+      <p class="legal-meta">Laatst bijgewerkt: 28 juli 2026</p>
     </div>
   </main>
 
@@ -125,6 +149,7 @@
         <a href="index.html#contact">Contact</a>
         <a href="kennisbank/">Kennisbank</a>
         <a href="privacy.html" aria-current="page">Privacy</a>
+        <a href="#cookie-instellingen" data-cookie-settings>Cookie-instellingen</a>
       </nav>
       <div class="footer-legal">
         <p class="footer-legal__name">Aanbouw Direct</p>
@@ -135,7 +160,7 @@
           · <a href="https://wa.me/31232052483?text=Hoi%2C%20ik%20heb%20een%20vraag%20over%20een%20aanbouw%20of%20uitbouw" target="_blank" rel="noopener">WhatsApp</a>
         </p>
         <p>KVK 96015349 · Maatkozijndirect</p>
-        <p class="footer-legal__meta">© 2026 Aanbouw Direct · <a href="privacy.html">Privacy</a></p>
+        <p class="footer-legal__meta">© 2026 Aanbouw Direct · <a href="privacy.html">Privacy</a> · <a href="#cookie-instellingen" data-cookie-settings>Cookie-instellingen</a></p>
       </div>
     </div>
   </footer>
