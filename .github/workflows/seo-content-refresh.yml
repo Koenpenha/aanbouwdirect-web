@@ -1,0 +1,54 @@
+name: SEO content refresh
+
+# 1e van de maand 08:00 Europe/Amsterdam (cron UTC 06:00)
+# Markeert 1–2 oudste high-intent live gidsen als status "refresh" + notities.
+# Schrijft geen HTML — WRITE/Cursor Automation pakt refresh vóór nieuwe ideeën.
+# Handmatig: Actions → SEO content refresh → Run workflow.
+
+on:
+  schedule:
+    - cron: "0 6 1 * *"
+  workflow_dispatch:
+    inputs:
+      max:
+        description: "Max aantal gidsen om te markeren"
+        required: false
+        default: "2"
+      apply:
+        description: "Schrijf QUEUE-wijzigingen (true/false)"
+        required: false
+        default: "true"
+
+permissions:
+  contents: write
+
+jobs:
+  content-refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Mark refresh candidates
+        env:
+          MAX: ${{ github.event.inputs.max || '2' }}
+          APPLY: ${{ github.event.inputs.apply || 'true' }}
+        run: |
+          ARGS=(--max="$MAX")
+          if [ "$APPLY" = "true" ]; then
+            ARGS+=(--apply)
+          else
+            ARGS+=(--dry-run)
+          fi
+          node _seo/seo-content-refresh.mjs "${ARGS[@]}"
+
+      - name: Commit if changed
+        run: |
+          git config user.name "aanbouwdirect-seo-bot"
+          git config user.email "seo-bot@aanbouw.direct"
+          git add _seo/QUEUE.csv _seo/refresh-notes/*.md || true
+          git diff --staged --quiet || git commit -m "chore(seo): monthly content refresh flags $(date -u +%Y-%m-%d)"
+          git push

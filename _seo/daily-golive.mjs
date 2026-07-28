@@ -15,6 +15,7 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
+import { spawnSync } from "child_process";
 
 // Script leeft in <site-root>/_seo/ — default ROOT = parent van _seo
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
@@ -243,6 +244,25 @@ function main() {
   writeFileSync(QUEUE_PATH, serializeCsv([headers, ...rows]));
   console.log(`live: ${liveSlugs.join(", ")}`);
   if (skipped.length) console.log(`overgeslagen: ${skipped.join("; ")}`);
+
+  // Interne links: 2–3 related + backlinks voor net-live posts
+  const linkScript = join(SCRIPT_DIR, "seo-internal-links.mjs");
+  if (existsSync(linkScript) && liveSlugs.length > 0) {
+    console.log("seo-internal-links na go-live…");
+    const result = spawnSync(
+      process.execPath,
+      [linkScript, "--apply", `--slugs=${liveSlugs.join(",")}`],
+      {
+        encoding: "utf8",
+        env: { ...process.env, SEO_ROOT: ROOT, SEO_QUEUE_PATH: QUEUE_PATH },
+      }
+    );
+    if (result.stdout) process.stdout.write(result.stdout);
+    if (result.stderr) process.stderr.write(result.stderr);
+    if (result.status !== 0) {
+      console.warn("seo-internal-links waarschuwing (go-live blijft ok)");
+    }
+  }
 }
 
 main();

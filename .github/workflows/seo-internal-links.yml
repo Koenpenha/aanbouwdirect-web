@@ -1,0 +1,53 @@
+name: SEO internal links
+
+# Wekelijks maandag 10:00 Europe/Amsterdam (cron UTC 08:00)
+# Voegt 2–3 gerelateerde interne links toe voor recente live posts + backlinks.
+# Handmatig: Actions → SEO internal links → Run workflow.
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Kijk terug N dagen voor recente live posts"
+        required: false
+        default: "14"
+      apply:
+        description: "Schrijf wijzigingen (true/false)"
+        required: false
+        default: "true"
+
+permissions:
+  contents: write
+
+jobs:
+  internal-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run internal links
+        env:
+          DAYS: ${{ github.event.inputs.days || '14' }}
+          APPLY: ${{ github.event.inputs.apply || 'true' }}
+        run: |
+          ARGS=(--days="$DAYS")
+          if [ "$APPLY" = "true" ]; then
+            ARGS+=(--apply)
+          else
+            ARGS+=(--dry-run)
+          fi
+          node _seo/seo-internal-links.mjs "${ARGS[@]}"
+
+      - name: Commit if changed
+        run: |
+          git config user.name "aanbouwdirect-seo-bot"
+          git config user.email "seo-bot@aanbouw.direct"
+          git add blog/*.html
+          git diff --staged --quiet || git commit -m "chore(seo): weekly internal links $(date -u +%Y-%m-%d)"
+          git push

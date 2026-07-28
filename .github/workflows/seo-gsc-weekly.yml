@@ -1,0 +1,35 @@
+name: SEO GSC weekly report
+
+# Elke maandag 11:00 Europe/Amsterdam (cron UTC 09:00)
+# Maakt checklist-rapportstub onder _seo/reports/ (geen GSC API vereist).
+# Handmatig: Actions → SEO GSC weekly report → Run workflow.
+
+on:
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  gsc-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Generate weekly stub
+        run: node _seo/seo-gsc-weekly.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name "aanbouwdirect-seo-bot"
+          git config user.email "seo-bot@aanbouw.direct"
+          mkdir -p _seo/reports
+          git add _seo/reports/*.md || true
+          git diff --staged --quiet || git commit -m "chore(seo): weekly GSC checklist $(date -u +%Y-%m-%d)"
+          git push

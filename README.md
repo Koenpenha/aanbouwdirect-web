@@ -26,7 +26,17 @@ npx --yes serve .
 
 ## Deploy opnieuw
 
-Kopieer de inhoud van `website/` (zonder `hero-bedrijfsfilm.mp4` van ~52 MB) naar de repo [Koenpenha/aanbouwdirect-web](https://github.com/Koenpenha/aanbouwdirect-web) op `main`. Hero gebruikt `hero-bedrijfsfilm-lite.mp4` (~10 MB) op desktop en `hero-bedrijfsfilm-mobile.mp4` (~6 MB) op smalle schermen — muted autoplay; bij OS-blokkade blijft de poster staan (geen film-CTA).
+Automatisch (preferred):
+
+```bash
+node scripts/seo-golive-deploy.mjs
+```
+
+Dat publiceert due `approved` items (max 2) en pusht `website/` naar [Koenpenha/aanbouwdirect-web](https://github.com/Koenpenha/aanbouwdirect-web) op `main` — **zonder** `assets/hero-bedrijfsfilm.mp4` (~55 MB), **met** CNAME `aanbouw.direct`. Hero gebruikt `hero-bedrijfsfilm-lite.mp4` / `hero-bedrijfsfilm-mobile.mp4`.
+
+Dagelijks op GitHub: workflow **Daily SEO go-live** (09:00 Amsterdam) doet hetzelfde go-live-deel op de live-repo voor items die al als `approved` in `_seo/QUEUE.csv` staan.
+
+Handmatig: kopieer `website/` (zonder die grote film) naar die repo op `main`.
 
 ## Leads / mail
 
