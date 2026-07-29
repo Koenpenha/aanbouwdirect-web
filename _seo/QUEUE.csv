@@ -26,7 +26,7 @@ datum,type,slug,keyword,status,prioriteit,onderwerp,cta,notitie
 2026-07-26,gemeente,aanbouw-diemen,aanbouw Diemen,live,2,Aanbouw Diemen,calculator,ring2 live batch 26 jul · NH groei
 2026-07-26,gemeente,aanbouw-ouder-amstel,aanbouw Ouder-Amstel,live,2,Aanbouw Ouder-Amstel,calculator,ring2 live batch 26 jul · NH groei
 2026-07-28,blog,dakkapel-kosten,dakkapel kosten,live,1,Wat kost een dakkapel (vs dakopbouw),calculator,"overnight WRITE 28 jul · quality gate groen · scope-eerlijk (geen dakkapel, doorverwijs dakopbouw/nok) · datum ≤ vandaag voor GO-LIVE · auto live 2026-07-28"
-2026-07-30,blog,uitbouw-vergunning,vergunning uitbouw,idee,1,Vergunning uitbouw nodig?,afspraak,High-intent synoniem van vergunning aanbouw
+2026-07-30,blog,uitbouw-vergunning,vergunning uitbouw,draft,1,Vergunning uitbouw nodig?,afspraak,WRITE 29 jul · quality gate groen · synoniem aanbouw-vergunning met checklist + Omgevingsloket/Rijksoverheid · CTA afspraak · status draft (niet live)
 2026-07-31,blog,aanbouw-laten-plaatsen,aanbouw laten plaatsen,idee,1,Aanbouw laten plaatsen: hoe werkt het,calculator,High-intent proces + CTA calculator
 2026-08-01,blog,isolatie-aanbouw,isolatie aanbouw,idee,1,Isolatie bij casco-aanbouw,calculator,Zoekvraag isolatie + casco-scope; geen greenwash
 2026-08-03,blog,aanbouw-keuken,aanbouw keuken uitbreiden,idee,1,Aanbouw voor een grotere keuken,calculator,Use-case met zoekvolume; CTA calculator
