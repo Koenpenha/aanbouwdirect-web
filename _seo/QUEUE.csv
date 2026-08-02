@@ -7,8 +7,8 @@ datum,type,slug,keyword,status,prioriteit,onderwerp,cta,notitie
 2026-07-28,gemeente,aanbouw-de-kwakel,aanbouw De Kwakel,live,1,Aanbouw De Kwakel,calculator,rewritten overnight 28 jul · lokaal nut Uithoorn (welstand/Bbl/stikstof De Kwakel + officiële bouwen-pagina) · live
 2026-07-21,gemeente,aanbouw-nieuw-vennep,aanbouw Nieuw-Vennep,live,1,Huis uitbreiden Nieuw-Vennep,calculator,Plaats in Haarlemmermeer · ring 1
 2026-07-21,gemeente,aanbouw-kudelstaart,aanbouw Kudelstaart,live,1,Aanbouw Kudelstaart & Rijsenhout,calculator,Plaats in Aalsmeer · ring 1
-2026-07-25,blog,kosten-aanbouw,kosten aanbouw,refresh,1,Wat kost een aanbouw (indicatie casco),calculator,batch week1 · live 25 jul · refresh 2026-08-01 · update jaar/FAQ/cijfers (geen €/m²-spam)
-2026-07-25,blog,uitbouw-kosten,uitbouw kosten,refresh,1,Uitbouw kosten (synoniem-vangst),calculator,batch week1 · live 25 jul · refresh 2026-08-01 · update jaar/FAQ/cijfers (geen €/m²-spam)
+2026-07-25,blog,kosten-aanbouw,kosten aanbouw,live,1,Wat kost een aanbouw (indicatie casco),calculator,batch week1 · live 25 jul
+2026-07-25,blog,uitbouw-kosten,uitbouw kosten,live,1,Uitbouw kosten (synoniem-vangst),calculator,batch week1 · live 25 jul
 2026-07-26,blog,verbouwen-of-verhuizen,verbouwen of verhuizen,live,1,Verbouwen of verhuizen vergelijking,calculator,live 26 jul · daily cadence
 2026-07-26,blog,huis-uitbreiden-ipv-verhuizen,huis uitbreiden i.p.v. verhuizen,live,1,Huis uitbreiden i.p.v. verhuizen,calculator,live 26 jul · daily cadence
 2026-07-27,blog,casco-aanbouw-uitleg,casco aanbouw,live,1,Casco aanbouw: wat zit er wel/niet bij,calculator,live 27 jul · kennisbank
@@ -31,8 +31,8 @@ datum,type,slug,keyword,status,prioriteit,onderwerp,cta,notitie
 2026-07-30,blog,isolatie-aanbouw,isolatie aanbouw,live,1,Isolatie bij casco-aanbouw,calculator,handmatig 30 jul · diep informatief · live
 2026-07-30,blog,aanbouw-keuken,aanbouw keuken uitbreiden,live,1,Aanbouw voor een grotere keuken,calculator,handmatig 30 jul · diep informatief · live
 2026-07-30,blog,aanbouw-slaapkamer,aanbouw extra slaapkamer,live,1,Extra slaapkamer via aanbouw of nok,calculator,handmatig 30 jul · diep informatief · live
-2026-08-05,blog,bijhuisje-vs-aanbouw,bijhuisje of aanbouw,idee,2,Bijhuisje vs aanbouw: het verschil,afspraak,Mid intent · scope en vergunning eerlijk
-2026-08-06,blog,dakterras-aanbouw,dakterras aanbouw,idee,2,Dakterras bij aanbouw of dakopbouw,calculator,Lager volume dan kosten-gidsen; casco-scope
+2026-08-02,blog,bijhuisje-vs-aanbouw,bijhuisje of aanbouw,live,2,Bijhuisje vs aanbouw: het verschil,afspraak,handmatig 2 aug · informatief · live
+2026-08-02,blog,dakterras-aanbouw,dakterras aanbouw,live,2,Dakterras bij aanbouw of dakopbouw,calculator,handmatig 2 aug · informatief · live
 2026-08-07,gemeente,aanbouw-gooise-meren,aanbouw Gooise Meren,idee,2,Aanbouw Gooise Meren,calculator,Local SEO secundair · na demand-blogs
 2026-08-08,gemeente,aanbouw-huizen,aanbouw Huizen,idee,2,Aanbouw Huizen,calculator,Local SEO secundair
 2026-08-10,gemeente,aanbouw-wijdemeren,aanbouw Wijdemeren,idee,2,Aanbouw Wijdemeren,calculator,Local SEO secundair
