@@ -2207,12 +2207,20 @@ body { background: var(--ad-chalk); }
 
 .zone { padding-block: clamp(4.5rem, 9vw, 8rem); }
 .zone--tool { background: linear-gradient(180deg, #f7f4ee 0%, #eee8df 100%); }
-/* Alleen reviews ↔ projecten iets dichter — rest blijft V2-ruimte */
+/* Reviews ↔ projecten ↔ FAQ dichter — geen lege aside-strook meer */
 .zone--proof.reviews-section {
   padding-bottom: clamp(2rem, 4vw, 3.25rem);
 }
 .zone--craft {
   padding-top: clamp(2rem, 4vw, 3.25rem);
+  padding-bottom: clamp(2rem, 4vw, 3.25rem);
+}
+.zone--faq {
+  padding-top: clamp(2rem, 4vw, 3.25rem);
+  padding-bottom: clamp(2.25rem, 5vw, 3.5rem);
+}
+.zone--aside {
+  padding-block: clamp(1.25rem, 3vw, 1.85rem);
 }
 .calc-intro { max-width: 880px; margin-bottom: 2.5rem; }
 .calc-intro-season { border: 0; background: transparent; padding: 0; }
@@ -2262,7 +2270,9 @@ body { background: var(--ad-chalk); }
   .calc-shell { border-radius: 18px; }
   .zone { padding-block: 4.5rem; }
   .zone--proof.reviews-section { padding-bottom: 2.25rem; }
-  .zone--craft { padding-top: 2.25rem; }
+  .zone--craft { padding-top: 2.25rem; padding-bottom: 2.25rem; }
+  .zone--faq { padding-top: 2.25rem; padding-bottom: 2.5rem; }
+  .zone--aside { padding-block: 1.35rem; }
 }
 
 /* =========================================================
