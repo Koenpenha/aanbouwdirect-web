@@ -73,7 +73,7 @@ datum,type,slug,keyword,status,prioriteit,onderwerp,cta,notitie
 2026-11-26,gemeente,aanbouw-schagen,aanbouw Schagen,idee,3,Aanbouw Schagen,calculator,Ring 3 · Noord-Holland · later · SKIP-TOT-GIDS: WRITE pakt eerst refresh/prio-1 gids
 2026-11-28,gemeente,aanbouw-stede-broec,aanbouw Stede Broec,idee,3,Aanbouw Stede Broec,calculator,Ring 3 · Noord-Holland · later · SKIP-TOT-GIDS: WRITE pakt eerst refresh/prio-1 gids
 2026-12-01,gemeente,aanbouw-texel,aanbouw Texel,idee,3,Aanbouw Texel,calculator,Ring 3 · Noord-Holland · later · SKIP-TOT-GIDS: WRITE pakt eerst refresh/prio-1 gids
-2026-08-12,blog,vergunningvrij-uitbouw,vergunningvrij uitbouw,idee,1,Vergunningvrij uitbouw: wat mag wel/niet,calculator,High-intent · Omgevingsloket · geen meters verzinnen
+2026-08-12,blog,vergunningvrij-uitbouw,vergunningvrij uitbouw,approved,1,Vergunningvrij uitbouw: wat mag wel/niet,calculator,WRITE 2026-09-22 · adrescheck + bewaarbare 6-stappenchecklist · Omgevingsloket/Rijksoverheid · geen meters verzonnen · casco-scope + unieke FAQ · gate groen → approved voor GO-LIVE
 2026-08-13,blog,aanbouw-offerte-vergelijken,aanbouw offerte vergelijken,idee,1,Aanbouw-offertes vergelijken zonder verrassingen,calculator,High-intent commercieel · casco-scope checklist
 2026-08-14,blog,levertijd-aanbouw,levertijd aanbouw,idee,1,Levertijd aanbouw: van idee tot oplevering,calculator,High-intent proces
 2026-08-15,blog,aanbouw-plat-dak,aanbouw plat dak,idee,1,Aanbouw met plat dak: voor- en nadelen,calculator,High-intent keuze
